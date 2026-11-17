@@ -1,0 +1,49 @@
+.verdel-ingredients {
+  display: grid;
+  gap: 2.4rem;
+}
+
+@media screen and (min-width: 990px) {
+  .verdel-ingredients {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 6rem;
+    align-items: start;
+  }
+}
+
+.verdel-ingredients__head .h2 {
+  margin: 0.4rem 0 0;
+}
+
+.verdel-ingredients__item {
+  min-width: 0;
+}
+
+.verdel-ingredients__image {
+  flex-shrink: 0;
+  width: 5.6rem;
+  height: 5.6rem;
+  object-fit: cover;
+  border-radius: calc(var(--media-radius) - 0.2rem);
+  background: rgba(var(--color-foreground), 0.04);
+}
+
+.verdel-ingredients__text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.verdel-ingredients__name,
+.verdel-ingredients__purpose {
+  margin: 0;
+}
+
+.verdel-ingredients__name {
+  font-weight: var(--font-body-weight-bold);
+}
+
+.verdel-ingredients__purpose {
+  color: rgba(var(--color-foreground), 0.75);
+  text-wrap: pretty;
+}

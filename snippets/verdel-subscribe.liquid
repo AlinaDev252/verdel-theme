@@ -1,0 +1,56 @@
+{% doc %}
+  One-time or subscription choice for the selected variant; radios join the product form via the form attribute.
+
+  @param {product} product
+  @param {block} block
+  @param {string} product_form_id
+{% enddoc %}
+
+{%- if product.selling_plan_groups.size > 0 -%}
+  {%- unless customer.b2b? -%}
+    {{ 'component-verdel-subscribe.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'verdel-subscribe.js' | asset_url }}" defer="defer"></script>
+
+    {%- assign allocations = product.selected_or_first_available_variant.selling_plan_allocations -%}
+    <verdel-subscribe data-section-id="{{ product_form_id | remove_first: 'product-form-' }}" {{ block.shopify_attributes }}>
+      {%- if allocations.size > 0 -%}
+        <fieldset class="verdel-subscribe">
+          <legend class="verdel-label">{{ block.settings.heading | escape }}</legend>
+
+          {%- unless product.requires_selling_plan -%}
+            <label class="verdel-subscribe__option">
+              <input
+                type="radio"
+                name="selling_plan"
+                value=""
+                form="{{ product_form_id }}"
+                checked
+              >
+              <span class="verdel-subscribe__name">One-time purchase</span>
+            </label>
+          {%- endunless -%}
+
+          {%- for allocation in allocations -%}
+            {%- assign plan = allocation.selling_plan -%}
+            {%- assign adjustment = plan.price_adjustments.first -%}
+            <label class="verdel-subscribe__option">
+              <input
+                type="radio"
+                name="selling_plan"
+                value="{{ plan.id }}"
+                form="{{ product_form_id }}"
+                {% if product.requires_selling_plan and forloop.first %}
+                  checked
+                {% endif %}
+              >
+              <span class="verdel-subscribe__name">{{ plan.name | escape }}</span>
+              {%- if adjustment.value_type == 'percentage' and adjustment.value > 0 -%}
+                <span class="verdel-subscribe__saving">Save {{ adjustment.value }}%</span>
+              {%- endif -%}
+            </label>
+          {%- endfor -%}
+        </fieldset>
+      {%- endif -%}
+    </verdel-subscribe>
+  {%- endunless -%}
+{%- endif -%}

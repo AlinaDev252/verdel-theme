@@ -1,0 +1,133 @@
+{%- liquid
+  if section.settings.source == 'product'
+    assign ingredients = product.metafields.verdel.ingredients.value
+  else
+    assign ingredients = section.settings.ingredients
+  endif
+-%}
+
+{%- if ingredients != blank -%}
+  {{ 'section-verdel-ingredients.css' | asset_url | stylesheet_tag }}
+
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width section-{{ section.id }}-padding verdel-ingredients">
+      <div class="verdel-ingredients__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="verdel-label">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="h2">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+      </div>
+
+      <ul class="verdel-rule-list verdel-ingredients__list">
+        {%- for ingredient in ingredients -%}
+          <li class="verdel-ingredients__item">
+            {%- if ingredient.image.value != blank -%}
+              {{
+                ingredient.image.value
+                | image_url: width: 160
+                | image_tag: class: 'verdel-ingredients__image', loading: 'lazy', alt: ingredient.name.value
+              }}
+            {%- endif -%}
+            <div class="verdel-ingredients__text">
+              <p class="verdel-ingredients__name">{{ ingredient.name.value | escape }}</p>
+              {%- if ingredient.purpose.value != blank -%}
+                <p class="verdel-ingredients__purpose">{{ ingredient.purpose.value | escape }}</p>
+              {%- endif -%}
+            </div>
+            {%- if ingredient.amount.value != blank -%}
+              <span class="verdel-rule-list__amount">{{ ingredient.amount.value | escape }}</span>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Key ingredients",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Ingredients from",
+      "options": [
+        { "value": "product", "label": "This product" },
+        { "value": "pick", "label": "Pick ingredients" }
+      ],
+      "default": "product"
+    },
+    {
+      "type": "metaobject_list",
+      "id": "ingredients",
+      "label": "Ingredients",
+      "metaobject_type": "ingredient",
+      "limit": 8,
+      "info": "Used when \"Pick ingredients\" is selected."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Label",
+      "default": "Per serving"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What's inside"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Key ingredients",
+      "settings": { "source": "pick" }
+    }
+  ]
+}
+{% endschema %}
