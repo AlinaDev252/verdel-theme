@@ -1,0 +1,85 @@
+{% comment %}
+  Renders the variant's catalog quantity price breaks.
+
+  Accepts:
+  - variant: {Object} variant object
+  - breaks: {Array} quantity_price_breaks, already sorted by minimum_quantity
+  - show_savings: {Boolean} render the savings column
+
+  Usage:
+  {% render 'b2b-price-break-table', variant: variant, breaks: breaks, show_savings: true %}
+{% endcomment %}
+
+{%- liquid
+  assign base = variant.price
+  assign lowest_break_qty = breaks.first.minimum_quantity
+  assign start_qty = variant.quantity_rule.min | at_least: 1
+-%}
+
+<table class="b2b-tiers__table">
+  <caption class="visually-hidden">Volume pricing by quantity</caption>
+  <thead>
+    <tr>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price per unit</th>
+      {%- if show_savings -%}
+        <th scope="col">You save</th>
+      {%- endif -%}
+    </tr>
+  </thead>
+  <tbody>
+    {%- if lowest_break_qty > start_qty -%}
+      {%- assign first_upper = lowest_break_qty | minus: 1 -%}
+      <tr>
+        <th scope="row">
+          {%- if first_upper > start_qty -%}
+            {{ start_qty }}&ndash;{{ first_upper }}
+          {%- else -%}
+            {{ start_qty }}
+          {%- endif -%}
+        </th>
+        <td>{{ base | money }}<span class="b2b-tiers__each"> each</span></td>
+        {%- if show_savings -%}
+          <td class="b2b-tiers__no-saving">&mdash;</td>
+        {%- endif -%}
+      </tr>
+    {%- endif -%}
+
+    {%- for price_break in breaks -%}
+      {%- liquid
+        assign next_index = forloop.index
+        assign upper = nil
+        if forloop.last == false
+          assign next_break = breaks[next_index]
+          assign upper = next_break.minimum_quantity | minus: 1
+        endif
+
+        assign saved = base | minus: price_break.price
+        assign saved_percent = 0
+        if base > 0
+          assign saved_percent = saved | times: 100 | divided_by: base
+        endif
+      -%}
+      <tr>
+        <th scope="row">
+          {%- if upper -%}
+            {{ price_break.minimum_quantity }}&ndash;{{ upper }}
+          {%- else -%}
+            {{ price_break.minimum_quantity }}+
+          {%- endif -%}
+        </th>
+        <td>{{ price_break.price | money }}<span class="b2b-tiers__each"> each</span></td>
+        {%- if show_savings -%}
+          {%- if saved > 0 -%}
+            <td>
+              <span class="b2b-tiers__save-prefix">Save </span>{{ saved_percent }}%
+              <span class="b2b-tiers__saved-amount">({{ saved | money }}/unit)</span>
+            </td>
+          {%- else -%}
+            <td class="b2b-tiers__no-saving">&mdash;</td>
+          {%- endif -%}
+        {%- endif -%}
+      </tr>
+    {%- endfor -%}
+  </tbody>
+</table>

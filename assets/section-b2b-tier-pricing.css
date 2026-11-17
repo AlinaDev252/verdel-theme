@@ -1,0 +1,135 @@
+b2b-tier-pricing {
+  display: block;
+}
+
+b2b-tier-pricing[aria-busy='true'] .b2b-tiers__table {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.b2b-tiers__heading {
+  margin: 0 0 1.2rem;
+}
+
+.b2b-tiers__table {
+  width: 100%;
+  max-width: 46rem;
+  border-collapse: collapse;
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.b2b-tiers__table th,
+.b2b-tiers__table td {
+  padding: 1rem 1.2rem;
+  text-align: left;
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.12);
+}
+
+.b2b-tiers__table thead th {
+  font-size: 1.2rem;
+  font-weight: var(--font-body-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.b2b-tiers__table tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.b2b-tiers__table tbody tr:last-child th,
+.b2b-tiers__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.b2b-tiers__tier-label {
+  display: block;
+  font-weight: 400;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.b2b-tiers__saved-amount {
+  opacity: 0.7;
+  font-size: 1.2rem;
+}
+
+.b2b-tiers__each,
+.b2b-tiers__save-prefix {
+  display: none;
+}
+
+.b2b-tiers__rules {
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.6rem;
+  font-size: 1.3rem;
+  opacity: 0.8;
+}
+
+.b2b-tiers__company {
+  margin: 1.2rem 0 0;
+  font-size: 1.3rem;
+  opacity: 0.8;
+}
+
+.b2b-tiers__company a {
+  margin-left: 0.6rem;
+}
+
+.b2b-tiers__gate {
+  max-width: 46rem;
+  padding: 1.6rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.16);
+  border-radius: var(--inputs-radius, 0.4rem);
+}
+
+.b2b-tiers__gate p {
+  margin: 0 0 1.2rem;
+}
+
+.b2b-tiers__empty {
+  opacity: 0.7;
+}
+
+/* Stack the table into rows on small screens rather than letting it scroll. */
+@media screen and (max-width: 480px) {
+  .b2b-tiers__table thead {
+    display: none;
+  }
+
+  .b2b-tiers__table tr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.12);
+  }
+
+  .b2b-tiers__table th,
+  .b2b-tiers__table td {
+    padding: 0;
+    border: 0;
+  }
+
+  .b2b-tiers__table tbody th {
+    width: 100%;
+  }
+
+  .b2b-tiers__each,
+  .b2b-tiers__save-prefix {
+    display: inline;
+  }
+
+  .b2b-tiers__no-saving {
+    display: none;
+  }
+}
+
+body:has(.b2b-tiers--replace-native .b2b-tiers__table) volume-pricing {
+  display: none;
+}

@@ -1,0 +1,326 @@
+{{ 'section-b2b-tier-pricing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'b2b-tier-pricing.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign breaks = variant.quantity_price_breaks | sort: 'minimum_quantity'
+  assign has_native_breaks = false
+  if breaks.size > 0
+    assign has_native_breaks = true
+  endif
+
+  assign can_view = false
+  case section.settings.access
+    when 'everyone'
+      assign can_view = true
+    when 'logged_in'
+      if customer
+        assign can_view = true
+      endif
+    when 'b2b'
+      if customer.b2b?
+        assign can_view = true
+      endif
+  endcase
+-%}
+
+<b2b-tier-pricing
+  class="b2b-tiers{% if section.settings.replace_theme_table %} b2b-tiers--replace-native{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
+  data-section-id="{{ section.id }}"
+  data-variant-id="{{ variant.id }}"
+  {%- if can_view %}
+    data-url="{{ product.url }}{% if template.suffix != blank %}?view={{ template.suffix }}{% endif %}"
+    data-variant-ids="{{ product.variants | map: 'id' | join: ',' }}"
+  {%- endif %}
+>
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="b2b-tiers__heading {{ section.settings.heading_size }}">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- unless can_view -%}
+      {%- comment -%} Retail or logged-out visitor. Prompt, don't leak prices. {%- endcomment -%}
+      <div class="b2b-tiers__gate">
+        <p>{{ section.settings.gate_message }}</p>
+        {%- if customer == nil -%}
+          <a href="{{ routes.account_login_url }}" class="button">
+            {{ section.settings.gate_link_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+
+      {%- if has_native_breaks -%}
+        {% render 'b2b-price-break-table',
+          variant: variant,
+          breaks: breaks,
+          show_savings: section.settings.show_savings
+        %}
+      {%- elsif section.blocks.size > 0 -%}
+        <table class="b2b-tiers__table">
+          <caption class="visually-hidden">
+            {{ 'Volume pricing by quantity' }}
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">{{ section.settings.qty_label }}</th>
+              <th scope="col">{{ section.settings.price_label }}</th>
+              {%- if section.settings.show_savings -%}
+                <th scope="col">{{ section.settings.savings_label }}</th>
+              {%- endif -%}
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign remainder = 100 | minus: block.settings.discount_percent
+                assign tier_price = variant.price | times: remainder | divided_by: 100
+              -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row">
+                  {{- block.settings.min_quantity }}+
+                  {%- if block.settings.label != blank -%}
+                    <span class="b2b-tiers__tier-label">{{ block.settings.label }}</span>
+                  {%- endif -%}
+                </th>
+                <td>{{ tier_price | money }}<span class="b2b-tiers__each"> each</span></td>
+                {%- if section.settings.show_savings -%}
+                  {%- if block.settings.discount_percent > 0 -%}
+                    <td><span class="b2b-tiers__save-prefix">Save </span>{{ block.settings.discount_percent }}%</td>
+                  {%- else -%}
+                    <td class="b2b-tiers__no-saving">&mdash;</td>
+                  {%- endif -%}
+                {%- endif -%}
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      {%- else -%}
+        <p class="b2b-tiers__empty">
+          {{ 'No volume pricing is set up for this product yet.' }}
+        </p>
+      {%- endif -%}
+
+      {%- assign rule = variant.quantity_rule -%}
+      {%- if rule.min > 1 or rule.increment > 1 or rule.max != nil -%}
+        <ul class="b2b-tiers__rules">
+          {%- if rule.min > 1 -%}
+            <li>Minimum order: {{ rule.min }}</li>
+          {%- endif -%}
+          {%- if rule.increment > 1 -%}
+            <li>Sold in multiples of {{ rule.increment }}</li>
+          {%- endif -%}
+          {%- if rule.max != nil -%}
+            <li>Maximum per order: {{ rule.max }}</li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.show_company and customer.b2b? -%}
+        <p class="b2b-tiers__company">
+          Pricing shown for
+          <strong>{{ customer.current_company.name }}</strong>
+          {%- if customer.current_location %}
+            &middot; {{ customer.current_location.name }}
+          {%- endif -%}
+          {%- if customer.company_available_locations_count > 1 -%}
+            <a href="{{ routes.account_url }}">Change location</a>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+
+    {%- endunless -%}
+  </div>
+</b2b-tier-pricing>
+
+{% schema %}
+{
+  "name": "B2B tier pricing",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Volume pricing"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h3", "label": "Small" },
+        { "value": "h2", "label": "Medium" },
+        { "value": "h1", "label": "Large" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "header",
+      "content": "Access"
+    },
+    {
+      "type": "select",
+      "id": "access",
+      "label": "Who can see pricing",
+      "info": "B2B customers only is the safe default. Retail traffic should not see trade prices.",
+      "options": [
+        { "value": "b2b", "label": "B2B customers only" },
+        { "value": "logged_in", "label": "Any logged-in customer" },
+        { "value": "everyone", "label": "Everyone" }
+      ],
+      "default": "b2b"
+    },
+    {
+      "type": "text",
+      "id": "gate_message",
+      "label": "Message for visitors without access",
+      "default": "Trade pricing is available to approved wholesale accounts."
+    },
+    {
+      "type": "text",
+      "id": "gate_link_label",
+      "label": "Login link label",
+      "default": "Log in to your account"
+    },
+    {
+      "type": "header",
+      "content": "Table"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_savings",
+      "label": "Show savings column",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "replace_theme_table",
+      "label": "Hide the theme's built-in volume pricing list",
+      "info": "Avoids showing the same price breaks twice on the product page.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_company",
+      "label": "Show company and location",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "qty_label",
+      "label": "Quantity column label",
+      "default": "Quantity"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price column label",
+      "default": "Price per unit"
+    },
+    {
+      "type": "text",
+      "id": "savings_label",
+      "label": "Savings column label",
+      "default": "You save"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Fallback tier",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Used only when the variant has no catalog price breaks."
+        },
+        {
+          "type": "number",
+          "id": "min_quantity",
+          "label": "Minimum quantity",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "discount_percent",
+          "label": "Discount",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "%",
+          "default": 10
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tier label",
+          "info": "Optional. For example: Silver, Gold, Distributor."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "B2B tier pricing",
+      "blocks": [
+        { "type": "tier", "settings": { "min_quantity": 10, "discount_percent": 5, "label": "Tier 1" } },
+        { "type": "tier", "settings": { "min_quantity": 25, "discount_percent": 10, "label": "Tier 2" } },
+        { "type": "tier", "settings": { "min_quantity": 50, "discount_percent": 18, "label": "Tier 3" } },
+        { "type": "tier", "settings": { "min_quantity": 100, "discount_percent": 25, "label": "Tier 4" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
