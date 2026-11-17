@@ -1,0 +1,73 @@
+:root {
+  --verdel-accent: oklch(0.509 0.098 68.5);
+}
+
+body {
+  font-synthesis: none;
+}
+
+h1, h2, h3,
+.h0, .h1, .h2, .h3 {
+  text-wrap: balance;
+}
+
+h1, h2, .h0, .h1, .h2 {
+  letter-spacing: -0.01em;
+}
+
+.rte p {
+  max-width: 65ch;
+}
+
+.price,
+.verdel-rule-list__amount {
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-label {
+  font-family: var(--font-body-family);
+  font-weight: var(--font-body-weight-bold);
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.verdel-rule-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.verdel-rule-list > li {
+  display: flex;
+  gap: 1.6rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: 1.2rem;
+  border-block-end: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
+.verdel-rule-list > li:first-child {
+  border-block-start: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
+.verdel-rule-list__amount {
+  flex-shrink: 0;
+  text-align: end;
+  font-weight: var(--font-body-weight-bold);
+}
+
+a,
+.button,
+.link {
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a,
+  .button,
+  .link {
+    transition: none;
+  }
+}
