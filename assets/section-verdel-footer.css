@@ -24,8 +24,6 @@
 
 .verdel-footer__statement {
   margin: 0;
-  padding-block-start: 1.6rem;
-  border-block-start: 0.4rem solid rgb(var(--color-foreground));
   font-size: 2.8rem;
   text-wrap: balance;
 }
@@ -140,6 +138,15 @@
 
 .verdel-footer .verdel-index__count {
   display: none;
+}
+
+.verdel-footer .verdel-index {
+  margin-block-start: -0.8rem;
+  border-block-start: 0;
+}
+
+.verdel-footer .verdel-index a {
+  border-block-end: 0;
 }
 
 .verdel-footer__policies,
