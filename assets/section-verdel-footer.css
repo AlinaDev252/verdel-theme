@@ -16,7 +16,6 @@
   margin: 0 0 1.6rem;
   padding-block-end: 1.2rem;
   border-block-end: 0.4rem solid rgb(var(--color-foreground));
-  color: rgb(var(--color-foreground));
   font-size: 1.6rem;
   line-height: 1.5;
 }
@@ -35,9 +34,7 @@
 .verdel-signup {
   display: grid;
   justify-items: center;
-  margin-block-end: 5.6rem;
-  padding-block-end: 5.6rem;
-  border-block-end: 1px solid rgba(var(--color-foreground), 0.2);
+  margin-block-end: 7.2rem;
   text-align: center;
 }
 
