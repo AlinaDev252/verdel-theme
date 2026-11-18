@@ -46,10 +46,17 @@
         "padding_bottom": 12,
         "shop_collection": "all-formulas",
         "shop_goals": [
+          "best-sellers",
           "sleep",
           "focus",
           "gut",
-          "energy"
+          "energy",
+          "daily-essentials",
+          "training",
+          "skin"
+        ],
+        "shop_bar_links": [
+          "best-sellers"
         ]
       }
     }

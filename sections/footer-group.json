@@ -8,10 +8,14 @@
         "statement": "Read the label. We did.",
         "formulas": "all-formulas",
         "goals": [
+          "best-sellers",
           "sleep",
           "focus",
           "gut",
-          "energy"
+          "energy",
+          "daily-essentials",
+          "training",
+          "skin"
         ],
         "color_scheme": "scheme-4"
       }
