@@ -4,10 +4,9 @@
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
-      "disabled": true,
       "settings": {
-        "color_scheme": "scheme-1",
-        "show_line_separator": true,
+        "color_scheme": "scheme-4",
+        "show_line_separator": false,
         "show_social": false,
         "auto_rotate": false,
         "change_slides_speed": 5,
@@ -18,10 +17,10 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Subscribe and save 15%",
             "text_alignment": "center",
-            "color_scheme": "scheme-1",
-            "link": ""
+            "color_scheme": "scheme-4",
+            "link": "shopify://collections/all-formulas"
           }
         }
       },
@@ -34,7 +33,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
-        "logo_position": "middle-left",
+        "logo_position": "middle-center",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
@@ -51,7 +50,8 @@
           "focus",
           "gut",
           "energy"
-        ]
+        ],
+        "shop_featured": "no-01-rest"
       }
     }
   },

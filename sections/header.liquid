@@ -282,6 +282,14 @@
           </localization-form>
         {%- endif -%}
       </div>
+      {%- assign shop_collection = section.settings.shop_collection -%}
+      {%- if shop_collection != blank and section.settings.cta_label != blank -%}
+        {%- unless template.name == 'product' or template.name == 'cart' or collection.handle == shop_collection.handle -%}
+          <a class="button button--secondary verdel-header-cta small-hide medium-hide" href="{{ shop_collection.url }}">
+            {{- section.settings.cta_label | escape -}}
+          </a>
+        {%- endunless -%}
+      {%- endif -%}
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
       {%- if shop.customer_accounts_enabled -%}
@@ -558,6 +566,23 @@
       "id": "shop_goals",
       "label": "Goal collections",
       "limit": 6
+    },
+    {
+      "type": "product",
+      "id": "shop_featured",
+      "label": "Featured formula"
+    },
+    {
+      "type": "text",
+      "id": "featured_label",
+      "label": "Featured label",
+      "default": "Most reviewed"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Shop all label",
+      "default": "Shop all formulas"
     },
     {
       "type": "text",

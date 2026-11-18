@@ -1,43 +1,20 @@
 {% doc %}
-  Mobile drawer links built from the header's formula and goal collections.
+  Mobile drawer links built from the header's goal and formula collections.
 {% enddoc %}
 
-<li class="verdel-drawer-group">
-  <p class="verdel-label">{{ section.settings.formulas_label | escape }}</p>
-  <ul class="list-menu" role="list">
-    {%- for item in section.settings.shop_collection.products -%}
-      <li>
-        <a
-          href="{{ item.url }}"
-          class="menu-drawer__menu-item link link--text list-menu__item focus-inset verdel-drawer-link"
-          {% if item.id == product.id %}
-            aria-current="page"
-          {% endif %}
-        >
-          <span>{{ item.title | escape }}</span>
-          <span class="verdel-nav-list__price">{{ item.price | money_without_trailing_zeros }}</span>
-        </a>
-      </li>
-    {%- endfor -%}
-  </ul>
-</li>
 {%- if section.settings.shop_goals != blank -%}
   <li class="verdel-drawer-group">
     <p class="verdel-label">{{ section.settings.goals_label | escape }}</p>
-    <ul class="list-menu" role="list">
+    <ul class="verdel-drawer-goals" role="list">
       {%- for goal in section.settings.shop_goals -%}
         <li>
-          <a
-            href="{{ goal.url }}"
-            class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
-            {% if goal.url == request.path %}
-              aria-current="page"
-            {% endif %}
-          >
-            {{ goal.title | escape }}
-          </a>
+          <a href="{{ goal.url }}"{% if goal.url == request.path %} aria-current="page"{% endif %}>{{ goal.title | escape }}</a>
         </li>
       {%- endfor -%}
     </ul>
   </li>
 {%- endif -%}
+<li class="verdel-drawer-group">
+  <p class="verdel-label">{{ section.settings.formulas_label | escape }}</p>
+  {%- render 'verdel-formula-index', collection: section.settings.shop_collection -%}
+</li>

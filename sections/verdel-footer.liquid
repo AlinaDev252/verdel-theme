@@ -3,44 +3,78 @@
 <footer class="verdel-footer color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width">
     <div class="verdel-footer__top">
-      {%- if section.settings.statement != blank -%}
-        <p class="h1 verdel-footer__statement">{{ section.settings.statement | escape }}</p>
-      {%- endif -%}
+      <div class="verdel-footer__lead">
+        {%- if section.settings.statement != blank -%}
+          <p class="h1 verdel-footer__statement">{{ section.settings.statement | escape }}</p>
+        {%- endif -%}
 
-      {%- if section.settings.formulas != blank -%}
-        <nav class="verdel-footer__formulas" aria-label="{{ section.settings.formulas_label | escape }}">
-          <h2 class="verdel-label">{{ section.settings.formulas_label | escape }}</h2>
+        {%- form 'customer', id: 'VerdelFooterSignup', class: 'verdel-signup' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <p class="verdel-label">{{ section.settings.signup_label | escape }}</p>
+          <p class="verdel-signup__text" id="VerdelFooterHint">{{ section.settings.signup_text | escape }}</p>
+          {%- if form.posted_successfully? -%}
+            <p class="verdel-signup__status" role="status" tabindex="-1" autofocus>You're on the list.</p>
+          {%- else -%}
+            <label class="verdel-signup__field-label" for="VerdelFooterEmail">{{ section.settings.signup_field_label | escape }}</label>
+            <div class="verdel-signup__row">
+              <input
+                id="VerdelFooterEmail"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email | escape }}"
+                autocomplete="email"
+                autocapitalize="none"
+                spellcheck="false"
+                required
+                aria-describedby="VerdelFooterHint{% if form.errors %} VerdelFooterError{% endif %}"
+                {% if form.errors %}
+                  aria-invalid="true" autofocus
+                {% endif %}
+              >
+              <button type="submit" class="button">{{ section.settings.signup_button | escape }}</button>
+            </div>
+            {%- if form.errors -%}
+              <p class="verdel-signup__status" id="VerdelFooterError" role="alert">
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      <div class="verdel-footer__nav">
+        {%- if section.settings.formulas != blank -%}
+          <nav class="verdel-footer__formulas" aria-label="{{ section.settings.formulas_label | escape }}">
+            <h2 class="verdel-label">{{ section.settings.formulas_label | escape }}</h2>
+            {%- render 'verdel-formula-index', collection: section.settings.formulas, class: 'verdel-index--columns' -%}
+          </nav>
+        {%- endif -%}
+
+        {%- if section.settings.goals != blank -%}
+          <nav aria-label="{{ section.settings.goals_label | escape }}">
+            <h2 class="verdel-label">{{ section.settings.goals_label | escape }}</h2>
+            <ul class="verdel-footer__list" role="list">
+              {%- for goal in section.settings.goals -%}
+                <li><a href="{{ goal.url }}">{{ goal.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+
+        <nav aria-label="{{ section.settings.help_label | escape }}">
+          <h2 class="verdel-label">{{ section.settings.help_label | escape }}</h2>
           <ul class="verdel-footer__list" role="list">
-            {%- for item in section.settings.formulas.products -%}
-              <li><a href="{{ item.url }}">{{ item.title | escape }}</a></li>
-            {%- endfor -%}
+            {%- if shop.customer_accounts_enabled -%}
+              <li><a href="{{ routes.account_url }}">Your account</a></li>
+            {%- endif -%}
+            <li><a href="{{ routes.search_url }}">Search</a></li>
+            {%- if pages['contact'].url != blank -%}
+              <li><a href="{{ pages['contact'].url }}">Contact</a></li>
+            {%- endif -%}
           </ul>
         </nav>
-      {%- endif -%}
-
-      {%- if section.settings.goals != blank -%}
-        <nav aria-label="{{ section.settings.goals_label | escape }}">
-          <h2 class="verdel-label">{{ section.settings.goals_label | escape }}</h2>
-          <ul class="verdel-footer__list" role="list">
-            {%- for goal in section.settings.goals -%}
-              <li><a href="{{ goal.url }}">{{ goal.title | escape }}</a></li>
-            {%- endfor -%}
-          </ul>
-        </nav>
-      {%- endif -%}
-
-      <nav aria-label="{{ section.settings.help_label | escape }}">
-        <h2 class="verdel-label">{{ section.settings.help_label | escape }}</h2>
-        <ul class="verdel-footer__list" role="list">
-          {%- if shop.customer_accounts_enabled -%}
-            <li><a href="{{ routes.account_url }}">Your account</a></li>
-          {%- endif -%}
-          <li><a href="{{ routes.search_url }}">Search</a></li>
-          {%- if pages['contact'].url != blank -%}
-            <li><a href="{{ pages['contact'].url }}">Contact</a></li>
-          {%- endif -%}
-        </ul>
-      </nav>
+      </div>
     </div>
 
     <div class="verdel-footer__bottom">
@@ -76,6 +110,10 @@
   "settings": [
     { "type": "text", "id": "statement", "label": "Statement", "default": "Read the label. We did." },
     { "type": "text", "id": "demo_note", "label": "Demo note", "default": "Demo store. Products, prices and reviews are fictional." },
+    { "type": "text", "id": "signup_label", "label": "Signup label", "default": "Label notes" },
+    { "type": "text", "id": "signup_text", "label": "Signup text", "default": "One email a month on what goes into a formula, and why." },
+    { "type": "text", "id": "signup_field_label", "label": "Signup field label", "default": "Email" },
+    { "type": "text", "id": "signup_button", "label": "Signup button", "default": "Sign up" },
     { "type": "collection", "id": "formulas", "label": "Formulas collection" },
     { "type": "text", "id": "formulas_label", "label": "Formulas label", "default": "Formulas" },
     { "type": "collection_list", "id": "goals", "label": "Goal collections", "limit": 6 },
