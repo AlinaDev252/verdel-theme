@@ -90,8 +90,13 @@
 
       {%- if shop.enabled_payment_types.size > 0 -%}
         <ul class="verdel-footer__payment" role="list">
+          {%- assign own_marks = 'visa,master,american_express,paypal,diners_club,discover' | split: ',' -%}
           {%- for type in shop.enabled_payment_types -%}
-            <li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+            {%- if own_marks contains type -%}
+              <li class="verdel-footer__mark">{{- 'icon-pay-' | append: type | append: '.svg' | inline_asset_content -}}</li>
+            {%- else -%}
+              <li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+            {%- endif -%}
           {%- endfor -%}
         </ul>
       {%- endif -%}

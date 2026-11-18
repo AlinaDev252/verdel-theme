@@ -195,6 +195,20 @@
   height: 2.4rem;
 }
 
+.verdel-footer__mark {
+  display: grid;
+  place-items: center;
+  width: 5.2rem;
+  height: 3.4rem;
+  border-radius: 0.4rem;
+  background: rgb(var(--color-foreground));
+}
+
+.verdel-footer__payment .icon-pay {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
 @media screen and (max-width: 749px) {
   .verdel-footer .verdel-index--columns {
     column-count: 1;
