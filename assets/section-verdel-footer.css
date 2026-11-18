@@ -13,7 +13,11 @@
 }
 
 .verdel-footer .verdel-label {
-  margin: 0 0 1.2rem;
+  margin: 0 0 1.6rem;
+  padding-block-end: 1.2rem;
+  border-block-end: 0.4rem solid rgb(var(--color-foreground));
+  color: rgb(var(--color-foreground));
+  font-size: 1.6rem;
   line-height: 1.5;
 }
 
