@@ -321,7 +321,7 @@
       {%- assign shop_collection = section.settings.shop_collection -%}
       {%- if shop_collection != blank and section.settings.cta_label != blank -%}
         {%- unless template.name == 'product' or template.name == 'cart' or collection.handle == shop_collection.handle -%}
-          <a class="verdel-header-cta color-scheme-4 gradient small-hide medium-hide" href="{{ shop_collection.url }}">
+          <a class="verdel-header-cta small-hide medium-hide" href="{{ shop_collection.url }}">
             <span>{{ section.settings.cta_label | escape }}</span>
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
