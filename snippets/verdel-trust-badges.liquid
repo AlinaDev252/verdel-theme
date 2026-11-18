@@ -1,0 +1,23 @@
+{% doc %}
+  Trust badges under the homepage hero, read from the hero section settings.
+{% enddoc %}
+
+{%- assign badges = '1,2,3' | split: ',' -%}
+<ul class="verdel-trust" role="list">
+  {%- for badge in badges -%}
+    {%- assign title_key = 'assurance_' | append: badge -%}
+    {%- assign note_key = title_key | append: '_note' -%}
+    {%- assign icon_key = title_key | append: '_icon' -%}
+    {%- if section.settings[title_key] != blank -%}
+      <li class="verdel-trust__item">
+        {{- 'icon-verdel-' | append: section.settings[icon_key] | append: '.svg' | inline_asset_content -}}
+        <div class="verdel-trust__text">
+          <p class="verdel-trust__title">{{ section.settings[title_key] | escape }}</p>
+          {%- if section.settings[note_key] != blank -%}
+            <p class="verdel-trust__note">{{ section.settings[note_key] | escape }}</p>
+          {%- endif -%}
+        </div>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

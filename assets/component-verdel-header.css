@@ -1,0 +1,205 @@
+.header-wrapper {
+  --verdel-cell: 4.8rem;
+  --verdel-line: rgba(var(--color-foreground), 0.16);
+}
+
+.header-wrapper--border-bottom {
+  border-block-end: 1px solid var(--verdel-line);
+}
+
+.header.header--has-menu:not(.drawer-menu).page-width {
+  max-width: none;
+  min-height: var(--verdel-cell);
+  padding: 0;
+  align-items: stretch;
+}
+
+.header > header-drawer {
+  margin-left: 0;
+}
+
+.header__icons {
+  align-items: stretch;
+  padding-inline-end: 0;
+}
+
+.header__icon,
+.header__icon--cart {
+  width: var(--verdel-cell);
+  height: var(--verdel-cell);
+  margin: 0;
+}
+
+.header__icon--menu {
+  border-inline-end: 1px solid var(--verdel-line);
+}
+
+.header__icons .header__icon {
+  border-inline-start: 1px solid var(--verdel-line);
+}
+
+.header__icon .svg-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.header__icon .icon,
+.header__icon--cart .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.header__icon:hover .icon {
+  transform: none;
+}
+
+.header__icon--cart .cart-count-bubble {
+  top: calc(50% + 0.3rem);
+  bottom: auto;
+  left: 50%;
+  width: auto;
+  height: auto;
+  background: none;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-size: 1.1rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  transform: translate(-50%, -50%);
+}
+
+.header__heading,
+.header__heading-link {
+  align-self: stretch;
+}
+
+.header__heading-link {
+  min-height: var(--verdel-cell);
+  padding: 0 1.2rem;
+}
+
+.header__heading-link .h2 {
+  color: rgb(var(--color-foreground));
+}
+
+.header__icons .header__icon:not(.header__icon--menu),
+.verdel-nav > .list-menu .header__menu-item {
+  position: relative;
+}
+
+.header__icons .header__icon:not(.header__icon--menu)::after,
+.verdel-nav > .list-menu .header__menu-item::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 0.4rem;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.verdel-nav > .list-menu details[open] > .header__menu-item::after,
+.verdel-nav > .list-menu .header__menu-item[aria-current]::after,
+.header__icons .header__icon:focus-visible::after,
+.verdel-nav > .list-menu .header__menu-item:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .header__icons .header__icon:not(.header__icon--menu):hover::after,
+  .verdel-nav > .list-menu .header__menu-item:hover::after {
+    transform: scaleX(1);
+  }
+
+  .verdel-header-cta:hover .icon {
+    transform: translateX(0.4rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .header-wrapper {
+    --verdel-cell: 6.4rem;
+  }
+
+  .header--middle-left {
+    column-gap: 0;
+  }
+
+  .header--middle-left .header__heading-link {
+    margin-inline-start: 0;
+  }
+
+  .header__heading {
+    display: flex;
+  }
+
+  .header__heading-link {
+    padding-inline: 3.2rem;
+    border-inline-end: 1px solid var(--verdel-line);
+  }
+
+  .header__heading-link .h2 {
+    font-size: 2.8rem;
+  }
+
+  .header__inline-menu.verdel-nav {
+    display: flex;
+  }
+
+  .verdel-nav > .list-menu,
+  .verdel-nav > .list-menu > li,
+  .verdel-nav header-menu,
+  .verdel-nav header-menu > details {
+    display: flex;
+  }
+
+  .verdel-nav > .list-menu > li .header__menu-item,
+  .verdel-nav > .list-menu > li:first-child .header__menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0 2.4rem;
+    border-inline-end: 1px solid var(--verdel-line);
+    color: rgb(var(--color-foreground));
+    text-decoration: none;
+  }
+
+  .verdel-nav > .list-menu > li:first-child summary.header__menu-item {
+    padding-inline-end: 4rem;
+  }
+
+  .verdel-nav .header__menu-item .icon-caret {
+    right: 2rem;
+  }
+
+  .verdel-nav .header__menu-item span,
+  .verdel-nav .header__menu-item:hover span,
+  .verdel-nav .header__active-menu-item {
+    text-decoration: none;
+  }
+
+  .verdel-header-cta {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 0 3.2rem;
+    color: rgb(var(--color-foreground));
+    font-size: 1.4rem;
+    font-weight: var(--font-body-weight-bold);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .verdel-header-cta .icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    transition: transform 150ms ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header__icons .header__icon::after,
+  .verdel-nav > .list-menu .header__menu-item::after,
+  .verdel-header-cta .icon {
+    transition: none;
+  }
+}

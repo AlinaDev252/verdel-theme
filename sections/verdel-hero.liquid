@@ -50,11 +50,7 @@
 
 <div id="verdel-goals" class="verdel-hero__strip color-{{ section.settings.strip_color_scheme }} gradient">
   <div class="page-width">
-    {% render 'verdel-assurance',
-      one: section.settings.assurance_1,
-      two: section.settings.assurance_2,
-      three: section.settings.assurance_3
-    %}
+    {% render 'verdel-trust-badges' %}
   </div>
 </div>
 
@@ -72,11 +68,17 @@
     { "type": "url", "id": "link_url", "label": "Second link" },
     { "type": "image_picker", "id": "image", "label": "Image" },
     { "type": "product", "id": "product", "label": "Product", "info": "Its main image is used when no image is set." },
-    { "type": "text", "id": "assurance_1", "label": "Assurance 1", "default": "Free shipping over $50" },
-    { "type": "text", "id": "assurance_2", "label": "Assurance 2", "default": "60-day returns" },
-    { "type": "text", "id": "assurance_3", "label": "Assurance 3", "default": "Every batch lab tested" },
+    { "type": "select", "id": "assurance_1_icon", "label": "Badge 1 icon", "options": [{ "value": "shipping", "label": "Shipping" }, { "value": "returns", "label": "Returns" }, { "value": "lab", "label": "Lab test" }], "default": "shipping" },
+    { "type": "text", "id": "assurance_1", "label": "Badge 1 title", "default": "Free shipping" },
+    { "type": "text", "id": "assurance_1_note", "label": "Badge 1 note", "default": "On orders over $50" },
+    { "type": "select", "id": "assurance_2_icon", "label": "Badge 2 icon", "options": [{ "value": "shipping", "label": "Shipping" }, { "value": "returns", "label": "Returns" }, { "value": "lab", "label": "Lab test" }], "default": "returns" },
+    { "type": "text", "id": "assurance_2", "label": "Badge 2 title", "default": "60-day returns" },
+    { "type": "text", "id": "assurance_2_note", "label": "Badge 2 note", "default": "Even if the bottle is empty" },
+    { "type": "select", "id": "assurance_3_icon", "label": "Badge 3 icon", "options": [{ "value": "shipping", "label": "Shipping" }, { "value": "returns", "label": "Returns" }, { "value": "lab", "label": "Lab test" }], "default": "lab" },
+    { "type": "text", "id": "assurance_3", "label": "Badge 3 title", "default": "Lab tested" },
+    { "type": "text", "id": "assurance_3_note", "label": "Badge 3 note", "default": "Every batch, by an outside lab" },
     { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-3" },
-    { "type": "color_scheme", "id": "strip_color_scheme", "label": "Assurance strip color scheme", "default": "scheme-2" }
+    { "type": "color_scheme", "id": "strip_color_scheme", "label": "Trust badges color scheme", "default": "scheme-2" }
   ],
   "presets": [{ "name": "Verdel hero" }]
 }
