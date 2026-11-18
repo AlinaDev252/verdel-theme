@@ -45,6 +45,10 @@
   min-width: 0;
 }
 
+.verdel-subscribe__price {
+  font-variant-numeric: tabular-nums;
+}
+
 .verdel-subscribe__saving {
   padding: 0.2rem 0.8rem;
   border-radius: 0.4rem;

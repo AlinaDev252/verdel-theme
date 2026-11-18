@@ -27,6 +27,7 @@
                 checked
               >
               <span class="verdel-subscribe__name">One-time purchase</span>
+              <span class="verdel-subscribe__price">{{ product.selected_or_first_available_variant.price | money }}</span>
             </label>
           {%- endunless -%}
 
@@ -47,6 +48,7 @@
               {%- if adjustment.value_type == 'percentage' and adjustment.value > 0 -%}
                 <span class="verdel-subscribe__saving">Save {{ adjustment.value }}%</span>
               {%- endif -%}
+              <span class="verdel-subscribe__price">{{ allocation.price | money }}</span>
             </label>
           {%- endfor -%}
         </fieldset>

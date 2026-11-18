@@ -455,6 +455,8 @@
                       </volume-pricing>
                     {%- endif -%}
                   </div>
+                {%- when 'facts' -%}
+                  {% render 'verdel-facts', product: product, block: block %}
                 {%- when 'how_to_take' -%}
                   {% render 'verdel-how-to-take', product: product, block: block %}
                 {%- when 'subscribe' -%}
@@ -757,12 +759,23 @@
   </product-component>
 </product-info>
 
+{%- assign buy_blocks = section.blocks | where: 'type', 'buy_buttons' -%}
+{%- if buy_blocks.size > 0 -%}
+  {%- assign sticky_form_id = 'product-form-' | append: section.id -%}
+  {% render 'verdel-sticky-buy', product: product, product_form_id: sticky_form_id %}
+{%- endif -%}
+
 {% schema %}
 {
   "name": "t:sections.main-product.name",
   "tag": "section",
   "class": "section",
   "blocks": [
+    {
+      "type": "facts",
+      "name": "Product facts",
+      "limit": 1
+    },
     {
       "type": "how_to_take",
       "name": "How to take",

@@ -1,0 +1,50 @@
+{% doc %}
+  Desktop shop menu built from the header's formula and goal collections.
+{% enddoc %}
+
+<nav class="header__inline-menu" aria-label="{{ section.settings.nav_label | escape }}">
+  <ul class="list-menu list-menu--inline" role="list">
+    <li>
+      <header-menu>
+        <details id="Details-HeaderMenu-shop">
+          <summary id="HeaderMenu-shop" class="header__menu-item list-menu__item link focus-inset">
+            <span>{{ section.settings.nav_label | escape }}</span>
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </summary>
+          <div class="header__submenu verdel-nav-panel color-{{ section.settings.menu_color_scheme }} gradient" tabindex="-1">
+            <div>
+              <p class="verdel-label">{{ section.settings.formulas_label | escape }}</p>
+              <ul class="verdel-nav-list" role="list">
+                {%- for item in section.settings.shop_collection.products -%}
+                  <li>
+                    <a href="{{ item.url }}">
+                      <span class="verdel-nav-list__name">{{ item.title | escape }}</span>
+                      <span class="verdel-nav-list__price">{{ item.price | money_without_trailing_zeros }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+            {%- if section.settings.shop_goals != blank -%}
+              <div>
+                <p class="verdel-label">{{ section.settings.goals_label | escape }}</p>
+                <ul class="verdel-nav-list" role="list">
+                  {%- for goal in section.settings.shop_goals -%}
+                    <li>
+                      <a href="{{ goal.url }}"><span class="verdel-nav-list__name">{{ goal.title | escape }}</span></a>
+                    </li>
+                  {%- endfor -%}
+                  <li>
+                    <a href="{{ section.settings.shop_collection.url }}">
+                      <span class="verdel-nav-list__name">{{ section.settings.shop_collection.title | escape }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            {%- endif -%}
+          </div>
+        </details>
+      </header-menu>
+    </li>
+  </ul>
+</nav>

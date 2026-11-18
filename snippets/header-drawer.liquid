@@ -25,7 +25,12 @@
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-              {%- for link in section.settings.menu.links -%}
+              {%- assign drawer_links = section.settings.menu.links -%}
+              {%- if section.settings.shop_collection != blank -%}
+                {%- assign drawer_links = nil -%}
+                {%- render 'verdel-drawer-nav', section: section -%}
+              {%- endif -%}
+              {%- for link in drawer_links -%}
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">

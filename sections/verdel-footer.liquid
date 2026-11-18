@@ -1,0 +1,84 @@
+{{ 'section-verdel-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="verdel-footer color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div class="verdel-footer__top">
+      {%- if section.settings.statement != blank -%}
+        <p class="h1 verdel-footer__statement">{{ section.settings.statement | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.formulas != blank -%}
+        <nav class="verdel-footer__formulas" aria-label="{{ section.settings.formulas_label | escape }}">
+          <h2 class="verdel-label">{{ section.settings.formulas_label | escape }}</h2>
+          <ul class="verdel-footer__list" role="list">
+            {%- for item in section.settings.formulas.products -%}
+              <li><a href="{{ item.url }}">{{ item.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.goals != blank -%}
+        <nav aria-label="{{ section.settings.goals_label | escape }}">
+          <h2 class="verdel-label">{{ section.settings.goals_label | escape }}</h2>
+          <ul class="verdel-footer__list" role="list">
+            {%- for goal in section.settings.goals -%}
+              <li><a href="{{ goal.url }}">{{ goal.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      <nav aria-label="{{ section.settings.help_label | escape }}">
+        <h2 class="verdel-label">{{ section.settings.help_label | escape }}</h2>
+        <ul class="verdel-footer__list" role="list">
+          {%- if shop.customer_accounts_enabled -%}
+            <li><a href="{{ routes.account_url }}">Your account</a></li>
+          {%- endif -%}
+          <li><a href="{{ routes.search_url }}">Search</a></li>
+          {%- if pages['contact'].url != blank -%}
+            <li><a href="{{ pages['contact'].url }}">Contact</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="verdel-footer__bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</p>
+
+      {%- if shop.policies.size > 0 -%}
+        <ul class="verdel-footer__policies" role="list">
+          {%- for policy in shop.policies -%}
+            <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if shop.enabled_payment_types.size > 0 -%}
+        <ul class="verdel-footer__payment" role="list">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Verdel footer",
+  "class": "section-verdel-footer",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "text", "id": "statement", "label": "Statement", "default": "Read the label. We did." },
+    { "type": "collection", "id": "formulas", "label": "Formulas collection" },
+    { "type": "text", "id": "formulas_label", "label": "Formulas label", "default": "Formulas" },
+    { "type": "collection_list", "id": "goals", "label": "Goal collections", "limit": 6 },
+    { "type": "text", "id": "goals_label", "label": "Goals label", "default": "By goal" },
+    { "type": "text", "id": "help_label", "label": "Help label", "default": "Help" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-4" }
+  ],
+  "presets": [{ "name": "Verdel footer" }]
+}
+{% endschema %}

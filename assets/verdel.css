@@ -76,3 +76,87 @@ a,
   padding-left: 0;
   padding-right: 0;
 }
+
+.verdel-nav-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 3.2rem;
+  width: min(56rem, calc(100vw - 10rem));
+  padding: 2.4rem;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 0.8rem;
+}
+
+.verdel-nav-panel .verdel-label {
+  margin: 0 0 0.8rem;
+}
+
+.verdel-nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verdel-nav-list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding-block: 0.8rem;
+  border-block-end: 1px solid rgba(var(--color-foreground), 0.12);
+  color: rgb(var(--color-foreground));
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.verdel-nav-list a:hover .verdel-nav-list__name {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.verdel-nav-list__price {
+  color: rgba(var(--color-foreground), 0.75);
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-drawer-group {
+  padding-block-end: 2.4rem;
+}
+
+.verdel-drawer-group .verdel-label {
+  margin: 0 0 0.4rem;
+  padding-inline: 3rem;
+}
+
+.verdel-drawer-link {
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.verdel-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-facts a {
+  color: inherit;
+  text-underline-offset: 0.3rem;
+}
+
+#verdel-ingredients {
+  scroll-margin-block-start: 2.4rem;
+}
+
+.drawer {
+  width: 100%;
+}

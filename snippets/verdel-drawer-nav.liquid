@@ -1,0 +1,31 @@
+{% doc %}
+  Mobile drawer links built from the header's formula and goal collections.
+{% enddoc %}
+
+<li class="verdel-drawer-group">
+  <p class="verdel-label">{{ section.settings.formulas_label | escape }}</p>
+  <ul class="list-menu" role="list">
+    {%- for item in section.settings.shop_collection.products -%}
+      <li>
+        <a href="{{ item.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset verdel-drawer-link">
+          <span>{{ item.title | escape }}</span>
+          <span class="verdel-nav-list__price">{{ item.price | money_without_trailing_zeros }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</li>
+{%- if section.settings.shop_goals != blank -%}
+  <li class="verdel-drawer-group">
+    <p class="verdel-label">{{ section.settings.goals_label | escape }}</p>
+    <ul class="list-menu" role="list">
+      {%- for goal in section.settings.shop_goals -%}
+        <li>
+          <a href="{{ goal.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
+            {{ goal.title | escape }}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </li>
+{%- endif -%}
