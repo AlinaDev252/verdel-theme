@@ -3,6 +3,14 @@
 {%- assign image = section.settings.image | default: section.settings.product.featured_image -%}
 
 <div class="verdel-hero color-{{ section.settings.color_scheme }} gradient">
+  {%- unless request.design_mode -%}
+    <script>
+      if (!sessionStorage.getItem('verdel-intro')) {
+        sessionStorage.setItem('verdel-intro', '1');
+        document.currentScript.parentElement.classList.add('verdel-hero--intro');
+      }
+    </script>
+  {%- endunless -%}
   <div class="page-width verdel-hero__inner{% if image != blank %} verdel-hero__inner--image{% endif %}">
     <div class="verdel-hero__text">
       <h2 class="h0">{{ section.settings.heading | escape }}</h2>

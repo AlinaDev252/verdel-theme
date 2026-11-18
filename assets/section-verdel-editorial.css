@@ -6,6 +6,7 @@
 }
 
 .verdel-editorial__media {
+  overflow: hidden;
   aspect-ratio: 4 / 3;
 }
 
