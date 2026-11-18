@@ -597,7 +597,25 @@
             {{- 'icon-lock.svg' | inline_asset_content -}}
             <span>Secure checkout</span>
           </button>
-          <p class="verdel-bag__trust">Free shipping over $50. 60-day returns.</p>
+          {%- liquid
+            assign free_shipping_gap = 5000 | minus: cart.total_price
+            assign all_subscriptions = true
+            for item in cart.items
+              unless item.selling_plan_allocation
+                assign all_subscriptions = false
+              endunless
+            endfor
+          -%}
+          <p class="verdel-bag__trust">
+            {%- if localization.country.iso_code == 'US' -%}
+              {%- if free_shipping_gap <= 0 or all_subscriptions and cart != empty -%}
+                Free shipping on this order.
+              {%- else -%}
+                {{ free_shipping_gap | money }} away from free shipping.
+              {%- endif %}
+            {% endif -%}
+            60-day returns.
+          </p>
         </div>
       </div>
     </div>
