@@ -15,14 +15,6 @@
   margin: 0;
 }
 
-.verdel-faq__link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 4.4rem;
-  color: rgb(var(--color-foreground));
-  text-underline-offset: 0.3rem;
-}
-
 .verdel-faq__list {
   min-width: 0;
   border-block-start: 0.4rem solid rgb(var(--color-foreground));

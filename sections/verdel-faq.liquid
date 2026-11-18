@@ -10,8 +10,8 @@
       {%- if section.settings.text != blank -%}
         <p>{{ section.settings.text | escape }}</p>
       {%- endif -%}
-      {%- if section.settings.link_label != blank -%}
-        <a class="verdel-faq__link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
+      {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+        <a class="verdel-text-link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
       {%- endif -%}
     </div>
 
@@ -37,7 +37,7 @@
   "max_blocks": 12,
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions, answered" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Before your first bottle" },
     { "type": "text", "id": "text", "label": "Text" },
     { "type": "text", "id": "link_label", "label": "Link label" },
     { "type": "url", "id": "link_url", "label": "Link" },

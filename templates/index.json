@@ -190,7 +190,7 @@
         "image_side": "left",
         "eyebrow": "Where it starts",
         "heading": "We start with the plant, then stop adding things.",
-        "text": "Every formula is built from a short list of plant-based ingredients. If something doesn't do a job, it stays out. Whatever goes in gets its amount printed on the label.",
+        "text": "We build every formula from a short list of plant-based ingredients. If something doesn't do a job, it stays out. Whatever goes in gets its amount printed on the label.",
         "link_label": "Shop all formulas",
         "link_url": "shopify://collections/all-formulas",
         "color_scheme": "scheme-1"
@@ -205,7 +205,7 @@
           "settings": {
             "ingredient": "Kelp iodine, 150 mcg",
             "title": "From seaweed, measured each batch.",
-            "text": "Plant-based diets often run short on iodine. Kelp varies a lot, so each lot is measured before it goes in.",
+            "text": "Plant-based diets often run short on iodine. Iodine levels in kelp vary, so we measure every batch before it goes in.",
             "product": "no-12-daily-multi"
           }
         },
@@ -214,7 +214,7 @@
           "settings": {
             "ingredient": "Acerola cherry, 500 mg",
             "title": "A small cherry with a lot of vitamin C.",
-            "text": "We use the whole fruit powder, not an isolated acid.",
+            "text": "We use powder from the whole fruit, so the vitamin C comes with the rest of the cherry.",
             "product": "no-08-skin"
           }
         },
@@ -235,7 +235,7 @@
       ],
       "settings": {
         "eyebrow": "On the label",
-        "heading": "Meet what's in the bottle.",
+        "heading": "Why these three are in.",
         "color_scheme": "scheme-2"
       },
       "disabled": true
@@ -288,7 +288,7 @@
           "type": "question",
           "settings": {
             "question": "Is everything plant-based?",
-            "answer": "<p>Yes. That includes the ingredients that usually aren't: our vitamin D3 comes from lichen and our omega-3 comes from algae.</p>"
+            "answer": "<p>Yes, even the ingredients that usually aren't. Our vitamin D3 comes from lichen and our omega-3 from algae.</p>"
           }
         },
         "q-lab": {
@@ -302,7 +302,7 @@
           "type": "question",
           "settings": {
             "question": "Can I take this with medication?",
-            "answer": "<p>Check with your doctor first, and do the same if you're pregnant, breastfeeding or managing a health condition. Bring the label: every amount is on it.</p>"
+            "answer": "<p>Check with your doctor first, and do the same if you're pregnant, breastfeeding or managing a health condition. Bring the label with you. It lists every amount.</p>"
           }
         }
       },
@@ -316,10 +316,8 @@
         "q-dr"
       ],
       "settings": {
-        "eyebrow": "Good to know",
-        "heading": "Questions, answered.",
-        "text": "Still unsure about something?",
-        "link_label": "Contact us",
+        "heading": "Before your first bottle.",
+        "link_label": "Ask us anything else",
         "link_url": "/pages/contact",
         "color_scheme": "scheme-1"
       }

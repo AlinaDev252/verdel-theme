@@ -26,14 +26,6 @@
   text-wrap: pretty;
 }
 
-.verdel-editorial__link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 4.4rem;
-  color: rgb(var(--color-foreground));
-  text-underline-offset: 0.3rem;
-}
-
 @media screen and (min-width: 750px) {
   .verdel-editorial__text {
     padding: 6.4rem 5rem;

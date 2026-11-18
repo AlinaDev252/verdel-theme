@@ -155,7 +155,7 @@
           "type": "question",
           "settings": {
             "question": "Can I take this with medication?",
-            "answer": "<p>Check with your doctor first, and do the same if you're pregnant, breastfeeding or managing a health condition. Bring the label: every amount is on it.</p>"
+            "answer": "<p>Check with your doctor first, and do the same if you're pregnant, breastfeeding or managing a health condition. Bring the label with you. It lists every amount.</p>"
           }
         }
       },
@@ -166,7 +166,6 @@
         "q-dr"
       ],
       "settings": {
-        "eyebrow": "Good to know",
         "heading": "Before you order.",
         "color_scheme": "scheme-1"
       }

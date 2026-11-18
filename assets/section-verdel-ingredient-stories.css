@@ -91,7 +91,6 @@
 @media screen and (min-width: 990px) {
   .verdel-stories__list {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    grid-template-rows: auto auto;
   }
 
   .verdel-stories__item:first-child {

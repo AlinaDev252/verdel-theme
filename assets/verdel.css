@@ -446,3 +446,11 @@ verdel-variant-sync {
 .product__info-container .verdel-assurance {
   margin-block: 2rem 2.8rem;
 }
+
+.verdel-text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+  color: rgb(var(--color-foreground));
+  text-underline-offset: 0.3rem;
+}
