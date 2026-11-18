@@ -166,6 +166,7 @@
         "q-dr"
       ],
       "settings": {
+        "image": "shopify://shop_images/verdel-mortar.jpg",
         "heading": "Frequently asked questions",
         "color_scheme": "scheme-1"
       }
