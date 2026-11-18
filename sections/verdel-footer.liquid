@@ -2,26 +2,22 @@
 
 <footer class="verdel-footer color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width">
-    <div class="verdel-footer__top">
-      <div class="verdel-footer__lead">
-        {%- if section.settings.statement != blank -%}
-          <p class="h1 verdel-footer__statement">{{ section.settings.statement | escape }}</p>
-        {%- endif -%}
-
-        {%- form 'customer', id: 'VerdelFooterSignup', class: 'verdel-signup' -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <p class="verdel-label">{{ section.settings.signup_label | escape }}</p>
-          <p class="verdel-signup__text" id="VerdelFooterHint">{{ section.settings.signup_text | escape }}</p>
-          {%- if form.posted_successfully? -%}
-            <p class="verdel-signup__status" role="status" tabindex="-1" autofocus>You're on the list.</p>
-          {%- else -%}
-            <label class="verdel-signup__field-label" for="VerdelFooterEmail">{{ section.settings.signup_field_label | escape }}</label>
-            <div class="verdel-signup__row">
+    <div class="verdel-signup">
+      <h2 class="h1 verdel-signup__heading">{{ section.settings.signup_heading | escape }}</h2>
+      <p class="verdel-signup__text" id="VerdelFooterHint">{{ section.settings.signup_text | escape }}</p>
+      {%- form 'customer', id: 'VerdelFooterSignup', class: 'verdel-signup__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <p class="verdel-signup__status" role="status" tabindex="-1" autofocus>You're on the list.</p>
+        {%- else -%}
+          <div class="verdel-signup__row">
+            <div class="verdel-signup__field">
               <input
                 id="VerdelFooterEmail"
                 type="email"
                 name="contact[email]"
                 value="{{ form.email | escape }}"
+                placeholder=" "
                 autocomplete="email"
                 autocapitalize="none"
                 spellcheck="false"
@@ -31,16 +27,25 @@
                   aria-invalid="true" autofocus
                 {% endif %}
               >
-              <button type="submit" class="button">{{ section.settings.signup_button | escape }}</button>
+              <label for="VerdelFooterEmail">{{ section.settings.signup_field_label | escape }}</label>
             </div>
-            {%- if form.errors -%}
-              <p class="verdel-signup__status" id="VerdelFooterError" role="alert">
-                {{ form.errors.translated_fields.email | capitalize }}
-                {{ form.errors.messages.email }}
-              </p>
-            {%- endif -%}
+            <button type="submit" class="button">{{ section.settings.signup_button | escape }}</button>
+          </div>
+          {%- if form.errors -%}
+            <p class="verdel-signup__status" id="VerdelFooterError" role="alert">
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </p>
           {%- endif -%}
-        {%- endform -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <div class="verdel-footer__top">
+      <div class="verdel-footer__lead">
+        {%- if section.settings.statement != blank -%}
+          <p class="h1 verdel-footer__statement">{{ section.settings.statement | escape }}</p>
+        {%- endif -%}
       </div>
 
       <div class="verdel-footer__nav">
@@ -102,8 +107,8 @@
   "settings": [
     { "type": "text", "id": "statement", "label": "Statement", "default": "Read the label. We did." },
     { "type": "text", "id": "demo_note", "label": "Demo note", "default": "Demo store. Products, prices and reviews are fictional." },
-    { "type": "text", "id": "signup_label", "label": "Signup label", "default": "Label notes" },
-    { "type": "text", "id": "signup_text", "label": "Signup text", "default": "One email a month on what goes into a formula, and why." },
+    { "type": "text", "id": "signup_heading", "label": "Signup heading", "default": "What goes into a formula, and why." },
+    { "type": "text", "id": "signup_text", "label": "Signup text", "default": "One email a month. Unsubscribe any time." },
     { "type": "text", "id": "signup_field_label", "label": "Signup field label", "default": "Email" },
     { "type": "text", "id": "signup_button", "label": "Signup button", "default": "Sign up" },
     { "type": "collection", "id": "formulas", "label": "Formulas collection" },
