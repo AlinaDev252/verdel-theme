@@ -467,6 +467,49 @@ cart-drawer-items {
 }
 
 @media screen and (max-width: 480px) {
+  .drawer__inner {
+    width: 100vw;
+    max-width: 100vw;
+  }
+
+  .drawer__header,
+  .drawer__footer,
+  cart-drawer-items {
+    padding-inline: 1.6rem;
+  }
+
+  .cart-drawer__footer .totals > * {
+    white-space: nowrap;
+  }
+
+  .cart-drawer__footer .totals__total {
+    font-size: 1.6rem;
+  }
+
+  .verdel-bag-picks__head .h3 {
+    font-size: 1.8rem;
+  }
+
+  .verdel-bag-picks__track {
+    grid-auto-columns: 92%;
+  }
+
+  .verdel-bag-pick {
+    grid-template-columns: 6.4rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .verdel-bag-pick__add {
+    padding-inline: 1rem;
+  }
+
+  .verdel-bag-sub__button {
+    padding-inline: 1rem;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+  }
+
   .cart-drawer .cart-items .cart-item {
     grid-template-columns: 6.4rem minmax(0, 1fr) auto;
     gap: 1rem 1.2rem;

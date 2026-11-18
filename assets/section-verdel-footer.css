@@ -209,6 +209,17 @@
   height: 2.8rem;
 }
 
+.verdel-footer__mark--visa,
+.verdel-footer__mark--discover {
+  overflow: hidden;
+}
+
+.verdel-footer__payment .verdel-footer__mark--visa .icon-pay,
+.verdel-footer__payment .verdel-footer__mark--discover .icon-pay {
+  width: 4.4rem;
+  height: 4.4rem;
+}
+
 @media screen and (max-width: 749px) {
   .verdel-footer .verdel-index--columns {
     column-count: 1;
