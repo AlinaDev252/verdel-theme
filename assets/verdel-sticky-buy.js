@@ -15,14 +15,43 @@ if (!customElements.get('verdel-sticky-buy')) {
           rootMargin: '0px 0px 100000px 0px',
         });
         this.observer.observe(this.mainButton);
+
+        this.onPlanChange = (event) => {
+          if (event.target.name === 'selling_plan') this.syncPlanPrice();
+        };
+        document.addEventListener('change', this.onPlanChange);
+
+        if (typeof subscribe === 'function') {
+          this.unsubscribe = subscribe(PUB_SUB_EVENTS.variantChange, (event) => this.onVariantChange(event));
+        }
       }
 
       disconnectedCallback() {
         if (this.observer) this.observer.disconnect();
+        if (this.unsubscribe) this.unsubscribe();
+        if (this.onPlanChange) document.removeEventListener('change', this.onPlanChange);
+      }
+
+      onVariantChange({ data }) {
+        if (!data || !data.html || this.dataset.formId !== `product-form-${data.sectionId}`) return;
+        const fresh = data.html.querySelector('verdel-sticky-buy');
+        if (!fresh) return;
+
+        this.querySelector('.verdel-sticky-buy__text').innerHTML =
+          fresh.querySelector('.verdel-sticky-buy__text').innerHTML;
+        const freshButton = fresh.querySelector('button');
+        this.button.textContent = freshButton.textContent;
+        this.button.disabled = freshButton.disabled;
+        queueMicrotask(() => this.syncPlanPrice());
+      }
+
+      syncPlanPrice() {
+        const chosen = document.querySelector('verdel-subscribe input[name="selling_plan"]:checked');
+        const price = chosen && chosen.closest('label').querySelector('.verdel-subscribe__price');
+        if (price) this.querySelector('[data-sticky-price]').textContent = price.textContent;
       }
 
       toggle(visible) {
-        this.button.disabled = this.mainButton.disabled;
         this.classList.toggle('is-visible', visible);
         this.inert = !visible;
       }

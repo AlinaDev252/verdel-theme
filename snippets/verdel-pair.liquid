@@ -1,0 +1,63 @@
+{% doc %}
+  A second product to add from the buy column, chosen per product in the verdel.pair metafield.
+
+  @param {product} product
+  @param {block} block
+  @param {string} section_id
+{% enddoc %}
+
+{%- assign pair = product.metafields.verdel.pair.value -%}
+{%- if pair != blank and pair.available -%}
+  {{ 'component-verdel-pair.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'verdel-pair.js' | asset_url }}" defer="defer"></script>
+
+  {%- assign variant = pair.selected_or_first_available_variant -%}
+  {%- assign pair_form_id = 'product-form-pair-' | append: section_id -%}
+  <verdel-pair class="verdel-pair" {{ block.shopify_attributes }}>
+    <p class="verdel-label">{{ block.settings.heading | escape }}</p>
+    <div class="verdel-pair__card">
+      {%- if pair.featured_image != blank -%}
+        <a class="verdel-pair__media" href="{{ pair.url }}" tabindex="-1" aria-hidden="true">
+          {{ pair.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '96px' }}
+        </a>
+      {%- endif -%}
+      <div class="verdel-pair__body">
+        <a class="verdel-pair__title" href="{{ pair.url }}">{{ pair.title | escape }}</a>
+        <p class="verdel-pair__text">{{ pair.description | strip_html | truncate: 70 | escape }}</p>
+
+        <product-form data-section-id="{{ section_id }}" data-hide-errors="false">
+          {%- form 'product', pair, id: pair_form_id, class: 'verdel-pair__form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            {%- if pair.has_only_default_variant -%}
+              <input type="hidden" name="id" value="{{ variant.id }}" disabled>
+            {%- else -%}
+              <label class="visually-hidden" for="{{ pair_form_id }}-variant">Choose an option for {{ pair.title | escape }}</label>
+              <div class="select">
+                <select id="{{ pair_form_id }}-variant" class="select__select" name="id" disabled>
+                  {%- for option in pair.variants -%}
+                    <option
+                      value="{{ option.id }}"
+                      data-price="{{ option.price | money | escape }}"
+                      {% if option.id == variant.id %}selected{% endif %}
+                      {% unless option.available %}disabled{% endunless %}
+                    >
+                      {{- option.title | escape }}{% unless option.available %} (sold out){% endunless -%}
+                    </option>
+                  {%- endfor -%}
+                </select>
+                <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+              </div>
+            {%- endif -%}
+            <button type="submit" name="add" class="button button--secondary">
+              <span>Add · <span data-pair-price>{{ variant.price | money }}</span></span>
+              {%- render 'loading-spinner' -%}
+            </button>
+            <div class="product-form__error-message-wrapper" role="alert" hidden>
+              <span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>
+              <span class="product-form__error-message"></span>
+            </div>
+          {%- endform -%}
+        </product-form>
+      </div>
+    </div>
+  </verdel-pair>
+{%- endif -%}

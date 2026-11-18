@@ -3,30 +3,34 @@
 
   @param {product} product
   @param {block} block
+  @param {string} section_id
 {% enddoc %}
 
 {%- liquid
-  assign servings = product.metafields.verdel.servings.value
+  assign variant = product.selected_or_first_available_variant
+  assign servings = variant.metafields.verdel.servings.value | default: product.metafields.verdel.servings.value
   assign ingredients = product.metafields.verdel.ingredients.value
   assign per_serving = blank
   if servings > 0
-    assign per_serving = product.selected_or_first_available_variant.price | times: 1.0 | divided_by: servings | round
+    assign per_serving = variant.price | times: 1.0 | divided_by: servings | round
   endif
 -%}
 
-<ul class="verdel-facts" role="list" {{ block.shopify_attributes }}>
-  {%- if per_serving != blank -%}
-    {%- unless customer.b2b? -%}
-      <li>{{ per_serving | money }} a serving</li>
-    {%- endunless -%}
-  {%- endif -%}
-  <li>Plant-based</li>
-  {%- if ingredients != blank -%}
-    <li>
-      <a href="#verdel-ingredients">
-        {{- ingredients.count }}
-        {{ ingredients.count | pluralize: 'ingredient', 'ingredients' }}, every amount listed
-      </a>
-    </li>
-  {%- endif -%}
-</ul>
+<verdel-variant-sync data-key="facts" data-section-id="{{ section_id }}" {{ block.shopify_attributes }}>
+  <ul class="verdel-facts" role="list">
+    {%- if per_serving != blank -%}
+      {%- unless customer.b2b? -%}
+        <li>{{ per_serving | money }} a serving</li>
+      {%- endunless -%}
+    {%- endif -%}
+    <li>Plant-based</li>
+    {%- if ingredients != blank -%}
+      <li>
+        <a href="#verdel-ingredients">
+          {{- ingredients.count }}
+          {{ ingredients.count | pluralize: 'ingredient', 'ingredients' }}, every amount listed
+        </a>
+      </li>
+    {%- endif -%}
+  </ul>
+</verdel-variant-sync>

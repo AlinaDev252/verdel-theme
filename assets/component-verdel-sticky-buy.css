@@ -37,7 +37,16 @@ verdel-sticky-buy.is-visible {
 }
 
 .verdel-sticky-buy__price {
+  display: flex;
+  gap: 0.8rem;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.verdel-sticky-buy__variant {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 verdel-sticky-buy .button {

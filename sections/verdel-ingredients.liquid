@@ -36,7 +36,7 @@
 
       <ul class="verdel-rule-list verdel-ingredients__list">
         {%- for ingredient in ingredients -%}
-          <li class="verdel-ingredients__item">
+          {%- capture ingredient_row -%}
             {%- if ingredient.image.value != blank -%}
               {{
                 ingredient.image.value
@@ -52,6 +52,19 @@
             </div>
             {%- if ingredient.amount.value != blank -%}
               <span class="verdel-rule-list__amount">{{ ingredient.amount.value | escape }}</span>
+            {%- endif -%}
+          {%- endcapture -%}
+          <li class="verdel-ingredients__item">
+            {%- if ingredient.detail.value != blank -%}
+              <details class="verdel-ingredients__details"{% if forloop.first %} open{% endif %}>
+                <summary class="verdel-ingredients__summary">
+                  {{- ingredient_row -}}
+                  <span class="verdel-ingredients__caret">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+                </summary>
+                <p class="verdel-ingredients__detail">{{ ingredient.detail.value | escape }}</p>
+              </details>
+            {%- else -%}
+              {{- ingredient_row -}}
             {%- endif -%}
           </li>
         {%- endfor -%}

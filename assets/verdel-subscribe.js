@@ -3,6 +3,8 @@ if (!customElements.get('verdel-subscribe')) {
     'verdel-subscribe',
     class VerdelSubscribe extends HTMLElement {
       connectedCallback() {
+        this.addEventListener('change', () => this.syncButton());
+        this.syncButton();
         if (typeof subscribe !== 'function') return;
         this.unsubscribe = subscribe(PUB_SUB_EVENTS.variantChange, (event) => this.onVariantChange(event));
       }
@@ -21,9 +23,20 @@ if (!customElements.get('verdel-subscribe')) {
         const chosen = this.querySelector('input[name="selling_plan"]:checked');
         this.innerHTML = fresh.innerHTML;
 
-        if (!chosen || !chosen.value) return;
-        const match = this.querySelector(`input[name="selling_plan"][value="${chosen.value}"]`);
+        const match = chosen && chosen.value && this.querySelector(`input[name="selling_plan"][value="${chosen.value}"]`);
         if (match) match.checked = true;
+        this.syncButton();
+      }
+
+      syncButton() {
+        const form = document.getElementById(`product-form-${this.dataset.sectionId}`);
+        const button = form && form.querySelector('[name="add"]');
+        const label = button && button.querySelector('span');
+        const chosen = this.querySelector('input[name="selling_plan"]:checked');
+        if (!label || !chosen || button.disabled) return;
+
+        const text = label.textContent.split(' · ')[0].trim();
+        label.textContent = `${text} · ${chosen.closest('label').querySelector('.verdel-subscribe__price').textContent}`;
       }
     }
   );

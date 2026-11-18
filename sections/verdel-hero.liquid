@@ -1,0 +1,75 @@
+{{ 'section-verdel-hero.css' | asset_url | stylesheet_tag }}
+
+{%- assign image = section.settings.image | default: section.settings.product.featured_image -%}
+
+<div class="verdel-hero color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width verdel-hero__inner{% if image != blank %} verdel-hero__inner--image{% endif %}">
+    <div class="verdel-hero__text">
+      <h2 class="h0">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}
+        <p class="verdel-hero__lede">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+      <div class="verdel-hero__actions">
+        {%- if section.settings.button_label != blank -%}
+          <a class="button button--primary" href="{{ section.settings.button_link }}">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a class="verdel-hero__link" href="{{ section.settings.link_url }}">
+            {{- section.settings.link_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if image != blank -%}
+      <div class="verdel-hero__media">
+        {{
+          image
+          | image_url: width: 1400
+          | image_tag:
+            alt: image.alt,
+            class: 'verdel-hero__image',
+            widths: '500, 750, 1000, 1400',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            fetchpriority: 'high'
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<div id="verdel-goals" class="verdel-hero__strip color-{{ section.settings.strip_color_scheme }} gradient">
+  <div class="page-width">
+    {% render 'verdel-assurance',
+      one: section.settings.assurance_1,
+      two: section.settings.assurance_2,
+      three: section.settings.assurance_3
+    %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Verdel hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Read the label. We did." },
+    { "type": "text", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "See what's inside" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "link_label", "label": "Second link label" },
+    { "type": "url", "id": "link_url", "label": "Second link" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "product", "id": "product", "label": "Product", "info": "Its main image is used when no image is set." },
+    { "type": "text", "id": "assurance_1", "label": "Assurance 1", "default": "Free shipping over $50" },
+    { "type": "text", "id": "assurance_2", "label": "Assurance 2", "default": "60-day returns" },
+    { "type": "text", "id": "assurance_3", "label": "Assurance 3", "default": "Every batch lab tested" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-3" },
+    { "type": "color_scheme", "id": "strip_color_scheme", "label": "Assurance strip color scheme", "default": "scheme-2" }
+  ],
+  "presets": [{ "name": "Verdel hero" }]
+}
+{% endschema %}

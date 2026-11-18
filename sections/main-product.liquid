@@ -456,9 +456,19 @@
                     {%- endif -%}
                   </div>
                 {%- when 'facts' -%}
-                  {% render 'verdel-facts', product: product, block: block %}
+                  {% render 'verdel-facts', product: product, block: block, section_id: section.id %}
                 {%- when 'how_to_take' -%}
-                  {% render 'verdel-how-to-take', product: product, block: block %}
+                  {% render 'verdel-how-to-take', product: product, block: block, section_id: section.id %}
+                {%- when 'pair_with' -%}
+                  {% render 'verdel-pair', product: product, block: block, section_id: section.id %}
+                {%- when 'assurance' -%}
+                  {%- capture assurance_attributes -%}{{ block.shopify_attributes }}{%- endcapture -%}
+                  {% render 'verdel-assurance',
+                    one: block.settings.one,
+                    two: block.settings.two,
+                    three: block.settings.three,
+                    attributes: assurance_attributes
+                  %}
                 {%- when 'subscribe' -%}
                   {% render 'verdel-subscribe', product: product, block: block, product_form_id: product_form_id %}
                 {%- when 'popup' -%}
@@ -506,43 +516,7 @@
                     show_pickup_availability: true
                   -%}
                 {%- when 'rating' -%}
-                  {%- if product.metafields.reviews.rating.value != blank -%}
-                    <div class="rating-wrapper">
-                      {% liquid
-                        assign rating_decimal = 0
-                        assign decimal = product.metafields.reviews.rating.value.rating | modulo: 1
-                        if decimal >= 0.3 and decimal <= 0.7
-                          assign rating_decimal = 0.5
-                        elsif decimal > 0.7
-                          assign rating_decimal = 1
-                        endif
-                      %}
-                      <div
-                        class="rating"
-                        role="img"
-                        aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: product.metafields.reviews.rating.value, rating_max: product.metafields.reviews.rating.value.scale_max }}"
-                      >
-                        <span
-                          aria-hidden="true"
-                          class="rating-star"
-                          style="--rating: {{ product.metafields.reviews.rating.value.rating | floor }}; --rating-max: {{ product.metafields.reviews.rating.value.scale_max }}; --rating-decimal: {{ rating_decimal }};"
-                        ></span>
-                      </div>
-                      <p class="rating-text caption">
-                        <span aria-hidden="true">
-                          {{- product.metafields.reviews.rating.value }} /
-                          {{ product.metafields.reviews.rating.value.scale_max -}}
-                        </span>
-                      </p>
-                      <p class="rating-count caption">
-                        <span aria-hidden="true">({{ product.metafields.reviews.rating_count }})</span>
-                        <span class="visually-hidden">
-                          {{- product.metafields.reviews.rating_count }}
-                          {{ 'accessibility.total_reviews' | t -}}
-                        </span>
-                      </p>
-                    </div>
-                  {%- endif -%}
+                  {% render 'verdel-rating', product: product, block: block %}
                 {%- when 'complementary' -%}
                   <product-recommendations
                     class="complementary-products quick-add-hidden{% if block.settings.make_collapsible_row %} is-accordion{% endif %}{% if block.settings.enable_quick_add %} complementary-products-contains-quick-add{% endif %}"
@@ -759,6 +733,8 @@
   </product-component>
 </product-info>
 
+<script src="{{ 'verdel-variant-sync.js' | asset_url }}" defer="defer"></script>
+
 {%- assign buy_blocks = section.blocks | where: 'type', 'buy_buttons' -%}
 {%- if buy_blocks.size > 0 -%}
   {%- assign sticky_form_id = 'product-form-' | append: section.id -%}
@@ -790,6 +766,24 @@
       ]
     },
     {
+      "type": "pair_with",
+      "name": "Pair it with",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Pair it with" }
+      ]
+    },
+    {
+      "type": "assurance",
+      "name": "Buying assurances",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "one", "label": "Line 1", "default": "Free shipping over $50" },
+        { "type": "text", "id": "two", "label": "Line 2", "default": "60-day returns, even on an empty bottle" },
+        { "type": "text", "id": "three", "label": "Line 3", "default": "Every batch tested by an outside lab" }
+      ]
+    },
+    {
       "type": "subscribe",
       "name": "Subscribe and save",
       "limit": 1,
@@ -799,7 +793,10 @@
           "id": "heading",
           "label": "Heading",
           "default": "Purchase options"
-        }
+        },
+        { "type": "text", "id": "benefit_1", "label": "Subscription benefit 1", "default": "Free shipping on every delivery" },
+        { "type": "text", "id": "benefit_2", "label": "Subscription benefit 2", "default": "Save 15% on every delivery" },
+        { "type": "text", "id": "benefit_3", "label": "Subscription benefit 3", "default": "Change, pause or cancel any time" }
       ]
     },
     {

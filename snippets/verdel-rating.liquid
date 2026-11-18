@@ -1,0 +1,28 @@
+{% doc %}
+  Star rating and review count, linking to the reviews on the page.
+
+  @param {product} product
+  @param {block} block
+{% enddoc %}
+
+{%- assign rating = product.metafields.reviews.rating.value -%}
+{%- if rating != blank -%}
+  {%- liquid
+    assign rating_decimal = 0
+    assign decimal = rating.rating | modulo: 1
+    if decimal >= 0.3 and decimal <= 0.7
+      assign rating_decimal = 0.5
+    elsif decimal > 0.7
+      assign rating_decimal = 1
+    endif
+    assign count = product.metafields.reviews.rating_count.value
+  -%}
+  <a class="verdel-rating" href="#verdel-reviews" {{ block.shopify_attributes }}>
+    <span
+      aria-hidden="true"
+      class="rating-star"
+      style="--rating: {{ rating.rating | floor }}; --rating-max: {{ rating.scale_max }}; --rating-decimal: {{ rating_decimal }};"
+    ></span>
+    <span>{{ rating.rating }} out of {{ rating.scale_max | round }}, {{ count }} {{ count | pluralize: 'review', 'reviews' }}</span>
+  </a>
+{%- endif -%}

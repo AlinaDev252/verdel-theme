@@ -44,7 +44,10 @@
     </div>
 
     <div class="verdel-footer__bottom">
-      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</p>
+      <p>
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name | escape }}.
+        {{ section.settings.demo_note | escape }}
+      </p>
 
       {%- if shop.policies.size > 0 -%}
         <ul class="verdel-footer__policies" role="list">
@@ -72,6 +75,7 @@
   "enabled_on": { "groups": ["footer"] },
   "settings": [
     { "type": "text", "id": "statement", "label": "Statement", "default": "Read the label. We did." },
+    { "type": "text", "id": "demo_note", "label": "Demo note", "default": "Demo store. Products, prices and reviews are fictional." },
     { "type": "collection", "id": "formulas", "label": "Formulas collection" },
     { "type": "text", "id": "formulas_label", "label": "Formulas label", "default": "Formulas" },
     { "type": "collection_list", "id": "goals", "label": "Goal collections", "limit": 6 },

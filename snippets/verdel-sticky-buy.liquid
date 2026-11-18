@@ -9,11 +9,23 @@
   {{ 'component-verdel-sticky-buy.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'verdel-sticky-buy.js' | asset_url }}" defer="defer"></script>
 
+  {%- assign variant = product.selected_or_first_available_variant -%}
   <verdel-sticky-buy class="color-scheme-1 gradient" data-form-id="{{ product_form_id }}" inert>
     <div class="verdel-sticky-buy__text">
       <p class="verdel-sticky-buy__title">{{ product.title | escape }}</p>
-      <p class="verdel-sticky-buy__price">{{ product.selected_or_first_available_variant.price | money }}</p>
+      <p class="verdel-sticky-buy__price">
+        {%- unless product.has_only_default_variant -%}
+          <span class="verdel-sticky-buy__variant">{{ variant.title | escape }}</span>
+        {%- endunless -%}
+        <span data-sticky-price>{{ variant.price | money }}</span>
+      </p>
     </div>
-    <button type="button" class="button button--primary">{{ 'products.product.add_to_cart' | t }}</button>
+    <button type="button" class="button button--primary"{% unless variant.available %} disabled{% endunless %}>
+      {%- if variant.available -%}
+        {{- 'products.product.add_to_cart' | t -}}
+      {%- else -%}
+        {{- 'products.product.sold_out' | t -}}
+      {%- endif -%}
+    </button>
   </verdel-sticky-buy>
 {%- endunless -%}

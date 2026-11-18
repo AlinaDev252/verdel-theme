@@ -44,10 +44,22 @@
         "facts": {
           "type": "facts",
           "settings": {}
+        },
+        "rating": {
+          "type": "rating"
+        },
+        "assurance": {
+          "type": "assurance",
+          "settings": {}
+        },
+        "pair_with": {
+          "type": "pair_with",
+          "settings": {}
         }
       },
       "block_order": [
         "title",
+        "rating",
         "description",
         "price",
         "facts",
@@ -55,6 +67,8 @@
         "subscribe",
         "quantity_selector",
         "buy_buttons",
+        "assurance",
+        "pair_with",
         "how_to_take"
       ],
       "settings": {
@@ -108,11 +122,16 @@
         "padding_top": 48,
         "padding_bottom": 48
       }
+    },
+    "reviews": {
+      "type": "verdel-reviews",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "ingredients",
+    "reviews",
     "disclosures",
     "related-products"
   ]

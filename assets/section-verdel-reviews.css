@@ -1,0 +1,79 @@
+.verdel-reviews {
+  display: grid;
+  gap: 3.2rem;
+}
+
+.verdel-reviews .rating-star {
+  --letter-spacing: 0.8;
+  --font-size: 1.6;
+}
+
+.verdel-reviews__summary .h2 {
+  margin: 0;
+}
+
+.verdel-reviews__score {
+  margin: 1.6rem 0 0;
+  font-family: var(--font-heading-family);
+  font-size: 6.4rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-reviews__count {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+  margin: 0.8rem 0 0;
+}
+
+.verdel-reviews__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verdel-reviews__item {
+  min-width: 0;
+  padding-block: 2.4rem;
+  border-block-end: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
+.verdel-reviews__item:first-child {
+  padding-block-start: 0;
+}
+
+.verdel-reviews__item:last-child {
+  padding-block-end: 0;
+  border-block-end: 0;
+}
+
+.verdel-reviews__title {
+  margin: 0.8rem 0 0;
+  font-family: var(--font-body-family);
+  font-size: 1.7rem;
+  font-weight: var(--font-body-weight-bold);
+  letter-spacing: 0;
+}
+
+.verdel-reviews__body {
+  max-width: 65ch;
+  margin: 0.4rem 0 0;
+  text-wrap: pretty;
+}
+
+.verdel-reviews__meta {
+  margin: 0.8rem 0 0;
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+@media screen and (min-width: 990px) {
+  .verdel-reviews {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 6rem;
+    align-items: start;
+  }
+}

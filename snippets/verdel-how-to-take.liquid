@@ -1,18 +1,25 @@
 {% doc %}
-  Dose, timing and servings from the product's verdel metafields.
+  Dose, timing and servings from the product's verdel metafields; servings can differ per variant.
 
   @param {product} product
   @param {block} block
+  @param {string} section_id
 {% enddoc %}
 
 {%- liquid
+  assign variant = product.selected_or_first_available_variant
   assign dose = product.metafields.verdel.dose.value
   assign timing = product.metafields.verdel.timing.value
-  assign servings = product.metafields.verdel.servings.value
+  assign servings = variant.metafields.verdel.servings.value | default: product.metafields.verdel.servings.value
 -%}
 
 {%- if dose != blank or timing != blank or servings != blank -%}
-  <div class="verdel-how-to-take" {{ block.shopify_attributes }}>
+  <verdel-variant-sync
+    class="verdel-how-to-take"
+    data-key="how-to-take"
+    data-section-id="{{ section_id }}"
+    {{ block.shopify_attributes }}
+  >
     {%- if block.settings.heading != blank -%}
       <p class="verdel-label">{{ block.settings.heading | escape }}</p>
     {%- endif -%}
@@ -27,5 +34,5 @@
         <li><span>Servings per container</span><span class="verdel-rule-list__amount">{{ servings }}</span></li>
       {%- endif -%}
     </ul>
-  </div>
+  </verdel-variant-sync>
 {%- endif -%}

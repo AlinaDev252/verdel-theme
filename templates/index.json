@@ -1,38 +1,15 @@
 {
   "sections": {
     "hero": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Read the label. We did.",
-            "heading_size": "h0"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "See what's inside",
-            "button_link": "shopify://collections/all-formulas",
-            "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+      "type": "verdel-hero",
       "settings": {
-        "desktop_content_position": "left",
-        "content_alignment": "left",
-        "color_scheme": "scheme-3",
-        "full_width": true,
-        "padding_top": 100,
-        "padding_bottom": 100
+        "heading": "Read the label. We did.",
+        "text": "Plant-based formulas with every ingredient and every amount printed where you can see it.",
+        "button_label": "See what's inside",
+        "button_link": "shopify://collections/all-formulas",
+        "link_label": "Shop by goal",
+        "link_url": "#verdel-goals",
+        "product": "no-05-greens"
       }
     },
     "goals": {
@@ -91,7 +68,7 @@
         "show_description": false,
         "description_style": "body",
         "collection": "all-formulas",
-        "products_to_show": 8,
+        "products_to_show": 12,
         "columns_desktop": 4,
         "color_scheme": "scheme-2",
         "full_width": false,
@@ -103,7 +80,7 @@
         "image_shape": "default",
         "show_secondary_image": false,
         "show_vendor": false,
-        "show_rating": false,
+        "show_rating": true,
         "quick_add": "none",
         "columns_mobile": "2",
         "padding_top": 64,

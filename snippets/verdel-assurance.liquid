@@ -1,0 +1,14 @@
+{% doc %}
+  Short list of buying assurances, used beside add to cart and under the homepage hero.
+
+  @param {string} one
+  @param {string} two
+  @param {string} three
+  @param {string} [attributes]
+{% enddoc %}
+
+<ul class="verdel-assurance" role="list" {{ attributes }}>
+  {%- if one != blank -%}<li>{{- 'icon-checkmark.svg' | inline_asset_content -}}<span>{{ one | escape }}</span></li>{%- endif -%}
+  {%- if two != blank -%}<li>{{- 'icon-checkmark.svg' | inline_asset_content -}}<span>{{ two | escape }}</span></li>{%- endif -%}
+  {%- if three != blank -%}<li>{{- 'icon-checkmark.svg' | inline_asset_content -}}<span>{{ three | escape }}</span></li>{%- endif -%}
+</ul>

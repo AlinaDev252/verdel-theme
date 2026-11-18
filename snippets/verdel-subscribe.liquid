@@ -11,29 +11,30 @@
     {{ 'component-verdel-subscribe.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'verdel-subscribe.js' | asset_url }}" defer="defer"></script>
 
-    {%- assign allocations = product.selected_or_first_available_variant.selling_plan_allocations -%}
+    {%- assign variant = product.selected_or_first_available_variant -%}
+    {%- assign allocations = variant.selling_plan_allocations -%}
     <verdel-subscribe data-section-id="{{ product_form_id | remove_first: 'product-form-' }}" {{ block.shopify_attributes }}>
       {%- if allocations.size > 0 -%}
         <fieldset class="verdel-subscribe">
-          <legend class="verdel-label">{{ block.settings.heading | escape }}</legend>
+          <legend class="visually-hidden">{{ block.settings.heading | escape }}</legend>
 
           {%- unless product.requires_selling_plan -%}
             <label class="verdel-subscribe__option">
-              <input
-                type="radio"
-                name="selling_plan"
-                value=""
-                form="{{ product_form_id }}"
-                checked
-              >
-              <span class="verdel-subscribe__name">One-time purchase</span>
-              <span class="verdel-subscribe__price">{{ product.selected_or_first_available_variant.price | money }}</span>
+              <input type="radio" name="selling_plan" value="" form="{{ product_form_id }}" checked>
+              <span class="verdel-subscribe__main">
+                <span class="verdel-subscribe__name">One-time purchase</span>
+                <span class="verdel-subscribe__note">Delivered once</span>
+              </span>
+              <span class="verdel-subscribe__prices">
+                <span class="verdel-subscribe__price">{{ variant.price | money }}</span>
+              </span>
             </label>
           {%- endunless -%}
 
           {%- for allocation in allocations -%}
             {%- assign plan = allocation.selling_plan -%}
             {%- assign adjustment = plan.price_adjustments.first -%}
+            {%- assign group = product.selling_plan_groups | where: 'id', allocation.selling_plan_group_id | first -%}
             <label class="verdel-subscribe__option">
               <input
                 type="radio"
@@ -44,11 +45,32 @@
                   checked
                 {% endif %}
               >
-              <span class="verdel-subscribe__name">{{ plan.name | escape }}</span>
-              {%- if adjustment.value_type == 'percentage' and adjustment.value > 0 -%}
-                <span class="verdel-subscribe__saving">Save {{ adjustment.value }}%</span>
-              {%- endif -%}
-              <span class="verdel-subscribe__price">{{ allocation.price | money }}</span>
+              <span class="verdel-subscribe__main">
+                <span class="verdel-subscribe__name">
+                  {{- group.name | escape -}}
+                  {%- if adjustment.value_type == 'percentage' and adjustment.value > 0 -%}
+                    <span class="verdel-subscribe__saving">{{ adjustment.value }}% off</span>
+                  {%- endif -%}
+                </span>
+                <span class="verdel-subscribe__note">{{ plan.name | escape }}</span>
+              </span>
+              <span class="verdel-subscribe__prices">
+                <span class="verdel-subscribe__price">{{ allocation.price | money }}</span>
+                {%- if allocation.compare_at_price > allocation.price -%}
+                  <s class="verdel-subscribe__compare">
+                    <span class="visually-hidden">Regular price</span>
+                    {{ allocation.compare_at_price | money }}
+                  </s>
+                {%- endif -%}
+              </span>
+              <ul class="verdel-subscribe__benefits" role="list">
+                {%- assign benefit_keys = 'benefit_1,benefit_2,benefit_3' | split: ',' -%}
+                {%- for key in benefit_keys -%}
+                  {%- if block.settings[key] != blank -%}
+                    <li>{{- 'icon-checkmark.svg' | inline_asset_content -}}<span>{{ block.settings[key] | escape }}</span></li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
             </label>
           {%- endfor -%}
         </fieldset>
