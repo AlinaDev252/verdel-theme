@@ -2,15 +2,6 @@
 
 <script src="{{ 'verdel-hero-picker.js' | asset_url }}" defer="defer"></script>
 
-{%- style -%}
-  @font-face {
-    font-family: 'Verdel Figures';
-    src: url('{{ 'YoungSerif-Regular.ttf' | asset_url }}') format('truetype');
-    font-display: swap;
-    unicode-range: U+30-39;
-  }
-{%- endstyle -%}
-
 <div class="verdel-hero color-{{ section.settings.color_scheme }} gradient">
   {%- unless request.design_mode -%}
     <script>

@@ -20,7 +20,7 @@
 
           {%- unless product.requires_selling_plan -%}
             <label class="verdel-subscribe__option">
-              <input type="radio" name="selling_plan" value="" form="{{ product_form_id }}" checked>
+              <input type="radio" name="selling_plan" value="" form="{{ product_form_id }}"{% unless product.selected_selling_plan %} checked{% endunless %}>
               <span class="verdel-subscribe__main">
                 <span class="verdel-subscribe__name">One-time purchase</span>
                 <span class="verdel-subscribe__note">Delivered once</span>
@@ -41,7 +41,7 @@
                 name="selling_plan"
                 value="{{ plan.id }}"
                 form="{{ product_form_id }}"
-                {% if product.requires_selling_plan and forloop.first %}
+                {% if product.selected_selling_plan.id == plan.id or product.requires_selling_plan and forloop.first and product.selected_selling_plan == blank %}
                   checked
                 {% endif %}
               >

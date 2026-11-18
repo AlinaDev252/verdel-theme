@@ -104,18 +104,18 @@
         </details>
       </header-menu>
     </li>
-    {%- for link in section.settings.shop_bar_links -%}
+    {%- if section.settings.bar_link_label != blank and section.settings.bar_link_url != blank -%}
       <li>
         <a
-          href="{{ link.url }}"
+          href="{{ section.settings.bar_link_url }}"
           class="header__menu-item list-menu__item link link--text focus-inset"
-          {% if link.url == request.path %}
+          {% if section.settings.bar_link_url == request.path %}
             aria-current="page"
           {% endif %}
         >
-          <span{% if link.url == request.path %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
+          <span>{{ section.settings.bar_link_label | escape }}</span>
         </a>
       </li>
-    {%- endfor -%}
+    {%- endif -%}
   </ul>
 </nav>

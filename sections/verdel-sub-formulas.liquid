@@ -1,0 +1,50 @@
+{{ 'section-verdel-subscription.css' | asset_url | stylesheet_tag }}
+
+<div id="verdel-sub-formulas" class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width verdel-sub-formulas">
+    <h2 class="h1">{{ section.settings.heading | escape }}</h2>
+    <ul class="verdel-sub-formulas__grid" role="list">
+      {%- for product in section.settings.collection.products -%}
+        {%- assign variant = product.selected_or_first_available_variant -%}
+        {%- assign allocation = variant.selling_plan_allocations.first -%}
+        {%- if allocation and product.available -%}
+          <li class="verdel-sub-card">
+            <a class="verdel-sub-card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+              {{
+                product.featured_image
+                | image_url: width: 700
+                | image_tag: loading: 'lazy', alt: '', widths: '300, 500, 700', sizes: '(min-width: 990px) 25vw, 50vw'
+              }}
+            </a>
+            <a class="verdel-sub-card__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+            <p class="verdel-sub-card__price">
+              <span>{{ allocation.price | money }}</span>
+              <s><span class="visually-hidden">Regular price</span>{{ variant.price | money }}</s>
+            </p>
+            <a
+              class="button button--secondary"
+              href="{{ product.url }}?variant={{ variant.id }}&selling_plan={{ allocation.selling_plan.id }}"
+              aria-label="Subscribe to {{ product.title | escape }}"
+            >
+              Subscribe
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Subscription formulas",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pick what you would refill." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" }
+  ],
+  "presets": [{ "name": "Subscription formulas" }]
+}
+{% endschema %}

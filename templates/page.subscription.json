@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "hero": {
+      "type": "verdel-sub-hero",
+      "blocks": {
+        "off": {
+          "type": "benefit",
+          "settings": {
+            "value": "15%",
+            "label": "off every delivery"
+          }
+        },
+        "ship": {
+          "type": "benefit",
+          "settings": {
+            "value": "$0",
+            "label": "shipping on every delivery"
+          }
+        },
+        "days": {
+          "type": "benefit",
+          "settings": {
+            "value": "30 days",
+            "label": "between deliveries"
+          }
+        },
+        "any": {
+          "type": "benefit",
+          "settings": {
+            "value": "Any time",
+            "label": "pause or cancel"
+          }
+        }
+      },
+      "block_order": [
+        "off",
+        "ship",
+        "days",
+        "any"
+      ],
+      "settings": {
+        "eyebrow": "Subscription",
+        "heading": "Same formula. 15% less.",
+        "text": "Get a refill every 30 days with free shipping. Pause or cancel from your account whenever you want.",
+        "button_label": "Choose a formula",
+        "button_link": "#verdel-sub-formulas",
+        "product": "no-05-greens"
+      }
+    },
+    "formulas": {
+      "type": "verdel-sub-formulas",
+      "settings": {
+        "heading": "Pick what you would refill.",
+        "collection": "all-formulas"
+      }
+    },
+    "steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "step_1": {
+          "type": "column",
+          "settings": {
+            "title": "Pick a formula",
+            "text": "<p>Turn on refills and save 15%.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "step_2": {
+          "type": "column",
+          "settings": {
+            "title": "Forget about it",
+            "text": "<p>A new bottle lands every 30 days.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "step_3": {
+          "type": "column",
+          "settings": {
+            "title": "Stop whenever",
+            "text": "<p>Pause or cancel from your account.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "title": "How it works",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-3",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "faq": {
+      "type": "verdel-faq",
+      "blocks": {
+        "q-when": {
+          "type": "question",
+          "settings": {
+            "question": "When am I charged?",
+            "answer": "<p>When you order, then every 30 days when your next delivery ships.</p>"
+          }
+        },
+        "q-pause": {
+          "type": "question",
+          "settings": {
+            "question": "Can I pause?",
+            "answer": "<p>Yes, from your account. Do it before your next order ships and nothing more is charged.</p>"
+          }
+        },
+        "q-cancel": {
+          "type": "question",
+          "settings": {
+            "question": "How do I cancel?",
+            "answer": "<p>From your account, any time. There are no fees and no minimum number of deliveries.</p>"
+          }
+        },
+        "q-two": {
+          "type": "question",
+          "settings": {
+            "question": "Can I subscribe to more than one formula?",
+            "answer": "<p>Yes. Each formula has its own subscription and its own delivery date.</p>"
+          }
+        },
+        "q-keep": {
+          "type": "question",
+          "settings": {
+            "question": "Does the 15% last?",
+            "answer": "<p>Yes. It applies to every delivery for as long as you stay subscribed.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-when",
+        "q-pause",
+        "q-cancel",
+        "q-two",
+        "q-keep"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/verdel-morning-coffee.jpg",
+        "heading": "Frequently asked questions",
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "formulas",
+    "steps",
+    "faq"
+  ]
+}

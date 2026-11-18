@@ -10,3 +10,10 @@
     all_label: section.settings.cta_label
   -%}
 </li>
+{%- if section.settings.bar_link_label != blank and section.settings.bar_link_url != blank -%}
+  <li>
+    <a class="menu-drawer__menu-item list-menu__item link link--text focus-inset" href="{{ section.settings.bar_link_url }}">
+      {{- section.settings.bar_link_label | escape -}}
+    </a>
+  </li>
+{%- endif -%}

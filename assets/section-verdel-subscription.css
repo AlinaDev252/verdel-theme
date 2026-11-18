@@ -1,0 +1,191 @@
+.verdel-sub-hero__inner {
+  display: grid;
+  gap: 3.2rem;
+  padding-block: 5.6rem;
+}
+
+.verdel-sub-hero__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.6rem;
+  min-width: 0;
+}
+
+.verdel-sub-hero__text > * {
+  margin: 0;
+}
+
+.verdel-sub-hero__text .h0 {
+  text-wrap: balance;
+}
+
+.verdel-sub-hero__lede {
+  max-width: 44ch;
+  margin-block-end: 1.2rem;
+  font-size: 1.8rem;
+  color: rgb(var(--color-foreground));
+  text-wrap: pretty;
+}
+
+.verdel-sub-math {
+  min-width: 0;
+  padding: 2.4rem;
+  border-radius: var(--media-radius);
+  color: rgb(var(--color-foreground));
+}
+
+.verdel-sub-math > * {
+  margin: 0;
+}
+
+.verdel-sub-math__title {
+  margin-block-end: 1.6rem;
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+}
+
+.verdel-sub-math__total {
+  margin-block-start: 2.4rem;
+  padding-block-start: 1.2rem;
+  border-block-start: 0.4rem solid rgb(var(--color-foreground));
+  font-family: 'Verdel Figures', var(--font-heading-family);
+  font-size: clamp(4.8rem, 12vw, 7.2rem);
+  font-variant-numeric: lining-nums;
+  line-height: 1.05;
+}
+
+.verdel-sub-math__note {
+  font-size: 1.5rem;
+}
+
+.verdel-sub-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem 1.6rem;
+  margin-block: 0;
+  padding-block: 2.8rem;
+  list-style: none;
+  font-size: 1.4rem;
+  line-height: 1.35;
+}
+
+.verdel-sub-stats li {
+  display: grid;
+  align-content: start;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.verdel-sub-stats__value {
+  font-family: 'Verdel Figures', var(--font-heading-family);
+  font-size: 2.6rem;
+  font-variant-numeric: lining-nums;
+  line-height: 1.15;
+}
+
+.verdel-sub-formulas {
+  display: grid;
+  gap: 3.2rem;
+  padding-block: 5.6rem;
+}
+
+.verdel-sub-formulas .h1 {
+  margin: 0;
+}
+
+.verdel-sub-formulas__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.2rem 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verdel-sub-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.verdel-sub-card__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--media-radius);
+}
+
+.verdel-sub-card__media {
+  margin-block-end: 0.6rem;
+}
+
+.verdel-sub-card__title {
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-size: 1.6rem;
+  line-height: 1.25;
+  text-decoration: none;
+}
+
+.verdel-sub-card__price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.8rem;
+  margin: 0 0 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-sub-card__price > span {
+  font-weight: var(--font-body-weight-bold);
+}
+
+.verdel-sub-card__price s {
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.verdel-sub-card .button {
+  min-width: 0;
+  min-height: 4.4rem;
+  margin-block-start: auto;
+  padding-inline: 1rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .verdel-sub-card__title:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .verdel-sub-hero__inner,
+  .verdel-sub-formulas {
+    padding-block: 8rem;
+  }
+
+  .verdel-sub-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .verdel-sub-formulas__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4rem 2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .verdel-sub-hero__inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 8rem;
+    align-items: center;
+  }
+
+  .verdel-sub-math {
+    padding: 3.2rem;
+  }
+
+  .verdel-sub-formulas__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

@@ -280,6 +280,14 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'verdel.css' | asset_url | stylesheet_tag }}
+    {%- style -%}
+      @font-face {
+        font-family: 'Verdel Figures';
+        src: url('{{ 'YoungSerif-Regular.ttf' | asset_url }}') format('truetype');
+        font-display: swap;
+        unicode-range: U+30-39;
+      }
+    {%- endstyle -%}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}

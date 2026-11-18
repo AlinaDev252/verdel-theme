@@ -55,9 +55,8 @@
           "training",
           "skin"
         ],
-        "shop_bar_links": [
-          "best-sellers"
-        ]
+        "bar_link_label": "Subscription",
+        "bar_link_url": "/pages/subscription"
       }
     }
   },
