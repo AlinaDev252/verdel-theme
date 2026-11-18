@@ -54,14 +54,13 @@
 }
 
 .header__icon--cart .cart-count-bubble {
-  top: calc(50% + 0.2rem);
+  top: calc(50% + 0.25rem);
   bottom: auto;
   left: 50%;
   width: auto;
   height: auto;
   background: none;
   color: rgb(var(--color-foreground));
-  font-family: var(--font-heading-family);
   font-size: 1.1rem;
   font-variant-numeric: lining-nums tabular-nums;
   transform: translate(-50%, -50%);
