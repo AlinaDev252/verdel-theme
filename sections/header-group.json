@@ -46,6 +46,7 @@
         "padding_bottom": 0,
         "shop_collection": "all-formulas",
         "shop_goals": [
+          "best-sellers",
           "sleep",
           "focus",
           "gut",
