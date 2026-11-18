@@ -1,3 +1,7 @@
+.verdel-faq-anchor {
+  scroll-margin-block-start: 8rem;
+}
+
 .verdel-faq {
   display: grid;
   gap: 3.2rem;

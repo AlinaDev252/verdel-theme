@@ -1,7 +1,7 @@
 {{ 'section-verdel-faq.css' | asset_url | stylesheet_tag }}
 
 {%- assign image = section.settings.image -%}
-<div class="color-{{ section.settings.color_scheme }} gradient">
+<div id="faq" class="verdel-faq-anchor color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width verdel-faq{% if image != blank %} verdel-faq--image{% endif %}">
     {%- if image != blank -%}
       <div class="verdel-faq__media">

@@ -42,36 +42,33 @@
     </div>
 
     <div class="verdel-footer__top">
-      <div class="verdel-footer__lead">
+      <div class="verdel-footer__brand">
+        <p class="verdel-label">{{ shop.name | escape }}</p>
         {%- if section.settings.statement != blank -%}
           <p class="h1 verdel-footer__statement">{{ section.settings.statement | escape }}</p>
         {%- endif -%}
       </div>
 
-      <div class="verdel-footer__nav">
-        <nav aria-label="{{ section.settings.goals_label | escape }}">
-          <h2 class="verdel-label">{{ section.settings.goals_label | escape }}</h2>
-          {%- render 'verdel-collection-index',
-            collections: section.settings.goals,
-            all_collection: section.settings.formulas,
-            all_label: section.settings.all_label,
-            class: 'verdel-index--columns'
-          -%}
-        </nav>
+      <nav aria-label="{{ section.settings.goals_label | escape }}">
+        <h2 class="verdel-label">{{ section.settings.goals_label | escape }}</h2>
+        {%- render 'verdel-collection-index',
+          collections: section.settings.goals,
+          all_collection: section.settings.formulas,
+          all_label: section.settings.all_label,
+          class: 'verdel-index--columns'
+        -%}
+      </nav>
 
-        <nav aria-label="{{ section.settings.help_label | escape }}">
-          <h2 class="verdel-label">{{ section.settings.help_label | escape }}</h2>
-          <ul class="verdel-footer__list" role="list">
-            {%- if shop.customer_accounts_enabled -%}
-              <li><a href="{{ routes.account_url }}">Your account</a></li>
-            {%- endif -%}
-            <li><a href="{{ routes.search_url }}">Search</a></li>
-            {%- if pages['contact'].url != blank -%}
-              <li><a href="{{ pages['contact'].url }}">Contact</a></li>
-            {%- endif -%}
-          </ul>
-        </nav>
-      </div>
+      <nav aria-label="{{ section.settings.quick_links_label | escape }}">
+        <h2 class="verdel-label">{{ section.settings.quick_links_label | escape }}</h2>
+        <ul class="verdel-index" role="list">
+          <li><a href="/pages/subscription"><span class="verdel-index__name">Subscription</span></a></li>
+          <li><a href="{{ routes.root_url }}#faq"><span class="verdel-index__name">FAQ</span></a></li>
+          {%- if pages['contact'].url != blank -%}
+            <li><a href="{{ pages['contact'].url }}"><span class="verdel-index__name">Contact</span></a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
     </div>
 
     <div class="verdel-footer__bottom">
@@ -80,13 +77,20 @@
         {{ section.settings.demo_note | escape }}
       </p>
 
-      {%- if shop.policies.size > 0 -%}
-        <ul class="verdel-footer__policies" role="list">
-          {%- for policy in shop.policies -%}
-            <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
+      <ul class="verdel-footer__policies" role="list">
+        {%- if shop.terms_of_service -%}
+          <li><a href="{{ shop.terms_of_service.url }}">Terms of use</a></li>
+        {%- endif -%}
+        {%- if shop.shipping_policy -%}
+          <li><a href="{{ shop.shipping_policy.url }}">Shipping policy</a></li>
+        {%- endif -%}
+        {%- if shop.refund_policy -%}
+          <li><a href="{{ shop.refund_policy.url }}">Refund policy</a></li>
+        {%- endif -%}
+        {%- if shop.privacy_policy -%}
+          <li><a href="{{ shop.privacy_policy.url }}">Privacy policy</a></li>
+        {%- endif -%}
+      </ul>
 
       {%- if shop.enabled_payment_types.size > 0 -%}
         <ul class="verdel-footer__payment" role="list">
@@ -117,10 +121,10 @@
     { "type": "text", "id": "signup_field_label", "label": "Signup field label", "default": "Email" },
     { "type": "text", "id": "signup_button", "label": "Signup button", "default": "Sign up" },
     { "type": "collection", "id": "formulas", "label": "Formulas collection" },
-    { "type": "text", "id": "all_label", "label": "All products label", "default": "Shop all formulas" },
+    { "type": "text", "id": "all_label", "label": "All products label", "default": "Shop all" },
     { "type": "collection_list", "id": "goals", "label": "Shop collections", "limit": 10 },
     { "type": "text", "id": "goals_label", "label": "Shop label", "default": "Shop" },
-    { "type": "text", "id": "help_label", "label": "Help label", "default": "Help" },
+    { "type": "text", "id": "quick_links_label", "label": "Quick links label", "default": "Quick links" },
     { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-4" }
   ],
   "presets": [{ "name": "Verdel footer" }]

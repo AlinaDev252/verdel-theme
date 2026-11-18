@@ -14,16 +14,20 @@
 
 .verdel-footer .verdel-label {
   margin: 0 0 1.2rem;
+  line-height: 1.5;
 }
 
 .verdel-footer__top {
   display: grid;
-  gap: 5.6rem;
+  gap: 4rem;
 }
 
 .verdel-footer__statement {
   margin: 0;
-  max-width: 12ch;
+  padding-block-start: 1.6rem;
+  border-block-start: 0.4rem solid rgb(var(--color-foreground));
+  font-size: 2.8rem;
+  text-wrap: balance;
 }
 
 .verdel-signup {
@@ -130,27 +134,15 @@
   }
 }
 
-.verdel-footer__nav {
-  display: grid;
-  gap: 4rem;
-}
-
 .verdel-footer .verdel-index a:hover {
   text-decoration: none;
 }
 
-.verdel-footer__list,
 .verdel-footer__policies,
 .verdel-footer__payment {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.verdel-footer__list a {
-  display: flex;
-  align-items: center;
-  min-height: 4.4rem;
 }
 
 .verdel-footer__bottom {
@@ -231,9 +223,13 @@
     flex-grow: 0;
   }
 
-  .verdel-footer__nav {
+  .verdel-footer__top {
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     gap: 4.8rem;
+  }
+
+  .verdel-footer__brand {
+    grid-column: 1 / -1;
   }
 
   .verdel-footer__payment {
@@ -247,7 +243,19 @@
   }
 
   .verdel-footer__top {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: 8rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4.8rem;
+  }
+
+  .verdel-footer__brand {
+    grid-column: auto;
+  }
+
+  .verdel-footer .verdel-index--columns {
+    column-gap: 1.6rem;
+  }
+
+  .verdel-footer .verdel-index--columns a {
+    gap: 0.8rem;
   }
 }
