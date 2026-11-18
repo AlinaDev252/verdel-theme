@@ -1,21 +1,21 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero": {
+      "type": "rich-text",
       "blocks": {
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Browse our latest products",
+            "heading": "Read the label. We did.",
             "heading_size": "h0"
           }
         },
         "button": {
-          "type": "buttons",
+          "type": "button",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
+            "button_label": "See what's inside",
+            "button_link": "shopify://collections/all-formulas",
+            "button_style_secondary": false,
             "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false
@@ -27,49 +27,192 @@
         "button"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
+        "desktop_content_position": "left",
+        "content_alignment": "left",
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "full_width": true,
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     },
-    "featured_collection": {
+    "goals": {
+      "type": "collection-list",
+      "blocks": {
+        "sleep": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "sleep"
+          }
+        },
+        "focus": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "focus"
+          }
+        },
+        "gut": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gut"
+          }
+        },
+        "energy": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "energy"
+          }
+        }
+      },
+      "block_order": [
+        "sleep",
+        "focus",
+        "gut",
+        "energy"
+      ],
+      "settings": {
+        "title": "Start with what you're after",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "range": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
+        "title": "Everything we make",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "collection": "all-formulas",
+        "products_to_show": 6,
+        "columns_desktop": 3,
+        "color_scheme": "scheme-2",
         "full_width": false,
-        "show_view_all": true,
+        "show_view_all": false,
         "view_all_style": "solid",
         "enable_desktop_slider": false,
         "swipe_on_mobile": false,
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
-        "show_secondary_image": true,
+        "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "ingredients": {
+      "type": "verdel-ingredients",
+      "settings": {
+        "source": "pick",
+        "ingredients": [
+          "magnesium-glycinate",
+          "lions-mane",
+          "spirulina",
+          "vitamin-d3"
+        ],
+        "eyebrow": "Per serving",
+        "heading": "What's inside",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "step_1": {
+          "type": "column",
+          "settings": {
+            "title": "Pick a formula",
+            "text": "<p>Turn on refills and save 15%.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "step_2": {
+          "type": "column",
+          "settings": {
+            "title": "Forget about it",
+            "text": "<p>A new bottle lands every 30 days.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "step_3": {
+          "type": "column",
+          "settings": {
+            "title": "Stop whenever",
+            "text": "<p>Pause or cancel from your account.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "title": "Refills, without the admin",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-3",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Only when there's news",
+            "heading_size": "h2"
+          }
+        },
+        "form": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "form"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero",
+    "goals",
+    "range",
+    "ingredients",
+    "steps",
+    "newsletter"
   ]
 }

@@ -71,3 +71,8 @@ a,
     transition: none;
   }
 }
+
+.multicolumn.background-none .multicolumn-list .multicolumn-card__info {
+  padding-left: 0;
+  padding-right: 0;
+}
