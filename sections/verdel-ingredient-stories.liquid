@@ -1,0 +1,73 @@
+{{ 'section-verdel-ingredient-stories.css' | asset_url | stylesheet_tag }}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width verdel-stories">
+    <div class="verdel-stories__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="verdel-label">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 class="h1">{{ section.settings.heading | escape }}</h2>
+    </div>
+
+    <ul class="verdel-stories__list" role="list">
+      {%- for block in section.blocks -%}
+        {%- assign item = block.settings.product -%}
+        <li class="verdel-stories__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <div class="verdel-stories__media">
+              {{
+                block.settings.image
+                | image_url: width: 1400
+                | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.image.alt,
+                  widths: '500, 800, 1100, 1400',
+                  sizes: '(min-width: 990px) 50vw, 100vw'
+              }}
+            </div>
+          {%- endif -%}
+          <p class="verdel-label">{{ block.settings.ingredient | escape }}</p>
+          <h3 class="h3">{{ block.settings.title | escape }}</h3>
+          <p class="verdel-stories__text">{{ block.settings.text | escape }}</p>
+          {%- if item != blank -%}
+            <a class="verdel-stories__link" href="{{ item.url }}">
+              <span>{{ item.title | escape }}</span>
+              <span class="verdel-index__count">
+                {%- if item.price_varies %}from {% endif -%}
+                {{- item.price | money_without_trailing_zeros -}}
+              </span>
+            </a>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Verdel ingredient stories",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Meet what's on the label" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-2" }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "ingredient", "label": "Ingredient and amount", "default": "Ingredient, amount" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Why it's in the formula" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "product", "id": "product", "label": "Product" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Verdel ingredient stories", "blocks": [{ "type": "story" }, { "type": "story" }, { "type": "story" }] }]
+}
+{% endschema %}

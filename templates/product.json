@@ -126,12 +126,57 @@
     "reviews": {
       "type": "verdel-reviews",
       "settings": {}
+    },
+    "faq": {
+      "type": "verdel-faq",
+      "blocks": {
+        "q-sub": {
+          "type": "question",
+          "settings": {
+            "question": "How does Subscribe & Save work?",
+            "answer": "<p>Choose it on any formula and you pay 15% less on every delivery. A new order ships every 30 days, and shipping is free.</p>"
+          }
+        },
+        "q-cancel": {
+          "type": "question",
+          "settings": {
+            "question": "Can I pause or cancel?",
+            "answer": "<p>Yes, any time from your account. Do it before your next order ships and nothing more is charged.</p>"
+          }
+        },
+        "q-ret": {
+          "type": "question",
+          "settings": {
+            "question": "What if it isn't for me?",
+            "answer": "<p>Send it back within 60 days for a refund, even if the bottle is empty.</p>"
+          }
+        },
+        "q-dr": {
+          "type": "question",
+          "settings": {
+            "question": "Can I take this with medication?",
+            "answer": "<p>Check with your doctor first, and do the same if you're pregnant, breastfeeding or managing a health condition. Bring the label: every amount is on it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-sub",
+        "q-cancel",
+        "q-ret",
+        "q-dr"
+      ],
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Before you order.",
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
     "main",
     "ingredients",
     "reviews",
+    "faq",
     "disclosures",
     "related-products"
   ]

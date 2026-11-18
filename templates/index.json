@@ -183,14 +183,158 @@
         "padding_bottom": 64
       },
       "disabled": true
+    },
+    "story": {
+      "type": "verdel-editorial",
+      "settings": {
+        "image_side": "left",
+        "eyebrow": "Where it starts",
+        "heading": "We start with the plant, then stop adding things.",
+        "text": "Every formula is built from a short list of plant-based ingredients. If something doesn't do a job, it stays out. Whatever goes in gets its amount printed on the label.",
+        "link_label": "Shop all formulas",
+        "link_url": "shopify://collections/all-formulas",
+        "color_scheme": "scheme-1"
+      },
+      "disabled": true
+    },
+    "stories": {
+      "type": "verdel-ingredient-stories",
+      "blocks": {
+        "kelp": {
+          "type": "story",
+          "settings": {
+            "ingredient": "Kelp iodine, 150 mcg",
+            "title": "From seaweed, measured each batch.",
+            "text": "Plant-based diets often run short on iodine. Kelp varies a lot, so each lot is measured before it goes in.",
+            "product": "no-12-daily-multi"
+          }
+        },
+        "cherry": {
+          "type": "story",
+          "settings": {
+            "ingredient": "Acerola cherry, 500 mg",
+            "title": "A small cherry with a lot of vitamin C.",
+            "text": "We use the whole fruit powder, not an isolated acid.",
+            "product": "no-08-skin"
+          }
+        },
+        "mane": {
+          "type": "story",
+          "settings": {
+            "ingredient": "Lion's mane, 500 mg",
+            "title": "A mushroom, minus the mushroom taste.",
+            "text": "Made from the whole fruiting body, not the grain it grew on. Dried, extracted and sealed in a capsule so you never taste it.",
+            "product": "no-02-focus"
+          }
+        }
+      },
+      "block_order": [
+        "kelp",
+        "cherry",
+        "mane"
+      ],
+      "settings": {
+        "eyebrow": "On the label",
+        "heading": "Meet what's in the bottle.",
+        "color_scheme": "scheme-2"
+      },
+      "disabled": true
+    },
+    "routine": {
+      "type": "verdel-editorial",
+      "settings": {
+        "image_side": "right",
+        "eyebrow": "Daily routine",
+        "heading": "Goes with the coffee you already make.",
+        "text": "No. 02 Focus is two capsules with your first cup. Most Verdel formulas attach to something you do anyway, so there's no new habit to keep up.",
+        "link_label": "Shop No. 02 Focus",
+        "link_url": "shopify://products/no-02-focus",
+        "color_scheme": "scheme-2"
+      },
+      "disabled": true
+    },
+    "faq": {
+      "type": "verdel-faq",
+      "blocks": {
+        "q-sub": {
+          "type": "question",
+          "settings": {
+            "question": "How does Subscribe & Save work?",
+            "answer": "<p>Choose it on any formula and you pay 15% less on every delivery. A new order ships every 30 days, and shipping is free.</p>"
+          }
+        },
+        "q-cancel": {
+          "type": "question",
+          "settings": {
+            "question": "Can I pause or cancel?",
+            "answer": "<p>Yes, any time from your account. Do it before your next order ships and nothing more is charged.</p>"
+          }
+        },
+        "q-ship": {
+          "type": "question",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Most orders arrive in 3 to 5 business days. Shipping is free over $50.</p>"
+          }
+        },
+        "q-ret": {
+          "type": "question",
+          "settings": {
+            "question": "What if it isn't for me?",
+            "answer": "<p>Send it back within 60 days for a refund, even if the bottle is empty.</p>"
+          }
+        },
+        "q-plant": {
+          "type": "question",
+          "settings": {
+            "question": "Is everything plant-based?",
+            "answer": "<p>Yes. That includes the ingredients that usually aren't: our vitamin D3 comes from lichen and our omega-3 comes from algae.</p>"
+          }
+        },
+        "q-lab": {
+          "type": "question",
+          "settings": {
+            "question": "Who tests the formulas?",
+            "answer": "<p>An outside lab tests every batch before it ships.</p>"
+          }
+        },
+        "q-dr": {
+          "type": "question",
+          "settings": {
+            "question": "Can I take this with medication?",
+            "answer": "<p>Check with your doctor first, and do the same if you're pregnant, breastfeeding or managing a health condition. Bring the label: every amount is on it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-sub",
+        "q-cancel",
+        "q-ship",
+        "q-ret",
+        "q-plant",
+        "q-lab",
+        "q-dr"
+      ],
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Questions, answered.",
+        "text": "Still unsure about something?",
+        "link_label": "Contact us",
+        "link_url": "/pages/contact",
+        "color_scheme": "scheme-1"
+      }
     }
   },
   "order": [
     "hero",
     "goals",
     "range",
+    "story",
+    "stories",
     "ingredients",
+    "routine",
     "steps",
+    "faq",
     "newsletter"
   ]
 }
