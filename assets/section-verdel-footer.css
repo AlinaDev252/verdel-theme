@@ -138,6 +138,10 @@
   text-decoration: none;
 }
 
+.verdel-footer .verdel-index__count {
+  display: none;
+}
+
 .verdel-footer__policies,
 .verdel-footer__payment {
   margin: 0;
@@ -255,7 +259,7 @@
     column-gap: 1.6rem;
   }
 
-  .verdel-footer .verdel-index--columns a {
-    gap: 0.8rem;
+  .verdel-footer .verdel-index a {
+    font-size: 1.4rem;
   }
 }
