@@ -10,6 +10,8 @@
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+{{ 'component-verdel-bag.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'verdel-bag.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .drawer {
@@ -62,7 +64,10 @@
         </div>
       {%- endif -%}
       <div class="drawer__header">
-        <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
+        <h2 class="drawer__heading">
+          Your bag
+          <span class="verdel-bag__count">({{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }})</span>
+        </h2>
         <button
           class="drawer__close"
           type="button"
@@ -473,11 +478,15 @@
                             </div>
                           </quantity-popover>
                         </td>
+                        <td class="cart-item__subscribe" role="cell">
+                          {%- render 'verdel-bag-subscribe', item: item -%}
+                        </td>
                       </tr>
                     {%- endfor -%}
                   </tbody>
                 </table>
               </div>
+              {%- render 'verdel-bag-picks' -%}
             {%- endif -%}
             <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
             <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
@@ -585,8 +594,10 @@
               disabled
             {% endif %}
           >
-            {{ 'sections.cart.checkout' | t }}
+            {{- 'icon-lock.svg' | inline_asset_content -}}
+            <span>Secure checkout</span>
           </button>
+          <p class="verdel-bag__trust">Free shipping over $50. 60-day returns.</p>
         </div>
       </div>
     </div>

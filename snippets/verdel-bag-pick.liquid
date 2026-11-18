@@ -1,0 +1,30 @@
+{% doc %}
+  One suggested product in the bag.
+
+  @param {product} product
+{% enddoc %}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+<li class="verdel-bag-pick">
+  <a class="verdel-bag-pick__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {{ product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '88px' }}
+  </a>
+  <div class="verdel-bag-pick__body">
+    <a class="verdel-bag-pick__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+    {%- unless product.has_only_default_variant -%}
+      <p class="verdel-bag-pick__note">{{ variant.title | escape }}</p>
+    {%- endunless -%}
+    <div class="verdel-bag-pick__buy">
+      <span>{{ variant.price | money }}</span>
+      <button
+        type="button"
+        class="verdel-bag-pick__add"
+        data-verdel-add="{{ variant.id }}"
+        aria-label="Add {{ product.title | escape }} to bag"
+      >
+        {{- 'icon-plus.svg' | inline_asset_content -}}
+        <span>Add</span>
+      </button>
+    </div>
+  </div>
+</li>

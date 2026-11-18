@@ -1,0 +1,56 @@
+{% doc %}
+  Suggestions in the bag: each line's paired product first, then best sellers not already in the bag.
+{% enddoc %}
+
+{%- liquid
+  assign seen = ','
+  for item in cart.items
+    assign seen = seen | append: item.product_id | append: ','
+  endfor
+  assign shown = 0
+-%}
+
+{%- capture picks -%}
+  {%- for item in cart.items -%}
+    {%- assign pair = item.product.metafields.verdel.pair.value -%}
+    {%- assign key = ',' | append: pair.id | append: ',' -%}
+    {%- if pair != blank and pair.available and shown < 4 -%}
+      {%- unless seen contains key -%}
+        {%- render 'verdel-bag-pick', product: pair -%}
+        {%- assign seen = seen | append: pair.id | append: ',' -%}
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- for product in collections['best-sellers'].products -%}
+    {%- assign key = ',' | append: product.id | append: ',' -%}
+    {%- if product.available and shown < 4 -%}
+      {%- unless seen contains key -%}
+        {%- render 'verdel-bag-pick', product: product -%}
+        {%- assign seen = seen | append: product.id | append: ',' -%}
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if shown > 0 -%}
+  <section class="verdel-bag-picks" aria-labelledby="VerdelBagPicks">
+    <div class="verdel-bag-picks__head">
+      <h3 class="h3" id="VerdelBagPicks">Goes well with this</h3>
+      {%- if shown > 1 -%}
+        <div class="verdel-bag-picks__arrows">
+          <button type="button" data-verdel-scroll="-1" aria-label="Previous suggestion">
+            {{- 'icon-arrow.svg' | inline_asset_content -}}
+          </button>
+          <button type="button" data-verdel-scroll="1" aria-label="Next suggestion">
+            {{- 'icon-arrow.svg' | inline_asset_content -}}
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+    <ul class="verdel-bag-picks__track" role="list">
+      {{- picks -}}
+    </ul>
+  </section>
+{%- endif -%}

@@ -1,0 +1,41 @@
+{% doc %}
+  Lets a bag line switch between one-time and the product's first subscription plan.
+
+  @param {object} item
+{% enddoc %}
+
+{%- assign line = item.index | plus: 1 -%}
+{%- assign allocation = item.variant.selling_plan_allocations.first -%}
+{%- unless customer.b2b? -%}
+  {%- if item.selling_plan_allocation -%}
+    <div class="verdel-bag-sub__active">
+      <p>Subscribed. {{ item.selling_plan_allocation.selling_plan.name | escape }}.</p>
+      <button type="button" class="verdel-bag-sub__switch" data-verdel-plan="" data-line="{{ line }}" data-quantity="{{ item.quantity }}">
+        Switch to one-time
+      </button>
+    </div>
+  {%- elsif allocation -%}
+    {%- assign adjustment = allocation.selling_plan.price_adjustments.first -%}
+    <button
+      type="button"
+      class="verdel-bag-sub__button"
+      data-verdel-plan="{{ allocation.selling_plan.id }}"
+      data-line="{{ line }}"
+      data-quantity="{{ item.quantity }}"
+    >
+      <span>Subscribe and save {{ adjustment.value }}%</span>
+      {{- 'icon-arrow.svg' | inline_asset_content -}}
+    </button>
+    <details class="verdel-bag-sub__why">
+      <summary>
+        <span>Why subscribe?</span>
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </summary>
+      <ul role="list">
+        <li>{{ adjustment.value }}% off every delivery</li>
+        <li>Free shipping on every delivery</li>
+        <li>Change, pause or cancel any time</li>
+      </ul>
+    </details>
+  {%- endif -%}
+{%- endunless -%}
