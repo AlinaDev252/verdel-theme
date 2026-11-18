@@ -44,23 +44,15 @@
       </div>
 
       <div class="verdel-footer__nav">
-        {%- if section.settings.formulas != blank -%}
-          <nav class="verdel-footer__formulas" aria-label="{{ section.settings.formulas_label | escape }}">
-            <h2 class="verdel-label">{{ section.settings.formulas_label | escape }}</h2>
-            {%- render 'verdel-formula-index', collection: section.settings.formulas, class: 'verdel-index--columns' -%}
-          </nav>
-        {%- endif -%}
-
-        {%- if section.settings.goals != blank -%}
-          <nav aria-label="{{ section.settings.goals_label | escape }}">
-            <h2 class="verdel-label">{{ section.settings.goals_label | escape }}</h2>
-            <ul class="verdel-footer__list" role="list">
-              {%- for goal in section.settings.goals -%}
-                <li><a href="{{ goal.url }}">{{ goal.title | escape }}</a></li>
-              {%- endfor -%}
-            </ul>
-          </nav>
-        {%- endif -%}
+        <nav aria-label="{{ section.settings.goals_label | escape }}">
+          <h2 class="verdel-label">{{ section.settings.goals_label | escape }}</h2>
+          {%- render 'verdel-collection-index',
+            collections: section.settings.goals,
+            all_collection: section.settings.formulas,
+            all_label: section.settings.all_label,
+            class: 'verdel-index--columns'
+          -%}
+        </nav>
 
         <nav aria-label="{{ section.settings.help_label | escape }}">
           <h2 class="verdel-label">{{ section.settings.help_label | escape }}</h2>
@@ -115,9 +107,9 @@
     { "type": "text", "id": "signup_field_label", "label": "Signup field label", "default": "Email" },
     { "type": "text", "id": "signup_button", "label": "Signup button", "default": "Sign up" },
     { "type": "collection", "id": "formulas", "label": "Formulas collection" },
-    { "type": "text", "id": "formulas_label", "label": "Formulas label", "default": "Formulas" },
-    { "type": "collection_list", "id": "goals", "label": "Goal collections", "limit": 6 },
-    { "type": "text", "id": "goals_label", "label": "Goals label", "default": "By goal" },
+    { "type": "text", "id": "all_label", "label": "All products label", "default": "Shop all formulas" },
+    { "type": "collection_list", "id": "goals", "label": "Shop collections", "limit": 10 },
+    { "type": "text", "id": "goals_label", "label": "Shop label", "default": "Shop" },
     { "type": "text", "id": "help_label", "label": "Help label", "default": "Help" },
     { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-4" }
   ],

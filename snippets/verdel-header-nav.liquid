@@ -1,9 +1,11 @@
 {% doc %}
-  Desktop navigation: formula panel plus one-click goal links.
+  Desktop navigation: a shop panel organised by collection, plus optional direct collection links.
 {% enddoc %}
 
+<script src="{{ 'verdel-shop-panel.js' | asset_url }}" defer="defer"></script>
+
 {%- assign shop_collection = section.settings.shop_collection -%}
-{%- assign featured = section.settings.shop_featured -%}
+{%- assign panel_active = false -%}
 <nav class="header__inline-menu verdel-nav" aria-label="{{ section.settings.nav_label | escape }}">
   <ul class="list-menu list-menu--inline" role="list">
     <li>
@@ -14,58 +16,104 @@
             {{- 'icon-caret.svg' | inline_asset_content -}}
           </summary>
           <div id="HeaderMenu-shop-panel" class="header__submenu verdel-nav-panel color-{{ section.settings.menu_color_scheme }} gradient" tabindex="-1">
-            <div class="page-width verdel-nav-panel__inner">
-              <div>
-                <div class="verdel-nav-panel__heading">
-                  <p class="verdel-label">{{ section.settings.formulas_label | escape }}</p>
-                  <a href="{{ shop_collection.url }}">{{ section.settings.cta_label | escape }}</a>
-                </div>
-                {%- render 'verdel-formula-index', collection: shop_collection, class: 'verdel-index--columns' -%}
-              </div>
-
-              {%- if featured != blank -%}
-                {%- liquid
-                  assign rating = featured.metafields.reviews.rating.value
-                  assign count = featured.metafields.reviews.rating_count.value
-                  assign allocation = featured.selected_or_first_available_variant.selling_plan_allocations.first
-                -%}
-                <div class="verdel-nav-feature">
-                  {%- if featured.featured_image != blank -%}
-                    {{
-                      featured.featured_image
-                      | image_url: width: 640
-                      | image_tag: loading: 'lazy', alt: '', widths: '320, 640', sizes: '320px', class: 'verdel-nav-feature__image'
-                    }}
+            <verdel-shop-panel class="page-width verdel-shop">
+              <ul
+                class="verdel-shop__list"
+                role="list"
+                style="--verdel-rows: {{ section.settings.shop_goals.size | plus: 1 }};"
+              >
+                {%- for group in section.settings.shop_goals -%}
+                  {%- if group.products_count > 0 -%}
+                    {%- assign is_active = false -%}
+                    {%- unless panel_active -%}
+                      {%- assign is_active = true -%}
+                      {%- assign panel_active = true -%}
+                    {%- endunless -%}
+                    <li>
+                      <button
+                        type="button"
+                        id="VerdelShopTab-{{ group.id }}"
+                        class="verdel-shop__tab"
+                        aria-expanded="{{ is_active }}"
+                        aria-controls="VerdelShopPane-{{ group.id }}"
+                      >
+                        <span>{{ group.title | escape }}</span>
+                        <span class="verdel-index__count">{{ group.products_count }}</span>
+                      </button>
+                      <div
+                        id="VerdelShopPane-{{ group.id }}"
+                        class="verdel-shop__pane"
+                        role="group"
+                        aria-labelledby="VerdelShopTab-{{ group.id }}"
+                        {% unless is_active %}
+                          hidden
+                        {% endunless %}
+                      >
+                        <div class="verdel-shop__heading">
+                          <p class="h3">{{ group.title | escape }}</p>
+                          <a href="{{ group.url }}" aria-label="View all {{ group.products_count }} in {{ group.title | escape }}">
+                            View all {{ group.products_count }}
+                          </a>
+                        </div>
+                        <ul class="verdel-shop__products" role="list">
+                          {%- for item in group.products limit: 4 -%}
+                            {%- assign rating = item.metafields.reviews.rating.value -%}
+                            <li>
+                              <a class="verdel-shop__card" href="{{ item.url }}">
+                                <span class="verdel-shop__media">
+                                  {%- if item.featured_image != blank -%}
+                                    {{
+                                      item.featured_image
+                                      | image_url: width: 400
+                                      | image_tag: loading: 'lazy', alt: '', widths: '200, 400', sizes: '200px'
+                                    }}
+                                  {%- elsif item.title contains 'No. ' -%}
+                                    <span class="verdel-shop__placeholder" aria-hidden="true">{{ item.title | slice: 0, 6 | escape }}</span>
+                                  {%- endif -%}
+                                </span>
+                                <span class="verdel-shop__title">{{ item.title | escape }}</span>
+                                <span class="verdel-shop__meta">
+                                  {%- if item.price_varies %}from {% endif -%}
+                                  {{- item.price | money_without_trailing_zeros -}}
+                                </span>
+                                {%- if rating != blank -%}
+                                  <span class="verdel-shop__meta">
+                                    <span aria-hidden="true">★</span>
+                                    {{ rating.rating }}
+                                    <span class="visually-hidden">out of {{ rating.scale_max | round }},</span>
+                                    ({{ item.metafields.reviews.rating_count.value }}<span class="visually-hidden"> reviews</span>)
+                                  </span>
+                                {%- endif -%}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    </li>
                   {%- endif -%}
-                  <p class="verdel-label">{{ section.settings.featured_label | escape }}</p>
-                  <p class="h3 verdel-nav-feature__title">{{ featured.title | escape }}</p>
-                  {%- if rating != blank -%}
-                    <p class="verdel-nav-feature__meta">{{ rating.rating }} out of {{ rating.scale_max | round }}, {{ count }} reviews</p>
-                  {%- endif -%}
-                  <p class="verdel-nav-feature__meta">
-                    {{ featured.price | money_without_trailing_zeros }}
-                    {% if allocation %}
-                      or {{ allocation.price | money_without_trailing_zeros }} with Subscribe &amp; Save
-                    {% endif %}
-                  </p>
-                  <a class="button button--full-width" href="{{ featured.url }}">Shop {{ featured.title | escape }}</a>
-                </div>
-              {%- endif -%}
-            </div>
+                {%- endfor -%}
+                <li class="verdel-shop__all">
+                  <a href="{{ shop_collection.url }}">
+                    <span>{{ section.settings.cta_label | escape }}</span>
+                    <span class="verdel-index__count">{{ shop_collection.products_count }}</span>
+                  </a>
+                </li>
+              </ul>
+            </verdel-shop-panel>
           </div>
         </details>
       </header-menu>
     </li>
-    {%- for goal in section.settings.shop_goals -%}
+    {%- for link in section.settings.shop_bar_links -%}
       <li>
         <a
-          href="{{ goal.url }}"
+          href="{{ link.url }}"
           class="header__menu-item list-menu__item link link--text focus-inset"
-          {% if goal.url == request.path %}
+          {% if link.url == request.path %}
             aria-current="page"
           {% endif %}
         >
-          <span{% if goal.url == request.path %} class="header__active-menu-item"{% endif %}>{{ goal.title | escape }}</span>
+          <span{% if link.url == request.path %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
         </a>
       </li>
     {%- endfor -%}

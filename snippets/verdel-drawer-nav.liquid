@@ -1,20 +1,12 @@
 {% doc %}
-  Mobile drawer links built from the header's goal and formula collections.
+  Mobile drawer links built from the header's shop collections.
 {% enddoc %}
 
-{%- if section.settings.shop_goals != blank -%}
-  <li class="verdel-drawer-group">
-    <p class="verdel-label">{{ section.settings.goals_label | escape }}</p>
-    <ul class="verdel-drawer-goals" role="list">
-      {%- for goal in section.settings.shop_goals -%}
-        <li>
-          <a href="{{ goal.url }}"{% if goal.url == request.path %} aria-current="page"{% endif %}>{{ goal.title | escape }}</a>
-        </li>
-      {%- endfor -%}
-    </ul>
-  </li>
-{%- endif -%}
 <li class="verdel-drawer-group">
-  <p class="verdel-label">{{ section.settings.formulas_label | escape }}</p>
-  {%- render 'verdel-formula-index', collection: section.settings.shop_collection -%}
+  <p class="verdel-label">{{ section.settings.nav_label | escape }}</p>
+  {%- render 'verdel-collection-index',
+    collections: section.settings.shop_goals,
+    all_collection: section.settings.shop_collection,
+    all_label: section.settings.cta_label
+  -%}
 </li>

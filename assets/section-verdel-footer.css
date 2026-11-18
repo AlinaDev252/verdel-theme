@@ -90,12 +90,7 @@
 
 .verdel-footer__nav {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4rem 2.4rem;
-}
-
-.verdel-footer__formulas {
-  grid-column: 1 / -1;
+  gap: 4rem;
 }
 
 .verdel-footer .verdel-index a:hover {
@@ -159,24 +154,17 @@
 }
 
 @media screen and (max-width: 749px) {
-  .verdel-footer .verdel-index {
-    column-gap: 1.6rem;
-  }
-
-  .verdel-footer .verdel-index a {
-    grid-template-columns: 1fr;
-    gap: 0;
-    min-height: 6.4rem;
-    align-content: center;
-    padding-block: 0.8rem;
-  }
-
-  .verdel-footer .verdel-index__price {
-    display: none;
+  .verdel-footer .verdel-index--columns {
+    column-count: 1;
   }
 }
 
 @media screen and (min-width: 750px) {
+  .verdel-footer__nav {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 4.8rem;
+  }
+
   .verdel-footer__payment {
     margin-inline-start: auto;
   }

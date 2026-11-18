@@ -1,0 +1,29 @@
+{% doc %}
+  Collection list with product counts, shared by the mobile drawer and footer.
+
+  @param {collection[]} collections
+  @param {collection} [all_collection]
+  @param {string} [all_label]
+  @param {string} [class]
+{% enddoc %}
+
+<ul class="verdel-index{% if class != blank %} {{ class }}{% endif %}" role="list">
+  {%- for item in collections -%}
+    {%- if item.products_count > 0 -%}
+      <li>
+        <a href="{{ item.url }}"{% if item.url == request.path %} aria-current="page"{% endif %}>
+          <span class="verdel-index__name">{{ item.title | escape }}</span>
+          <span class="verdel-index__count">{{ item.products_count }}</span>
+        </a>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if all_collection != blank -%}
+    <li>
+      <a class="verdel-index__all" href="{{ all_collection.url }}"{% if all_collection.url == request.path %} aria-current="page"{% endif %}>
+        <span class="verdel-index__name">{{ all_label | escape }}</span>
+        <span class="verdel-index__count">{{ all_collection.products_count }}</span>
+      </a>
+    </li>
+  {%- endif -%}
+</ul>
