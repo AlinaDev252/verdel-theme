@@ -7,7 +7,13 @@
   <ul class="list-menu" role="list">
     {%- for item in section.settings.shop_collection.products -%}
       <li>
-        <a href="{{ item.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset verdel-drawer-link">
+        <a
+          href="{{ item.url }}"
+          class="menu-drawer__menu-item link link--text list-menu__item focus-inset verdel-drawer-link"
+          {% if item.id == product.id %}
+            aria-current="page"
+          {% endif %}
+        >
           <span>{{ item.title | escape }}</span>
           <span class="verdel-nav-list__price">{{ item.price | money_without_trailing_zeros }}</span>
         </a>
@@ -21,7 +27,13 @@
     <ul class="list-menu" role="list">
       {%- for goal in section.settings.shop_goals -%}
         <li>
-          <a href="{{ goal.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
+          <a
+            href="{{ goal.url }}"
+            class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+            {% if goal.url == request.path %}
+              aria-current="page"
+            {% endif %}
+          >
             {{ goal.title | escape }}
           </a>
         </li>

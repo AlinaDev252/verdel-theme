@@ -11,13 +11,13 @@
             <span>{{ section.settings.nav_label | escape }}</span>
             {{- 'icon-caret.svg' | inline_asset_content -}}
           </summary>
-          <div class="header__submenu verdel-nav-panel color-{{ section.settings.menu_color_scheme }} gradient" tabindex="-1">
+          <div id="HeaderMenu-shop-panel" class="header__submenu verdel-nav-panel color-{{ section.settings.menu_color_scheme }} gradient" tabindex="-1">
             <div>
               <p class="verdel-label">{{ section.settings.formulas_label | escape }}</p>
               <ul class="verdel-nav-list" role="list">
                 {%- for item in section.settings.shop_collection.products -%}
                   <li>
-                    <a href="{{ item.url }}">
+                    <a href="{{ item.url }}"{% if item.id == product.id %} aria-current="page"{% endif %}>
                       <span class="verdel-nav-list__name">{{ item.title | escape }}</span>
                       <span class="verdel-nav-list__price">{{ item.price | money_without_trailing_zeros }}</span>
                     </a>
@@ -31,11 +31,11 @@
                 <ul class="verdel-nav-list" role="list">
                   {%- for goal in section.settings.shop_goals -%}
                     <li>
-                      <a href="{{ goal.url }}"><span class="verdel-nav-list__name">{{ goal.title | escape }}</span></a>
+                      <a href="{{ goal.url }}"{% if goal.url == request.path %} aria-current="page"{% endif %}><span class="verdel-nav-list__name">{{ goal.title | escape }}</span></a>
                     </li>
                   {%- endfor -%}
                   <li>
-                    <a href="{{ section.settings.shop_collection.url }}">
+                    <a href="{{ section.settings.shop_collection.url }}"{% if section.settings.shop_collection.url == request.path %} aria-current="page"{% endif %}>
                       <span class="verdel-nav-list__name">{{ section.settings.shop_collection.title | escape }}</span>
                     </a>
                   </li>

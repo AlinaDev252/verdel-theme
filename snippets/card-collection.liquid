@@ -70,7 +70,9 @@
               alt="{{ card_collection.featured_image.alt | escape }}"
               height="{{ card_collection.featured_image.height }}"
               width="{{ card_collection.featured_image.width }}"
-              loading="lazy"
+              {% unless lazy_load == false %}
+                loading="lazy"
+              {% endunless %}
               class="motion-reduce"
             >
           </div>

@@ -149,8 +149,15 @@ a,
 }
 
 .verdel-facts a {
+  position: relative;
   color: inherit;
   text-underline-offset: 0.3rem;
+}
+
+.verdel-facts a::after {
+  content: '';
+  position: absolute;
+  inset: -1.4rem 0;
 }
 
 #verdel-ingredients {
@@ -159,4 +166,41 @@ a,
 
 .drawer {
   width: 100%;
+}
+
+.color-scheme-3,
+.color-scheme-3 .rte {
+  color: rgb(var(--color-foreground));
+}
+
+.header__heading-link,
+.cart__login-paragraph a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 4.4rem;
+}
+
+.header__heading-link .h2 {
+  white-space: nowrap;
+}
+
+.mobile-facets__open-wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 4.4rem;
+}
+
+summary.facets__summary {
+  padding-block: 1.1rem;
+}
+
+.facet-filters__field select.facet-filters__sort {
+  min-height: 4.4rem;
+}
+
+a.facets__reset {
+  display: inline-flex;
+  align-items: center;
+  min-width: 4.4rem;
+  min-height: 4.4rem;
 }
