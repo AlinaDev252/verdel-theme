@@ -47,7 +47,7 @@
   <div class="page-width verdel-footer__main">
     <div class="verdel-footer__top">
       <div class="verdel-footer__brand">
-        <p class="verdel-label">{{ shop.name | escape }}</p>
+        <p class="verdel-label verdel-footer__logo">{{ shop.name | escape }}</p>
         {%- if section.settings.statement != blank -%}
           <p class="h1 verdel-footer__statement">{{ section.settings.statement | escape }}</p>
         {%- endif -%}

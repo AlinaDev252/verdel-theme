@@ -25,8 +25,21 @@
   margin: 0 0 1.6rem;
   padding-block-end: 1.2rem;
   border-block-end: 0.4rem solid rgb(var(--color-foreground));
+  display: flex;
+  align-items: flex-end;
+  min-height: 5.8rem;
   font-size: 1.6rem;
   line-height: 1.5;
+}
+
+.verdel-footer .verdel-footer__logo {
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-size: 3.4rem;
+  font-weight: var(--font-heading-weight);
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-transform: none;
 }
 
 .verdel-footer__top {
