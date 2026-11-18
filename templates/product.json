@@ -48,6 +48,10 @@
         "rating": {
           "type": "rating"
         },
+        "picker_link": {
+          "type": "picker_link",
+          "settings": {}
+        },
         "assurance": {
           "type": "assurance",
           "settings": {}
@@ -67,6 +71,7 @@
         "subscribe",
         "quantity_selector",
         "buy_buttons",
+        "picker_link",
         "assurance",
         "pair_with",
         "how_to_take"

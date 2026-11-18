@@ -1,0 +1,15 @@
+{% doc %}
+  Opens the formula picker. Without JavaScript it goes to all formulas.
+
+  @param {string} label
+  @param {string} [attributes]
+{% enddoc %}
+
+<a
+  class="verdel-text-link"
+  href="{{ collections['all-formulas'].url | default: routes.all_products_collection_url }}"
+  data-verdel-picker-open
+  {{ attributes }}
+>
+  {{- label | escape -}}
+</a>

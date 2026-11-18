@@ -27,6 +27,7 @@
       const state = await response.json();
       if (!response.ok) throw new Error(state.description || state.message);
       renderBag(state, sections);
+      document.querySelector('cart-drawer').classList.toggle('is-empty', state.item_count === 0);
       publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: state });
       const drawer = document.querySelector('cart-drawer');
       trapFocus(drawer, drawer.querySelector('.drawer__inner'));
@@ -34,6 +35,14 @@
       button.disabled = false;
       button.removeAttribute('aria-busy');
       errors.textContent = error.message || window.cartStrings.error;
+    }
+
+    const dialog = button.closest('dialog');
+    if (dialog) {
+      dialog.close();
+      const drawer = document.querySelector('cart-drawer');
+      drawer.classList.remove('is-empty');
+      drawer.open(document.activeElement);
     }
   };
 

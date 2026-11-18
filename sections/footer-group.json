@@ -8,7 +8,6 @@
         "statement": "Read the label. We did.",
         "formulas": "all-formulas",
         "goals": [
-          "best-sellers",
           "sleep",
           "focus",
           "gut",
@@ -19,9 +18,24 @@
         ],
         "color_scheme": "scheme-4"
       }
+    },
+    "picker": {
+      "type": "verdel-picker",
+      "settings": {
+        "goals": [
+          "sleep",
+          "focus",
+          "gut",
+          "energy",
+          "daily-essentials",
+          "training",
+          "skin"
+        ]
+      }
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "picker"
   ]
 }

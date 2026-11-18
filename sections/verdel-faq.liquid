@@ -26,9 +26,14 @@
         {%- if section.settings.text != blank -%}
           <p>{{ section.settings.text | escape }}</p>
         {%- endif -%}
-        {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
-          <a class="verdel-text-link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
-        {%- endif -%}
+        <div class="verdel-faq__links">
+          {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+            <a class="verdel-text-link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
+          {%- endif -%}
+          {%- if section.settings.picker_label != blank -%}
+            {% render 'verdel-picker-link', label: section.settings.picker_label %}
+          {%- endif -%}
+        </div>
       </div>
 
       <div class="verdel-faq__list">
@@ -59,6 +64,7 @@
     { "type": "text", "id": "text", "label": "Text" },
     { "type": "text", "id": "link_label", "label": "Link label" },
     { "type": "url", "id": "link_url", "label": "Link" },
+    { "type": "text", "id": "picker_label", "label": "Formula picker link", "default": "Help me choose" },
     { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" }
   ],
   "blocks": [

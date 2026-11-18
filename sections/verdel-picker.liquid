@@ -1,0 +1,62 @@
+{{ 'component-verdel-picker.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'verdel-picker.js' | asset_url }}" defer="defer"></script>
+
+<verdel-picker>
+  <dialog class="verdel-picker color-{{ section.settings.color_scheme }} gradient" aria-labelledby="VerdelPickerHeading">
+    <div class="verdel-picker__panel">
+      <header class="verdel-picker__header">
+        <button type="button" class="verdel-picker__icon" data-verdel-picker-back aria-label="Back to goals" hidden>
+          {{- 'icon-arrow.svg' | inline_asset_content -}}
+        </button>
+        <h2 class="h2 verdel-picker__heading" id="VerdelPickerHeading" tabindex="-1" autofocus>
+          {{- section.settings.heading | escape -}}
+        </h2>
+        <button type="button" class="verdel-picker__icon" data-verdel-picker-close aria-label="Close">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </button>
+      </header>
+
+      <div class="verdel-picker__body">
+        <div data-verdel-picker-goals>
+          <p class="verdel-picker__intro">{{ section.settings.text | escape }}</p>
+          <ul class="verdel-picker__goals" role="list">
+            {%- for goal in section.settings.goals -%}
+              {%- if goal.products_count > 0 -%}
+                <li>
+                  <a href="{{ goal.url }}" data-verdel-picker-goal>
+                    <span class="verdel-picker__goal">{{ goal.title | escape }}</span>
+                    <span class="verdel-picker__count">{{ goal.products_count }} {{ goal.products_count | pluralize: 'formula', 'formulas' }}</span>
+                    {{- 'icon-arrow.svg' | inline_asset_content -}}
+                  </a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div data-verdel-picker-results hidden></div>
+      </div>
+
+      <p class="verdel-picker__note">{{ section.settings.note | escape }}</p>
+    </div>
+  </dialog>
+</verdel-picker>
+
+{% schema %}
+{
+  "name": "Formula picker",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Help me choose" },
+    { "type": "text", "id": "text", "label": "Text", "default": "What are you shopping for?" },
+    { "type": "collection_list", "id": "goals", "label": "Goals", "limit": 8 },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Health note",
+      "default": "We can't give medical advice. If you're pregnant, nursing, take medication or have a health condition, ask your doctor first."
+    },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" }
+  ],
+  "presets": [{ "name": "Formula picker" }]
+}
+{% endschema %}
