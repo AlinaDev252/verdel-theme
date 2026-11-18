@@ -1,0 +1,50 @@
+{% doc %}
+  One formula's label in the homepage hero: real ingredients, amounts and price.
+
+  @param {block} block
+  @param {product} product
+  @param {boolean} active
+{% enddoc %}
+
+{%- liquid
+  assign title_words = product.title | split: ' '
+  assign number = title_words[0] | append: ' ' | append: title_words[1]
+  assign name = product.title | remove_first: number | strip
+  assign variant = product.selected_or_first_available_variant
+  assign ingredients = product.metafields.verdel.ingredients.value
+  assign servings = variant.metafields.verdel.servings.value | default: product.metafields.verdel.servings.value
+-%}
+
+<article
+  class="verdel-hero-label color-{{ block.settings.color_scheme }} gradient"
+  id="HeroLabel-{{ block.id }}"
+  role="tabpanel"
+  aria-labelledby="HeroTab-{{ block.id }}"
+  data-active="{{ active }}"
+>
+  {%- if product != blank -%}
+    <p class="verdel-hero-label__top"><span>{{ shop.name | escape }}</span><span>{{ number | escape }}</span></p>
+    <p class="verdel-hero-label__number">{{ number | escape }}</p>
+    <p class="verdel-hero-label__name">{{ name | escape }}</p>
+    <ul class="verdel-rule-list verdel-hero-label__facts">
+      {%- for ingredient in ingredients limit: 3 -%}
+        <li>
+          <span>{{ ingredient.name.value | escape }}</span>
+          <span class="verdel-rule-list__amount">{{ ingredient.amount.value | escape }}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <div class="verdel-hero-label__buy">
+      <p class="verdel-hero-label__price">
+        <span>{{ variant.price | money_without_trailing_zeros }}</span>
+        {%- if servings > 0 -%}
+          {%- unless customer.b2b? -%}
+            {%- assign per_serving = variant.price | times: 1.0 | divided_by: servings | round -%}
+            <span class="verdel-hero-label__serving">{{ per_serving | money }} a serving</span>
+          {%- endunless -%}
+        {%- endif -%}
+      </p>
+      <a class="button button--primary" href="{{ product.url }}">Shop {{ name | escape }}</a>
+    </div>
+  {%- endif -%}
+</article>

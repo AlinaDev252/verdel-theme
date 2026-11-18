@@ -5,12 +5,49 @@
       "settings": {
         "heading": "Read the label. We did.",
         "text": "Plant-based formulas with every ingredient and every amount printed where you can see it.",
-        "button_label": "See what's inside",
-        "button_link": "shopify://collections/all-formulas",
         "link_label": "Shop by goal",
-        "link_url": "#verdel-goals",
-        "product": "no-05-greens"
-      }
+        "link_url": "#verdel-goals"
+      },
+      "blocks": {
+        "sleep": {
+          "type": "formula",
+          "settings": {
+            "label": "Sleep",
+            "product": "no-01-rest",
+            "color_scheme": "scheme-4"
+          }
+        },
+        "focus": {
+          "type": "formula",
+          "settings": {
+            "label": "Focus",
+            "product": "no-02-focus",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "gut": {
+          "type": "formula",
+          "settings": {
+            "label": "Gut",
+            "product": "no-03-gut",
+            "color_scheme": "scheme-2"
+          }
+        },
+        "energy": {
+          "type": "formula",
+          "settings": {
+            "label": "Energy",
+            "product": "no-04-energy",
+            "color_scheme": "scheme-4"
+          }
+        }
+      },
+      "block_order": [
+        "sleep",
+        "focus",
+        "gut",
+        "energy"
+      ]
     },
     "goals": {
       "type": "collection-list",
@@ -318,6 +355,7 @@
         "q-dr"
       ],
       "settings": {
+        "image": "shopify://shop_images/verdel-mortar.jpg",
         "heading": "Frequently asked questions",
         "link_label": "Ask us anything else",
         "link_url": "/pages/contact",

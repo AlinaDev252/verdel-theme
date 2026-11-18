@@ -1,6 +1,15 @@
 {{ 'section-verdel-hero.css' | asset_url | stylesheet_tag }}
 
-{%- assign image = section.settings.image | default: section.settings.product.featured_image -%}
+<script src="{{ 'verdel-hero-picker.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  @font-face {
+    font-family: 'Verdel Figures';
+    src: url('{{ 'YoungSerif-Regular.ttf' | asset_url }}') format('truetype');
+    font-display: swap;
+    unicode-range: U+30-39;
+  }
+{%- endstyle -%}
 
 <div class="verdel-hero color-{{ section.settings.color_scheme }} gradient">
   {%- unless request.design_mode -%}
@@ -11,41 +20,52 @@
       }
     </script>
   {%- endunless -%}
-  <div class="page-width verdel-hero__inner{% if image != blank %} verdel-hero__inner--image{% endif %}">
+  <verdel-hero-picker class="page-width verdel-hero__inner">
     <div class="verdel-hero__text">
       <h2 class="h0">{{ section.settings.heading | escape }}</h2>
       {%- if section.settings.text != blank -%}
         <p class="verdel-hero__lede">{{ section.settings.text | escape }}</p>
       {%- endif -%}
-      <div class="verdel-hero__actions">
-        {%- if section.settings.button_label != blank -%}
-          <a class="button button--primary" href="{{ section.settings.button_link }}">
-            {{- section.settings.button_label | escape -}}
-          </a>
-        {%- endif -%}
-        {%- if section.settings.link_label != blank -%}
-          <a class="verdel-hero__link" href="{{ section.settings.link_url }}">
-            {{- section.settings.link_label | escape -}}
-          </a>
-        {%- endif -%}
-      </div>
+      {%- if section.blocks.size > 0 -%}
+        <div class="verdel-hero__picker">
+          <p class="verdel-hero__picker-label" id="HeroPicker-{{ section.id }}">
+            {{- section.settings.picker_label | escape -}}
+          </p>
+          <div class="verdel-hero__tabs" role="tablist" aria-labelledby="HeroPicker-{{ section.id }}">
+            {%- for block in section.blocks -%}
+              <button
+                type="button"
+                class="verdel-hero__tab"
+                role="tab"
+                id="HeroTab-{{ block.id }}"
+                aria-controls="HeroLabel-{{ block.id }}"
+                aria-selected="{{ forloop.first }}"
+                {% unless forloop.first %}
+                  tabindex="-1"
+                {% endunless %}
+                {{ block.shopify_attributes }}
+              >
+                {{- block.settings.label | escape -}}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+        <a class="verdel-hero__link" href="{{ section.settings.link_url }}">
+          {{- section.settings.link_label | escape -}}
+        </a>
+      {%- endif -%}
     </div>
 
-    {%- if image != blank -%}
-      <div class="verdel-hero__media">
-        {{
-          image
-          | image_url: width: 1400
-          | image_tag:
-            alt: image.alt,
-            class: 'verdel-hero__image',
-            widths: '500, 750, 1000, 1400',
-            sizes: '(min-width: 990px) 50vw, 100vw',
-            fetchpriority: 'high'
-        }}
+    {%- if section.blocks.size > 0 -%}
+      <div class="verdel-hero__labels">
+        {%- for block in section.blocks -%}
+          {% render 'verdel-hero-label', block: block, product: block.settings.product, active: forloop.first %}
+        {%- endfor -%}
       </div>
     {%- endif -%}
-  </div>
+  </verdel-hero-picker>
 </div>
 
 <div id="verdel-goals" class="verdel-hero__strip color-{{ section.settings.strip_color_scheme }} gradient">
@@ -62,12 +82,9 @@
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Read the label. We did." },
     { "type": "text", "id": "text", "label": "Text" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "See what's inside" },
-    { "type": "url", "id": "button_link", "label": "Button link" },
-    { "type": "text", "id": "link_label", "label": "Second link label" },
-    { "type": "url", "id": "link_url", "label": "Second link" },
-    { "type": "image_picker", "id": "image", "label": "Image" },
-    { "type": "product", "id": "product", "label": "Product", "info": "Its main image is used when no image is set." },
+    { "type": "text", "id": "picker_label", "label": "Picker label", "default": "Read the label for" },
+    { "type": "text", "id": "link_label", "label": "Link label" },
+    { "type": "url", "id": "link_url", "label": "Link" },
     { "type": "select", "id": "assurance_1_icon", "label": "Badge 1 icon", "options": [{ "value": "shipping", "label": "Shipping" }, { "value": "returns", "label": "Returns" }, { "value": "lab", "label": "Lab test" }], "default": "shipping" },
     { "type": "text", "id": "assurance_1", "label": "Badge 1 title", "default": "Free shipping" },
     { "type": "text", "id": "assurance_1_note", "label": "Badge 1 note", "default": "On orders over $50" },
@@ -79,6 +96,18 @@
     { "type": "text", "id": "assurance_3_note", "label": "Badge 3 note", "default": "Every batch, by an outside lab" },
     { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-3" },
     { "type": "color_scheme", "id": "strip_color_scheme", "label": "Trust badges color scheme", "default": "scheme-2" }
+  ],
+  "blocks": [
+    {
+      "type": "formula",
+      "name": "Formula",
+      "limit": 5,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Goal", "default": "Sleep" },
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-4" }
+      ]
+    }
   ],
   "presets": [{ "name": "Verdel hero" }]
 }
