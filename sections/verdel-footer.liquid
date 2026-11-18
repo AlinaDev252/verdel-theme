@@ -1,46 +1,50 @@
 {{ 'section-verdel-footer.css' | asset_url | stylesheet_tag }}
 
 <footer class="verdel-footer color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width">
-    <div class="verdel-signup">
-      <h2 class="h1 verdel-signup__heading">{{ section.settings.signup_heading | escape }}</h2>
-      <p class="verdel-signup__text" id="VerdelFooterHint">{{ section.settings.signup_text | escape }}</p>
-      {%- form 'customer', id: 'VerdelFooterSignup', class: 'verdel-signup__form' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        {%- if form.posted_successfully? -%}
-          <p class="verdel-signup__status" role="status" tabindex="-1" autofocus>You're on the list.</p>
-        {%- else -%}
-          <div class="verdel-signup__row">
-            <div class="verdel-signup__field">
-              <input
-                id="VerdelFooterEmail"
-                type="email"
-                name="contact[email]"
-                value="{{ form.email | escape }}"
-                placeholder=" "
-                autocomplete="email"
-                autocapitalize="none"
-                spellcheck="false"
-                required
-                aria-describedby="VerdelFooterHint{% if form.errors %} VerdelFooterError{% endif %}"
-                {% if form.errors %}
-                  aria-invalid="true" autofocus
-                {% endif %}
-              >
-              <label for="VerdelFooterEmail">{{ section.settings.signup_field_label | escape }}</label>
+  <div class="verdel-signup-band">
+    <div class="page-width">
+      <div class="verdel-signup">
+        <h2 class="h1 verdel-signup__heading">{{ section.settings.signup_heading | escape }}</h2>
+        <p class="verdel-signup__text" id="VerdelFooterHint">{{ section.settings.signup_text | escape }}</p>
+        {%- form 'customer', id: 'VerdelFooterSignup', class: 'verdel-signup__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          {%- if form.posted_successfully? -%}
+            <p class="verdel-signup__status" role="status" tabindex="-1" autofocus>You're on the list.</p>
+          {%- else -%}
+            <div class="verdel-signup__row">
+              <div class="verdel-signup__field">
+                <input
+                  id="VerdelFooterEmail"
+                  type="email"
+                  name="contact[email]"
+                  value="{{ form.email | escape }}"
+                  placeholder=" "
+                  autocomplete="email"
+                  autocapitalize="none"
+                  spellcheck="false"
+                  required
+                  aria-describedby="VerdelFooterHint{% if form.errors %} VerdelFooterError{% endif %}"
+                  {% if form.errors %}
+                    aria-invalid="true" autofocus
+                  {% endif %}
+                >
+                <label for="VerdelFooterEmail">{{ section.settings.signup_field_label | escape }}</label>
+              </div>
+              <button type="submit" class="button">{{ section.settings.signup_button | escape }}</button>
             </div>
-            <button type="submit" class="button">{{ section.settings.signup_button | escape }}</button>
-          </div>
-          {%- if form.errors -%}
-            <p class="verdel-signup__status" id="VerdelFooterError" role="alert">
-              {{ form.errors.translated_fields.email | capitalize }}
-              {{ form.errors.messages.email }}
-            </p>
+            {%- if form.errors -%}
+              <p class="verdel-signup__status" id="VerdelFooterError" role="alert">
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}
+              </p>
+            {%- endif -%}
           {%- endif -%}
-        {%- endif -%}
-      {%- endform -%}
+        {%- endform -%}
+      </div>
     </div>
+  </div>
 
+  <div class="page-width verdel-footer__main">
     <div class="verdel-footer__top">
       <div class="verdel-footer__brand">
         <p class="verdel-label">{{ shop.name | escape }}</p>

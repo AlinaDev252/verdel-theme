@@ -1,5 +1,14 @@
 .verdel-footer {
-  padding-block: 6.4rem 2.4rem;
+  padding-block-end: 2.4rem;
+}
+
+.verdel-signup-band {
+  padding-block: 6.4rem;
+  background: color-mix(in oklch, rgb(var(--color-background)) 90%, white);
+}
+
+.verdel-footer__main {
+  padding-block-start: 6.4rem;
 }
 
 .verdel-footer a {
@@ -34,7 +43,6 @@
 .verdel-signup {
   display: grid;
   justify-items: center;
-  margin-block-end: 7.2rem;
   text-align: center;
 }
 
@@ -250,7 +258,11 @@
 }
 
 @media screen and (min-width: 990px) {
-  .verdel-footer {
+  .verdel-signup-band {
+    padding-block: 8rem;
+  }
+
+  .verdel-footer__main {
     padding-block-start: 8rem;
   }
 
