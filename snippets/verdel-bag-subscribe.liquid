@@ -16,6 +16,12 @@
     </div>
   {%- elsif allocation -%}
     {%- assign adjustment = allocation.selling_plan.price_adjustments.first -%}
+    {%- liquid
+      assign percent_off = 0
+      if adjustment.value_type == 'percentage'
+        assign percent_off = adjustment.value
+      endif
+    -%}
     <button
       type="button"
       class="verdel-bag-sub__button"
@@ -23,7 +29,7 @@
       data-line="{{ line }}"
       data-quantity="{{ item.quantity }}"
     >
-      <span>Subscribe and save {{ adjustment.value }}%</span>
+      <span>{% if percent_off > 0 %}Subscribe and save {{ percent_off }}%{% else %}Subscribe{% endif %}</span>
       {{- 'icon-arrow.svg' | inline_asset_content -}}
     </button>
     <details class="verdel-bag-sub__why">
@@ -32,7 +38,9 @@
         {{- 'icon-caret.svg' | inline_asset_content -}}
       </summary>
       <ul role="list">
-        <li>{{ adjustment.value }}% off every delivery</li>
+        {%- if percent_off > 0 -%}
+          <li>{{ percent_off }}% off every delivery</li>
+        {%- endif -%}
         <li>Free shipping on subscription-only orders</li>
         <li>Change, pause or cancel any time</li>
       </ul>

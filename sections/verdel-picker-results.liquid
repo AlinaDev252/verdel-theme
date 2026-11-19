@@ -1,16 +1,24 @@
 <div data-verdel-picker-list data-title="{{ collection.title | escape }}">
-  <ul class="verdel-picker__list" role="list">
-    {%- for product in collection.products -%}
-      {%- if product.available -%}
+  {%- assign in_stock = collection.products | where: 'available' -%}
+  {%- if in_stock == empty -%}
+    <p class="verdel-picker__empty">
+      Everything for {{ collection.title | downcase | escape }} is sold out right now.
+      <a href="{{ collection.url }}">See the full range</a>
+    </p>
+  {%- else -%}
+    <ul class="verdel-picker__list" role="list">
+      {%- for product in in_stock -%}
         {%- assign variant = product.selected_or_first_available_variant -%}
         {%- assign servings = variant.metafields.verdel.servings.value | default: product.metafields.verdel.servings.value -%}
         <li class="verdel-picker-card">
           <a class="verdel-picker-card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
-            {{
-              product.featured_image
-              | image_url: width: 240
-              | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '96px'
-            }}
+            {%- if product.featured_image != blank -%}
+              {{
+                product.featured_image
+                | image_url: width: 240
+                | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '96px'
+              }}
+            {%- endif -%}
           </a>
           <div class="verdel-picker-card__body">
             <a class="verdel-picker-card__title" href="{{ product.url }}">{{ product.title | escape }}</a>
@@ -45,9 +53,9 @@
             </div>
           </div>
         </li>
-      {%- endif -%}
-    {%- endfor -%}
-  </ul>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
 </div>
 
 {% schema %}

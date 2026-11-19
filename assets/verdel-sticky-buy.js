@@ -24,6 +24,8 @@ if (!customElements.get('verdel-sticky-buy')) {
         if (typeof subscribe === 'function') {
           this.unsubscribe = subscribe(PUB_SUB_EVENTS.variantChange, (event) => this.onVariantChange(event));
         }
+
+        this.syncPlanPrice();
       }
 
       disconnectedCallback() {
@@ -52,6 +54,7 @@ if (!customElements.get('verdel-sticky-buy')) {
       }
 
       toggle(visible) {
+        if (!visible && this.contains(document.activeElement)) this.mainButton.focus();
         this.classList.toggle('is-visible', visible);
         this.inert = !visible;
       }

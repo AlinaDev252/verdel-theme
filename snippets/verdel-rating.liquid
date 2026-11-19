@@ -17,12 +17,18 @@
     endif
     assign count = product.metafields.reviews.rating_count.value
   -%}
-  <a class="verdel-rating" href="#verdel-reviews" {{ block.shopify_attributes }}>
+  {%- liquid
+    assign rating_tag = 'span'
+    if product.metafields.verdel.reviews.value != blank
+      assign rating_tag = 'a'
+    endif
+  -%}
+  <{{ rating_tag }} class="verdel-rating"{% if rating_tag == 'a' %} href="#verdel-reviews"{% endif %} {{ block.shopify_attributes }}>
     <span
       aria-hidden="true"
       class="rating-star"
       style="--rating: {{ rating.rating | floor }}; --rating-max: {{ rating.scale_max }}; --rating-decimal: {{ rating_decimal }};"
     ></span>
     <span>{{ rating.rating }} out of {{ rating.scale_max | round }}, {{ count }} {{ count | pluralize: 'review', 'reviews' }}</span>
-  </a>
+  </{{ rating_tag }}>
 {%- endif -%}

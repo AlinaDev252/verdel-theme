@@ -128,12 +128,12 @@ cart-drawer-items {
 }
 
 .cart-drawer .quantity {
-  width: 11.6rem;
+  width: 12.4rem;
   min-height: 4.4rem;
 }
 
 .cart-drawer .quantity__button {
-  width: 3.8rem;
+  width: 4.4rem;
 }
 
 .cart-drawer .quantity__button .icon {
@@ -516,10 +516,10 @@ cart-drawer-items {
   }
 
   .cart-drawer .quantity {
-    width: 10rem;
+    width: 12.4rem;
   }
 
   .cart-drawer .quantity__button {
-    width: 3.3rem;
+    width: 4.4rem;
   }
 }

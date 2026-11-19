@@ -9,12 +9,14 @@ if (!customElements.get('verdel-picker')) {
         this.results = this.querySelector('[data-verdel-picker-results]');
         this.back = this.querySelector('[data-verdel-picker-back]');
         this.body = this.querySelector('.verdel-picker__body');
+        this.error = this.querySelector('[data-verdel-picker-error]');
         this.defaultHeading = this.heading.textContent;
         this.pages = new Map();
 
         this.onOpenClick = (event) => {
           if (!event.target.closest('[data-verdel-picker-open]')) return;
           event.preventDefault();
+          this.pages.clear();
           this.showGoals();
           this.dialog.showModal();
         };
@@ -41,6 +43,7 @@ if (!customElements.get('verdel-picker')) {
 
       showGoals() {
         this.request = null;
+        this.error.textContent = '';
         this.goals.hidden = false;
         this.results.hidden = true;
         this.back.hidden = true;

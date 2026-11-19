@@ -10,7 +10,12 @@
   const send = async (button, url, payload) => {
     const items = document.querySelector('cart-drawer-items');
     const sections = items.getSectionsToRender();
-    const errors = document.getElementById('CartDrawer-CartErrors');
+    const errors =
+      button.closest('dialog')?.querySelector('[data-verdel-picker-error]') ||
+      document.getElementById('CartDrawer-CartErrors');
+    const focusKey = button.dataset.line
+      ? `[data-line="${button.dataset.line}"]`
+      : button.dataset.verdelAdd && `[data-verdel-add="${button.dataset.verdelAdd}"]`;
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
     errors.textContent = '';
@@ -25,24 +30,23 @@
         }),
       });
       const state = await response.json();
-      if (!response.ok) throw new Error(state.description || state.message);
+      if (!response.ok) throw new Error(state.description);
       renderBag(state, sections);
-      document.querySelector('cart-drawer').classList.toggle('is-empty', state.item_count === 0);
-      publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: state });
       const drawer = document.querySelector('cart-drawer');
-      trapFocus(drawer, drawer.querySelector('.drawer__inner'));
+      drawer.classList.toggle('is-empty', state.item_count === 0);
+      publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: state });
+
+      const dialog = button.closest('dialog');
+      if (dialog) {
+        dialog.close();
+        drawer.open(document.activeElement);
+      } else {
+        trapFocus(drawer, (focusKey && drawer.querySelector(focusKey)) || drawer.querySelector('.drawer__inner'));
+      }
     } catch (error) {
       button.disabled = false;
       button.removeAttribute('aria-busy');
-      errors.textContent = error.message || window.cartStrings.error;
-    }
-
-    const dialog = button.closest('dialog');
-    if (dialog) {
-      dialog.close();
-      const drawer = document.querySelector('cart-drawer');
-      drawer.classList.remove('is-empty');
-      drawer.open(document.activeElement);
+      errors.textContent = (error.name === 'Error' && error.message) || window.cartStrings.error;
     }
   };
 
@@ -61,7 +65,10 @@
       send(add, routes.cart_add_url, { items: [{ id: Number(add.dataset.verdelAdd), quantity: 1 }] });
     } else if (arrow) {
       const track = arrow.closest('.verdel-bag-picks').querySelector('.verdel-bag-picks__track');
-      track.scrollBy({ left: Number(arrow.dataset.verdelScroll) * track.clientWidth * 0.85, behavior: 'smooth' });
+      track.scrollBy({
+        left: Number(arrow.dataset.verdelScroll) * track.clientWidth * 0.85,
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      });
     }
   });
 })();

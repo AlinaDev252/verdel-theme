@@ -16,9 +16,11 @@
   text-decoration: none;
 }
 
-.verdel-footer a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
+@media (hover: hover) and (pointer: fine) {
+  .verdel-footer a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+  }
 }
 
 .verdel-footer .verdel-label {
@@ -121,8 +123,13 @@
 }
 
 .verdel-signup__field input[aria-invalid='true'] {
-  outline: 0.2rem solid var(--verdel-accent);
-  outline-offset: -0.2rem;
+  outline: 0.1rem solid rgb(var(--color-foreground));
+  outline-offset: -0.1rem;
+}
+
+.verdel-signup__field input[aria-invalid='true']:focus-visible {
+  outline-width: 0.2rem;
+  outline-offset: 0.2rem;
 }
 
 .verdel-signup .button {

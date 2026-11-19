@@ -313,7 +313,7 @@
           "type": "question",
           "settings": {
             "question": "How long does shipping take?",
-            "answer": "<p>Most orders arrive in 3 to 5 business days. Shipping is free over $50.</p>"
+            "answer": "<p>Most orders arrive in 3 to 5 business days. US shipping is free over $50.</p>"
           }
         },
         "q-ret": {

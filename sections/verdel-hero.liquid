@@ -13,7 +13,7 @@
   {%- endunless -%}
   <verdel-hero-picker class="page-width verdel-hero__inner">
     <div class="verdel-hero__text">
-      <h2 class="h0">{{ section.settings.heading | escape }}</h2>
+      <h1 class="h0">{{ section.settings.heading | escape }}</h1>
       {%- if section.settings.text != blank -%}
         <p class="verdel-hero__lede">{{ section.settings.text | escape }}</p>
       {%- endif -%}
@@ -78,7 +78,7 @@
     { "type": "url", "id": "link_url", "label": "Link" },
     { "type": "select", "id": "assurance_1_icon", "label": "Badge 1 icon", "options": [{ "value": "shipping", "label": "Shipping" }, { "value": "returns", "label": "Returns" }, { "value": "lab", "label": "Lab test" }], "default": "shipping" },
     { "type": "text", "id": "assurance_1", "label": "Badge 1 title", "default": "Free shipping" },
-    { "type": "text", "id": "assurance_1_note", "label": "Badge 1 note", "default": "On orders over $50" },
+    { "type": "text", "id": "assurance_1_note", "label": "Badge 1 note", "default": "On US orders over $50" },
     { "type": "select", "id": "assurance_2_icon", "label": "Badge 2 icon", "options": [{ "value": "shipping", "label": "Shipping" }, { "value": "returns", "label": "Returns" }, { "value": "lab", "label": "Lab test" }], "default": "returns" },
     { "type": "text", "id": "assurance_2", "label": "Badge 2 title", "default": "60-day returns" },
     { "type": "text", "id": "assurance_2_note", "label": "Badge 2 note", "default": "Even if the bottle is empty" },

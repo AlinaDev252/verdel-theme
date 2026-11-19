@@ -7,7 +7,9 @@
 {%- assign variant = product.selected_or_first_available_variant -%}
 <li class="verdel-bag-pick">
   <a class="verdel-bag-pick__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
-    {{ product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '88px' }}
+    {%- if product.featured_image != blank -%}
+      {{ product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '88px' }}
+    {%- endif -%}
   </a>
   <div class="verdel-bag-pick__body">
     <a class="verdel-bag-pick__title" href="{{ product.url }}">{{ product.title | escape }}</a>

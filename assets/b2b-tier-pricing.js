@@ -35,7 +35,10 @@ if (!customElements.get('b2b-tier-pricing')) {
         this.setAttribute('aria-busy', 'true');
 
         fetch(url, { signal: this.controller.signal })
-          .then((response) => response.text())
+          .then((response) => {
+            if (!response.ok) throw new Error(response.statusText);
+            return response.text();
+          })
           .then((text) => {
             const html = new DOMParser().parseFromString(text, 'text/html');
             const fresh = html.querySelector('b2b-tier-pricing .page-width');
@@ -44,7 +47,10 @@ if (!customElements.get('b2b-tier-pricing')) {
             this.removeAttribute('aria-busy');
           })
           .catch((error) => {
-            if (error.name !== 'AbortError') this.removeAttribute('aria-busy');
+            if (error.name !== 'AbortError') {
+              url.searchParams.delete('section_id');
+              window.location.assign(url);
+            }
           });
       }
     }

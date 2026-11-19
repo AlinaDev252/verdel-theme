@@ -1,5 +1,7 @@
 :root {
   --verdel-accent: oklch(0.509 0.098 68.5);
+  color-scheme: light;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -507,4 +509,8 @@ verdel-variant-sync {
 
 .shopify-policy__container {
   padding-block-end: 6.4rem;
+}
+
+.verdel-how-to-take:empty {
+  display: none;
 }

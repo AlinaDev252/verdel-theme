@@ -13,13 +13,13 @@
   assign servings = variant.metafields.verdel.servings.value | default: product.metafields.verdel.servings.value
 -%}
 
-{%- if dose != blank or timing != blank or servings != blank -%}
-  <verdel-variant-sync
-    class="verdel-how-to-take"
-    data-key="how-to-take"
-    data-section-id="{{ section_id }}"
-    {{ block.shopify_attributes }}
-  >
+<verdel-variant-sync
+  class="verdel-how-to-take"
+  data-key="how-to-take"
+  data-section-id="{{ section_id }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if dose != blank or timing != blank or servings != blank -%}
     {%- if block.settings.heading != blank -%}
       <p class="verdel-label">{{ block.settings.heading | escape }}</p>
     {%- endif -%}
@@ -34,5 +34,5 @@
         <li><span>Servings per container</span><span class="verdel-rule-list__amount">{{ servings }}</span></li>
       {%- endif -%}
     </ul>
-  </verdel-variant-sync>
-{%- endif -%}
+  {%- endif -%}
+</verdel-variant-sync>
