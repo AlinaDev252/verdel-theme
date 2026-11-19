@@ -299,7 +299,7 @@
           "type": "question",
           "settings": {
             "question": "How does Subscribe & Save work?",
-            "answer": "<p>Choose it on any formula and you pay 15% less on every delivery. A new order ships every 30 days, and subscription-only orders ship free.</p>"
+            "answer": "<p>Choose it on any formula and you pay 15% less on every delivery. A new order ships every 30 days, and subscription-only orders ship free in the US.</p>"
           }
         },
         "q-cancel": {

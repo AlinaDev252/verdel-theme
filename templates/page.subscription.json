@@ -14,7 +14,7 @@
           "type": "benefit",
           "settings": {
             "value": "$0",
-            "label": "shipping on subscription-only orders"
+            "label": "US shipping on subscription-only orders"
           }
         },
         "days": {
@@ -41,7 +41,7 @@
       "settings": {
         "eyebrow": "Subscription",
         "heading": "Same formula. 15% less.",
-        "text": "Get a refill every 30 days. Subscription-only orders ship free. Pause or cancel from your account whenever you want.",
+        "text": "Get a refill every 30 days. Subscription-only orders ship free in the US. Pause or cancel from your account whenever you want.",
         "button_label": "Choose a formula",
         "button_link": "#verdel-sub-formulas",
         "product": "no-05-greens"
