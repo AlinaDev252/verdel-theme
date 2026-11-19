@@ -10,10 +10,9 @@ if (!customElements.get('verdel-sticky-buy')) {
         this.button = this.querySelector('button');
         this.button.addEventListener('click', () => this.mainButton.click());
 
-        this.observer = new IntersectionObserver(([entry]) => this.toggle(!entry.isIntersecting), {
-          root: document,
-          rootMargin: '0px 0px 100000px 0px',
-        });
+        this.observer = new IntersectionObserver(([entry]) =>
+          this.toggle(!entry.isIntersecting && entry.boundingClientRect.top < 0)
+        );
         this.observer.observe(this.mainButton);
 
         this.onPlanChange = (event) => {
