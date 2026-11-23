@@ -45,6 +45,11 @@ if (!customElements.get('verdel-picker')) {
 
       sync() {
         const state = VerdelQuiz.parseHash(location.hash, this.handles);
+        if (this.restarting) {
+          this.restarting = false;
+          this.navigate('#quiz=');
+          return;
+        }
         if (this.closing) {
           this.closing = false;
           if (state) history.replaceState(history.state, '', location.pathname + location.search);
@@ -77,7 +82,13 @@ if (!customElements.get('verdel-picker')) {
           history.back();
         } else if (event.target.closest('[data-verdel-quiz-restart]')) {
           this.form.reset();
-          this.navigate('#quiz=');
+          const depth = history.state?.quiz || 0;
+          if (depth) {
+            this.restarting = true;
+            history.go(-depth);
+          } else {
+            this.navigate('#quiz=');
+          }
         } else if (next) {
           const step = Number(next.closest('[data-verdel-quiz-step]').dataset.verdelQuizStep);
           this.navigate(
@@ -145,7 +156,7 @@ if (!customElements.get('verdel-picker')) {
 
       async showResult(state) {
         const picks = VerdelQuiz.pickStack({ ...state, goals: this.goals, chosen: state.goals, base: this.base });
-        const terms = `${picks.map((pick) => pick.handle).join(',')}/${state.multi}`;
+        const terms = `${picks.map((pick) => pick.handle).join(',')}/${state.multi}/${this.base.handle}`;
         const url = `${this.root}search?type=product&q=${encodeURIComponent(terms)}&section_id=verdel-quiz-result`;
         const next = this.steps[2].querySelector('[data-verdel-quiz-next]');
         this.request = url;

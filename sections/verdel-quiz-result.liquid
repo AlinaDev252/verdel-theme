@@ -2,9 +2,10 @@
   assign parts = search.terms | split: '/'
   assign requested = parts.first | split: ','
   assign multi = false
-  if parts.size > 1 and parts.last == 'yes'
+  if parts[1] == 'yes'
     assign multi = true
   endif
+  assign base = parts[2] | default: ''
 
   assign handles = ''
   assign ids = ''
@@ -70,7 +71,7 @@
       {%- endfor -%}
     </ul>
 
-    {%- render 'verdel-overlap', handles: handles, multi: multi -%}
+    {%- render 'verdel-overlap', handles: handles, multi: multi, base: base -%}
 
     {%- if count > 1 -%}
       <dl class="verdel-quiz-result__summary">

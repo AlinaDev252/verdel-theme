@@ -33,10 +33,10 @@
     endfor
   endfor
 
-  if multi
-    assign base = all_products['no-12-daily-multi'].metafields.verdel.ingredients.value
+  if multi and base != blank
+    assign base_ingredients = all_products[base].metafields.verdel.ingredients.value
     for handle_a in list
-      if handle_a == 'no-12-daily-multi'
+      if handle_a == base
         continue
       endif
       assign a = all_products[handle_a]
@@ -45,7 +45,7 @@
         if seen contains needle
           continue
         endif
-        for other in base
+        for other in base_ingredients
           if other.system.handle == ingredient.system.handle
             assign seen = seen | append: ingredient.system.handle | append: ','
             assign name = ingredient.name.value | escape
