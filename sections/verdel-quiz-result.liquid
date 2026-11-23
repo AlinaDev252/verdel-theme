@@ -40,7 +40,7 @@
 -%}
 <div class="verdel-quiz-result" data-verdel-quiz-result>
   {%- if count == 0 -%}
-    <p class="verdel-picker__empty">
+    <p class="verdel-quiz-result__empty">
       Everything for these goals is sold out right now.
       <a href="{{ routes.collections_url }}/all-formulas">See the full range</a>
     </p>
@@ -48,12 +48,12 @@
       <button type="button" class="button button--secondary" data-verdel-quiz-restart>Start over</button>
     </div>
   {%- else -%}
-    <ul class="verdel-picker__list" role="list">
+    <ul class="verdel-quiz-result__list" role="list">
       {%- for handle in picks -%}
         {%- assign item = all_products[handle] -%}
         {%- assign variant = item.selected_or_first_available_variant -%}
-        <li class="verdel-picker-card" data-verdel-quiz-pick="{{ item.handle }}">
-          <a class="verdel-picker-card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+        <li class="verdel-quiz-card" data-verdel-quiz-pick="{{ item.handle }}">
+          <a class="verdel-quiz-card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
             {%- if item.featured_image != blank -%}
               {{
                 item.featured_image
@@ -62,10 +62,10 @@
               }}
             {%- endif -%}
           </a>
-          <div class="verdel-picker-card__body">
-            <a class="verdel-picker-card__title" href="{{ item.url }}">{{ item.title | escape }}</a>
-            <p class="verdel-quiz-result__reason" data-verdel-quiz-reason></p>
-            <p class="verdel-picker-card__price">{{ variant.price | money }}</p>
+          <div class="verdel-quiz-card__body">
+            <a class="verdel-quiz-card__title" href="{{ item.url }}">{{ item.title | escape }}</a>
+            <p class="verdel-quiz-card__reason" data-verdel-quiz-reason></p>
+            <p class="verdel-quiz-card__price">{{ variant.price | money }}</p>
           </div>
         </li>
       {%- endfor -%}

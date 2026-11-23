@@ -56,7 +56,9 @@
           "skin"
         ],
         "bar_link_label": "Subscription",
-        "bar_link_url": "/pages/subscription"
+        "bar_link_url": "/pages/subscription",
+        "quiz_label": "Find your stack",
+        "quiz_page": "find-your-stack"
       }
     }
   },

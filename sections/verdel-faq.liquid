@@ -31,7 +31,7 @@
             <a class="verdel-text-link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
           {%- endif -%}
           {%- if section.settings.picker_label != blank -%}
-            {% render 'verdel-picker-link', label: section.settings.picker_label %}
+            {% render 'verdel-quiz-link', label: section.settings.picker_label %}
           {%- endif -%}
         </div>
       </div>

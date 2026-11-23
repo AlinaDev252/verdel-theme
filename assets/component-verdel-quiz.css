@@ -1,0 +1,333 @@
+.verdel-quiz {
+  display: grid;
+  min-height: calc(100svh - var(--header-height, 6.4rem));
+}
+
+.verdel-quiz__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 24rem;
+  background: rgb(var(--color-foreground));
+}
+
+.verdel-quiz__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.verdel-quiz__labels {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 18rem));
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 3.2rem;
+}
+
+.verdel-quiz__labels img {
+  position: static;
+  height: auto;
+  border-radius: var(--media-radius);
+  box-shadow: 0 1.2rem 3.2rem rgb(0 0 0 / 0.24);
+}
+
+.verdel-quiz__labels img:nth-child(2) {
+  transform: translateY(-2.4rem);
+}
+
+.verdel-quiz.is-active .verdel-quiz__media {
+  display: none;
+}
+
+.verdel-quiz__panel {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+}
+
+.verdel-quiz__body {
+  width: 100%;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.verdel-quiz__intro h1 {
+  margin: 0 0 1.6rem;
+}
+
+.verdel-quiz__intro p {
+  margin: 0 0 3.2rem;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.verdel-quiz__intro .button {
+  width: 100%;
+}
+
+.verdel-quiz__intro h1:focus,
+.verdel-quiz__heading:focus {
+  outline: 0;
+}
+
+.verdel-quiz__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 4.4rem;
+  margin-block-end: 1.6rem;
+}
+
+.verdel-quiz__back {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-inline-start: -1.2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.verdel-quiz__back svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  transform: rotate(180deg);
+}
+
+.verdel-quiz__count {
+  margin: 0;
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.verdel-quiz__heading {
+  margin: 0 0 2.4rem;
+}
+
+.verdel-quiz__step {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.verdel-quiz__hint {
+  margin: 0 0 1.6rem;
+  line-height: 1.5;
+}
+
+.verdel-quiz__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.verdel-quiz__options--stack {
+  display: grid;
+}
+
+.verdel-quiz__option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 4.4rem;
+  padding: 0 1.6rem;
+  border: 1px solid rgba(var(--color-foreground), 0.24);
+  border-radius: 10rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.verdel-quiz__option input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.verdel-quiz__option:has(:checked) {
+  border-color: rgb(var(--color-foreground));
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.verdel-quiz__option:has(:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.verdel-quiz__option:has(:focus-visible) {
+  outline: 2px solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 2px;
+}
+
+.verdel-quiz__next {
+  width: 100%;
+  margin-block-start: 2.4rem;
+}
+
+.verdel-quiz__next[aria-busy='true'] {
+  cursor: progress;
+}
+
+.verdel-quiz__error {
+  margin: 1.6rem 0 0;
+  font-size: 1.4rem;
+  font-weight: var(--font-body-weight-bold);
+  line-height: 1.4;
+}
+
+.verdel-quiz__error:empty {
+  display: none;
+}
+
+.verdel-quiz__note {
+  margin: 0;
+  padding: 1.6rem 2rem calc(1.6rem + env(safe-area-inset-bottom, 0px));
+  border-block-start: 1px solid rgba(var(--color-foreground), 0.16);
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.75);
+  text-wrap: pretty;
+}
+
+.verdel-quiz-result__empty {
+  margin: 0;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.verdel-quiz-result__empty a {
+  display: block;
+  margin-block-start: 0.8rem;
+  color: inherit;
+}
+
+.verdel-quiz-result__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verdel-quiz-card {
+  display: grid;
+  grid-template-columns: 9.6rem minmax(0, 1fr);
+  gap: 1.6rem;
+  padding-block: 1.6rem;
+  border-block-end: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
+.verdel-quiz-card:first-child {
+  padding-block-start: 0;
+}
+
+.verdel-quiz-card__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--media-radius);
+}
+
+.verdel-quiz-card__body {
+  display: grid;
+  align-content: start;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.verdel-quiz-card__title {
+  color: inherit;
+  font-weight: var(--font-body-weight-bold);
+  text-decoration: none;
+}
+
+.verdel-quiz-card__reason {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.verdel-quiz-card__reason:empty {
+  display: none;
+}
+
+.verdel-quiz-card__price {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-quiz-result__summary {
+  display: grid;
+  gap: 0.4rem;
+  margin: 2.4rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-quiz-result__summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.verdel-quiz-result__summary dd {
+  margin: 0;
+}
+
+.verdel-quiz-result__total {
+  padding-block-start: 0.8rem;
+  border-block-start: 1px solid rgba(var(--color-foreground), 0.12);
+  font-weight: var(--font-body-weight-bold);
+}
+
+.verdel-quiz-result__actions {
+  display: grid;
+  gap: 0.8rem;
+  margin-block-start: 2.4rem;
+}
+
+@media screen and (min-width: 990px) {
+  .verdel-quiz {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .verdel-quiz.is-active .verdel-quiz__media {
+    display: block;
+  }
+
+  .verdel-quiz__media {
+    min-height: 0;
+  }
+
+  .verdel-quiz__body {
+    align-self: center;
+    padding: 6.4rem 4.8rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .verdel-quiz__option:not(:has(:checked, :disabled)):hover {
+    border-color: rgb(var(--color-foreground));
+  }
+
+  .verdel-quiz-card__title:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+  }
+}

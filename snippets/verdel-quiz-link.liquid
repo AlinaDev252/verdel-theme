@@ -1,0 +1,14 @@
+{% doc %}
+  Links to the quiz page, or to all formulas when the page doesn't exist.
+
+  @param {string} label
+  @param {string} [attributes]
+{% enddoc %}
+
+<a
+  class="verdel-text-link"
+  href="{{ pages['find-your-stack'].url | default: collections['all-formulas'].url | default: routes.all_products_collection_url }}"
+  {{ attributes }}
+>
+  {{- label | escape -}}
+</a>

@@ -523,3 +523,12 @@ cart-drawer-items {
     width: 4.4rem;
   }
 }
+
+.verdel-overlap {
+  margin: 1.6rem 0 0;
+  padding-inline-start: 1.2rem;
+  border-inline-start: 0.2rem solid rgb(var(--color-foreground));
+  font-size: 1.4rem;
+  line-height: 1.4;
+  text-wrap: pretty;
+}

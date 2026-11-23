@@ -10,6 +10,14 @@
     all_label: section.settings.cta_label
   -%}
 </li>
+{%- assign quiz_page = section.settings.quiz_page -%}
+{%- if quiz_page != blank and section.settings.quiz_label != blank -%}
+  <li>
+    <a class="menu-drawer__menu-item list-menu__item link link--text focus-inset" href="{{ quiz_page.url }}">
+      {{- section.settings.quiz_label | escape -}}
+    </a>
+  </li>
+{%- endif -%}
 {%- if section.settings.bar_link_label != blank and section.settings.bar_link_url != blank -%}
   <li>
     <a class="menu-drawer__menu-item list-menu__item link link--text focus-inset" href="{{ section.settings.bar_link_url }}">

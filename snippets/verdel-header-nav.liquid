@@ -104,6 +104,20 @@
         </details>
       </header-menu>
     </li>
+    {%- assign quiz_page = section.settings.quiz_page -%}
+    {%- if quiz_page != blank and section.settings.quiz_label != blank -%}
+      <li>
+        <a
+          href="{{ quiz_page.url }}"
+          class="header__menu-item list-menu__item link link--text focus-inset"
+          {% if quiz_page.url == request.path %}
+            aria-current="page"
+          {% endif %}
+        >
+          <span>{{ section.settings.quiz_label | escape }}</span>
+        </a>
+      </li>
+    {%- endif -%}
     {%- if section.settings.bar_link_label != blank and section.settings.bar_link_url != blank -%}
       <li>
         <a

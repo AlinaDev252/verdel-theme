@@ -1,15 +1,14 @@
-if (!customElements.get('verdel-picker')) {
+if (!customElements.get('verdel-quiz')) {
   customElements.define(
-    'verdel-picker',
-    class VerdelPicker extends HTMLElement {
+    'verdel-quiz',
+    class VerdelQuizPage extends HTMLElement {
       connectedCallback() {
-        this.dialog = this.querySelector('dialog');
-        this.heading = this.querySelector('#VerdelPickerHeading');
-        this.back = this.querySelector('[data-verdel-picker-back]');
-        this.body = this.querySelector('.verdel-picker__body');
-        this.error = this.querySelector('[data-verdel-picker-error]');
+        this.intro = this.querySelector('[data-verdel-quiz-intro]');
+        this.flow = this.querySelector('[data-verdel-quiz-flow]');
+        this.heading = this.querySelector('#VerdelQuizHeading');
         this.count = this.querySelector('[data-verdel-quiz-count]');
-        this.form = this.querySelector('[data-verdel-quiz]');
+        this.error = this.querySelector('[data-verdel-quiz-error]');
+        this.form = this.querySelector('[data-verdel-quiz-form]');
         this.steps = [...this.querySelectorAll('[data-verdel-quiz-step]')];
         this.resultSlot = this.querySelector('[data-verdel-quiz-result-slot]');
         this.root = window.Shopify.routes.root;
@@ -19,22 +18,14 @@ if (!customElements.get('verdel-picker')) {
         this.handles = this.goals.map((goal) => goal.handle);
         this.pages = new Map();
 
-        this.onOpenClick = (event) => {
-          if (!event.target.closest('[data-verdel-picker-open]')) return;
-          event.preventDefault();
-          this.navigate('#quiz=');
-        };
         this.onPopState = () => this.sync();
-        document.addEventListener('click', this.onOpenClick);
         window.addEventListener('popstate', this.onPopState);
         this.addEventListener('click', (event) => this.onClick(event));
         this.form.addEventListener('change', () => this.updateControls());
-        this.dialog.addEventListener('close', () => this.onClose());
-        this.sync();
+        this.sync(true);
       }
 
       disconnectedCallback() {
-        document.removeEventListener('click', this.onOpenClick);
         window.removeEventListener('popstate', this.onPopState);
       }
 
@@ -43,42 +34,26 @@ if (!customElements.get('verdel-picker')) {
         this.sync();
       }
 
-      sync() {
-        const state = VerdelQuiz.parseHash(location.hash, this.handles);
+      sync(initial = false) {
         if (this.restarting) {
           this.restarting = false;
           this.navigate('#quiz=');
           return;
         }
-        if (this.closing) {
-          this.closing = false;
-          if (state) history.replaceState(history.state, '', location.pathname + location.search);
-          return;
-        }
+        const state = VerdelQuiz.parseHash(location.hash, this.handles);
         if (!state) {
-          if (this.dialog.open) this.dialog.close();
+          this.showIntro(initial);
           return;
         }
-        if (!this.dialog.open) this.dialog.showModal();
         this.render(state);
-      }
-
-      onClose() {
-        this.request = null;
-        const depth = history.state?.quiz || 0;
-        if (depth) {
-          this.closing = true;
-          history.go(-depth);
-        } else if (location.hash.startsWith('#quiz=')) {
-          history.replaceState(history.state, '', location.pathname + location.search);
-        }
       }
 
       onClick(event) {
         const next = event.target.closest('[data-verdel-quiz-next]');
-        if (event.target === this.dialog || event.target.closest('[data-verdel-picker-close]')) {
-          this.dialog.close();
-        } else if (event.target.closest('[data-verdel-picker-back]')) {
+        if (event.target.closest('[data-verdel-quiz-start]')) {
+          event.preventDefault();
+          this.navigate('#quiz=');
+        } else if (event.target.closest('[data-verdel-quiz-back]')) {
           history.back();
         } else if (event.target.closest('[data-verdel-quiz-restart]')) {
           this.form.reset();
@@ -116,6 +91,15 @@ if (!customElements.get('verdel-picker')) {
         third.disabled = !this.form.elements.multi.value;
       }
 
+      showIntro(initial) {
+        this.request = null;
+        this.error.textContent = '';
+        this.classList.remove('is-active');
+        this.intro.hidden = false;
+        this.flow.hidden = true;
+        if (!initial) this.focus(this.intro.querySelector('h1'));
+      }
+
       render(state) {
         this.error.textContent = '';
         this.request = null;
@@ -131,15 +115,21 @@ if (!customElements.get('verdel-picker')) {
       }
 
       show(step) {
+        this.classList.add('is-active');
+        this.intro.hidden = true;
+        this.flow.hidden = false;
         this.steps.forEach((pane, index) => {
           pane.hidden = index + 1 !== step;
         });
         this.heading.textContent = step === 4 ? 'Your stack' : this.steps[step - 1].querySelector('legend').textContent;
         this.count.hidden = step === 4;
         this.count.textContent = `Step ${step} of 3`;
-        this.back.hidden = step === 1;
-        this.body.scrollTop = 0;
-        this.heading.focus();
+        this.focus(this.heading);
+      }
+
+      focus(target) {
+        target.focus({ preventScroll: true });
+        if (this.getBoundingClientRect().top < 0) this.scrollIntoView({ block: 'start' });
       }
 
       load(url) {
@@ -160,7 +150,7 @@ if (!customElements.get('verdel-picker')) {
         const url = `${this.root}search?type=product&q=${encodeURIComponent(terms)}&section_id=verdel-quiz-result`;
         const next = this.steps[2].querySelector('[data-verdel-quiz-next]');
         this.request = url;
-        if (this.steps[2].hidden) this.show(3);
+        if (this.flow.hidden || this.steps[2].hidden) this.show(3);
         next.disabled = true;
         next.setAttribute('aria-busy', 'true');
 

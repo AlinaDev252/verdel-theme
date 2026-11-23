@@ -11,7 +11,7 @@
     const items = document.querySelector('cart-drawer-items');
     const sections = items.getSectionsToRender();
     const errors =
-      button.closest('dialog')?.querySelector('[data-verdel-picker-error]') ||
+      button.closest('verdel-quiz')?.querySelector('[data-verdel-quiz-error]') ||
       document.getElementById('CartDrawer-CartErrors');
     const focusKey = button.dataset.line
       ? `[data-line="${button.dataset.line}"]`
@@ -36,10 +36,8 @@
       drawer.classList.toggle('is-empty', state.item_count === 0);
       publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: state });
 
-      const dialog = button.closest('dialog');
-      if (dialog) {
-        dialog.close();
-        drawer.open(document.activeElement);
+      if (!drawer.classList.contains('active')) {
+        drawer.open(button);
       } else {
         trapFocus(drawer, (focusKey && drawer.querySelector(focusKey)) || drawer.querySelector('.drawer__inner'));
       }

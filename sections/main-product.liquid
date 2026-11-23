@@ -471,7 +471,7 @@
                   %}
                 {%- when 'picker_link' -%}
                   {%- capture picker_attributes -%}{{ block.shopify_attributes }}{%- endcapture -%}
-                  {% render 'verdel-picker-link', label: block.settings.label, attributes: picker_attributes %}
+                  {% render 'verdel-quiz-link', label: block.settings.label, attributes: picker_attributes %}
                 {%- when 'subscribe' -%}
                   {% render 'verdel-subscribe', product: product, block: block, product_form_id: product_form_id %}
                 {%- when 'popup' -%}
