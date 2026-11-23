@@ -76,6 +76,7 @@
 .verdel-quiz__intro h1:focus,
 .verdel-quiz__heading:focus {
   outline: 0;
+  box-shadow: none;
 }
 
 .verdel-quiz__bar {

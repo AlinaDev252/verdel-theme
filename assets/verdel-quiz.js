@@ -138,7 +138,7 @@ if (!customElements.get('verdel-quiz')) {
         this.steps.forEach((pane, index) => {
           pane.hidden = index + 1 !== step;
         });
-        this.heading.textContent = step === 4 ? 'Your stack' : this.steps[step - 1].querySelector('legend').textContent;
+        this.heading.textContent = step === 4 ? 'Your formulas' : this.steps[step - 1].querySelector('legend').textContent;
         this.count.hidden = step === 4;
         this.count.textContent = `Step ${step} of 3`;
         this.focus(this.heading);

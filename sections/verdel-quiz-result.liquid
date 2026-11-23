@@ -81,11 +81,11 @@
         </div>
         {%- if stack -%}
           <div>
-            <dt>−10% as a stack</dt>
+            <dt>Bundle saving (−10%)</dt>
             <dd>−{{ saved | money }}</dd>
           </div>
           <div class="verdel-quiz-result__total">
-            <dt>Stack price</dt>
+            <dt>Bundle price</dt>
             <dd>{{ total | minus: saved | money }}</dd>
           </div>
         {%- endif -%}
@@ -94,7 +94,7 @@
 
     <div class="verdel-quiz-result__actions">
       <button type="button" class="button" data-verdel-add-stack="{{ ids }}">
-        {%- if count > 1 -%}Add stack to bag{%- else -%}Add to bag{%- endif -%}
+        {%- if count > 1 -%}Add all to bag{%- else -%}Add to bag{%- endif -%}
       </button>
       <button type="button" class="button button--secondary" data-verdel-quiz-restart>Start over</button>
     </div>
