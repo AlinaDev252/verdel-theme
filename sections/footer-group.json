@@ -22,16 +22,68 @@
     "picker": {
       "type": "verdel-picker",
       "settings": {
-        "goals": [
-          "sleep",
-          "focus",
-          "gut",
-          "energy",
-          "daily-essentials",
-          "training",
-          "skin"
-        ]
-      }
+        "base": "no-12-daily-multi"
+      },
+      "blocks": {
+        "goal_sleep": {
+          "type": "goal",
+          "settings": {
+            "collection": "sleep",
+            "lead": "no-01-rest"
+          }
+        },
+        "goal_focus": {
+          "type": "goal",
+          "settings": {
+            "collection": "focus",
+            "lead": "no-02-focus"
+          }
+        },
+        "goal_gut": {
+          "type": "goal",
+          "settings": {
+            "collection": "gut",
+            "lead": "no-03-gut"
+          }
+        },
+        "goal_energy": {
+          "type": "goal",
+          "settings": {
+            "collection": "energy",
+            "lead": "no-04-energy"
+          }
+        },
+        "goal_daily_essentials": {
+          "type": "goal",
+          "settings": {
+            "collection": "daily-essentials",
+            "lead": "no-06-sun"
+          }
+        },
+        "goal_training": {
+          "type": "goal",
+          "settings": {
+            "collection": "training",
+            "lead": "no-09-protein"
+          }
+        },
+        "goal_skin": {
+          "type": "goal",
+          "settings": {
+            "collection": "skin",
+            "lead": "no-08-skin"
+          }
+        }
+      },
+      "block_order": [
+        "goal_sleep",
+        "goal_focus",
+        "goal_gut",
+        "goal_energy",
+        "goal_daily_essentials",
+        "goal_training",
+        "goal_skin"
+      ]
     }
   },
   "order": [
