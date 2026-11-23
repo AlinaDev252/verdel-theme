@@ -58,7 +58,6 @@
                 {%- if goal.products_count > 0 -%}
                   <label class="verdel-quiz__option" {{ block.shopify_attributes }}>
                     <input type="checkbox" name="goal" value="{{ goal.handle }}">
-                    {{- 'icon-checkmark.svg' | inline_asset_content -}}
                     <span>{{ goal.title | escape }}</span>
                   </label>
                 {%- endif -%}
@@ -72,17 +71,14 @@
             <div class="verdel-quiz__options verdel-quiz__options--stack">
               <label class="verdel-quiz__option">
                 <input type="radio" name="diet" value="plant">
-                {{- 'icon-checkmark.svg' | inline_asset_content -}}
                 <span>Fully plant-based</span>
               </label>
               <label class="verdel-quiz__option">
                 <input type="radio" name="diet" value="mostly">
-                {{- 'icon-checkmark.svg' | inline_asset_content -}}
                 <span>Mostly plant-based</span>
               </label>
               <label class="verdel-quiz__option">
                 <input type="radio" name="diet" value="neither">
-                {{- 'icon-checkmark.svg' | inline_asset_content -}}
                 <span>Neither</span>
               </label>
             </div>
@@ -94,12 +90,10 @@
             <div class="verdel-quiz__options verdel-quiz__options--stack">
               <label class="verdel-quiz__option">
                 <input type="radio" name="multi" value="yes">
-                {{- 'icon-checkmark.svg' | inline_asset_content -}}
                 <span>Yes</span>
               </label>
               <label class="verdel-quiz__option">
                 <input type="radio" name="multi" value="no">
-                {{- 'icon-checkmark.svg' | inline_asset_content -}}
                 <span>No</span>
               </label>
             </div>

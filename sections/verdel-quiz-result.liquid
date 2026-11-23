@@ -72,22 +72,24 @@
 
     {%- render 'verdel-overlap', handles: handles, multi: multi -%}
 
-    <dl class="verdel-quiz-result__summary">
-      <div>
-        <dt>One-time price</dt>
-        <dd>{{ total | money }}</dd>
-      </div>
-      {%- if stack -%}
+    {%- if count > 1 -%}
+      <dl class="verdel-quiz-result__summary">
         <div>
-          <dt>−10% as a stack</dt>
-          <dd>−{{ saved | money }}</dd>
+          <dt>One-time price</dt>
+          <dd>{{ total | money }}</dd>
         </div>
-        <div class="verdel-quiz-result__total">
-          <dt>Stack price</dt>
-          <dd>{{ total | minus: saved | money }}</dd>
-        </div>
-      {%- endif -%}
-    </dl>
+        {%- if stack -%}
+          <div>
+            <dt>−10% as a stack</dt>
+            <dd>−{{ saved | money }}</dd>
+          </div>
+          <div class="verdel-quiz-result__total">
+            <dt>Stack price</dt>
+            <dd>{{ total | minus: saved | money }}</dd>
+          </div>
+        {%- endif -%}
+      </dl>
+    {%- endif -%}
 
     <div class="verdel-quiz-result__actions">
       <button type="button" class="button" data-verdel-add-stack="{{ ids }}">

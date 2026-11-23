@@ -150,6 +150,7 @@ if (!customElements.get('verdel-picker')) {
         const next = this.steps[2].querySelector('[data-verdel-quiz-next]');
         this.request = url;
         if (this.steps[2].hidden) this.show(3);
+        next.disabled = true;
         next.setAttribute('aria-busy', 'true');
 
         try {
@@ -170,6 +171,7 @@ if (!customElements.get('verdel-picker')) {
           this.error.replaceChildren(`${window.cartStrings.error} `, link);
         } finally {
           next.removeAttribute('aria-busy');
+          this.updateControls();
         }
       }
     }
