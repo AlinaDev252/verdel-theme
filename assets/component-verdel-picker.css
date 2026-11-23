@@ -196,6 +196,60 @@
   font-variant-numeric: tabular-nums;
 }
 
+.verdel-quiz-result__reason {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.verdel-quiz-result__reason:empty {
+  display: none;
+}
+
+.verdel-quiz-result .verdel-picker-card__price {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-overlap {
+  margin: 1.6rem 0 0;
+  padding-inline-start: 1.2rem;
+  border-inline-start: 0.2rem solid rgb(var(--color-foreground));
+  font-size: 1.4rem;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.verdel-quiz-result__summary {
+  display: grid;
+  gap: 0.4rem;
+  margin: 2.4rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.verdel-quiz-result__summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.verdel-quiz-result__summary dd {
+  margin: 0;
+}
+
+.verdel-quiz-result__total {
+  padding-block-start: 0.8rem;
+  border-block-start: 1px solid rgba(var(--color-foreground), 0.12);
+  font-weight: var(--font-body-weight-bold);
+}
+
+.verdel-quiz-result__actions {
+  display: grid;
+  gap: 0.8rem;
+  margin-block-start: 2.4rem;
+}
+
 .verdel-picker__error {
   margin: 0;
   padding: 1.2rem 2rem;

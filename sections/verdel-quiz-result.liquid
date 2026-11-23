@@ -1,0 +1,106 @@
+{%- liquid
+  assign parts = search.terms | split: '/'
+  assign requested = parts.first | split: ','
+  assign multi = false
+  if parts.size > 1 and parts.last == 'yes'
+    assign multi = true
+  endif
+
+  assign handles = ''
+  assign ids = ''
+  assign count = 0
+  assign total = 0
+  for handle in requested
+    if count == 3
+      break
+    endif
+    assign item = all_products[handle]
+    assign needle = ',' | append: item.handle | append: ','
+    assign wrapped = ',' | append: handles
+    if item.available != true or wrapped contains needle
+      continue
+    endif
+    assign variant = item.selected_or_first_available_variant
+    assign handles = handles | append: item.handle | append: ','
+    assign ids = ids | append: variant.id | append: ','
+    assign total = total | plus: variant.price
+    assign count = count | plus: 1
+  endfor
+
+  assign picks = handles | split: ','
+  assign ids = ids | split: ',' | join: ','
+  assign stack = false
+  if count > 1
+    unless customer.b2b?
+      assign stack = true
+    endunless
+  endif
+  assign saved = total | times: 0.1 | round
+-%}
+<div class="verdel-quiz-result" data-verdel-quiz-result>
+  {%- if count == 0 -%}
+    <p class="verdel-picker__empty">
+      Everything for these goals is sold out right now.
+      <a href="{{ routes.collections_url }}/all-formulas">See the full range</a>
+    </p>
+    <div class="verdel-quiz-result__actions">
+      <button type="button" class="button button--secondary" data-verdel-quiz-restart>Start over</button>
+    </div>
+  {%- else -%}
+    <ul class="verdel-picker__list" role="list">
+      {%- for handle in picks -%}
+        {%- assign item = all_products[handle] -%}
+        {%- assign variant = item.selected_or_first_available_variant -%}
+        <li class="verdel-picker-card" data-verdel-quiz-pick="{{ item.handle }}">
+          <a class="verdel-picker-card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+            {%- if item.featured_image != blank -%}
+              {{
+                item.featured_image
+                | image_url: width: 240
+                | image_tag: loading: 'lazy', alt: '', widths: '120, 240', sizes: '96px'
+              }}
+            {%- endif -%}
+          </a>
+          <div class="verdel-picker-card__body">
+            <a class="verdel-picker-card__title" href="{{ item.url }}">{{ item.title | escape }}</a>
+            <p class="verdel-quiz-result__reason" data-verdel-quiz-reason></p>
+            <p class="verdel-picker-card__price">{{ variant.price | money }}</p>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- render 'verdel-overlap', handles: handles, multi: multi -%}
+
+    <dl class="verdel-quiz-result__summary">
+      <div>
+        <dt>One-time price</dt>
+        <dd>{{ total | money }}</dd>
+      </div>
+      {%- if stack -%}
+        <div>
+          <dt>−10% as a stack</dt>
+          <dd>−{{ saved | money }}</dd>
+        </div>
+        <div class="verdel-quiz-result__total">
+          <dt>Stack price</dt>
+          <dd>{{ total | minus: saved | money }}</dd>
+        </div>
+      {%- endif -%}
+    </dl>
+
+    <div class="verdel-quiz-result__actions">
+      <button type="button" class="button" data-verdel-add-stack="{{ ids }}">
+        {%- if count > 1 -%}Add stack to bag{%- else -%}Add to bag{%- endif -%}
+      </button>
+      <button type="button" class="button button--secondary" data-verdel-quiz-restart>Start over</button>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Quiz result",
+  "settings": []
+}
+{% endschema %}
