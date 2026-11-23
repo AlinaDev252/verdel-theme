@@ -40,6 +40,7 @@ if (!customElements.get('verdel-quiz')) {
           this.navigate('#quiz=');
           return;
         }
+        if (location.hash && !location.hash.startsWith('#quiz=')) return;
         const state = VerdelQuiz.parseHash(location.hash, this.handles);
         if (!state) {
           this.showIntro(initial);
@@ -54,7 +55,7 @@ if (!customElements.get('verdel-quiz')) {
           event.preventDefault();
           this.navigate('#quiz=');
         } else if (event.target.closest('[data-verdel-quiz-back]')) {
-          history.back();
+          this.back();
         } else if (event.target.closest('[data-verdel-quiz-restart]')) {
           this.form.reset();
           const depth = history.state?.quiz || 0;
@@ -66,17 +67,33 @@ if (!customElements.get('verdel-quiz')) {
           }
         } else if (next) {
           const step = Number(next.closest('[data-verdel-quiz-step]').dataset.verdelQuizStep);
-          this.navigate(
-            VerdelQuiz.toHash({
-              goals: this.checked('goal'),
-              diet: step > 1 ? this.form.elements.diet.value : null,
-              multi: step > 2 ? this.form.elements.multi.value : null,
-            })
-          );
+          const hash = VerdelQuiz.toHash({
+            goals: this.checked('goal'),
+            diet: step > 1 ? this.form.elements.diet.value : null,
+            multi: step > 2 ? this.form.elements.multi.value : null,
+          });
+          if (hash === location.hash) this.sync();
+          else this.navigate(hash);
         }
       }
 
-      checked(name) {
+      back() {
+        if (history.state?.quiz) {
+          history.back();
+          return;
+        }
+        const { step, goals, diet } = VerdelQuiz.parseHash(location.hash, this.handles);
+        const previous = [
+          location.pathname + location.search,
+          '#quiz=',
+          VerdelQuiz.toHash({ goals }),
+          VerdelQuiz.toHash({ goals, diet }),
+        ][step - 1];
+        history.replaceState(history.state, '', previous);
+        this.sync();
+      }
+
+            checked(name) {
         return [...this.form.querySelectorAll(`[name="${name}"]:checked`)].map((input) => input.value);
       }
 

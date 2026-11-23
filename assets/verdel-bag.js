@@ -37,6 +37,8 @@
       publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: state });
 
       if (!drawer.classList.contains('active')) {
+        button.disabled = false;
+        button.removeAttribute('aria-busy');
         drawer.open(button);
       } else {
         trapFocus(drawer, (focusKey && drawer.querySelector(focusKey)) || drawer.querySelector('.drawer__inner'));

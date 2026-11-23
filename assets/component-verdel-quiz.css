@@ -1,5 +1,6 @@
 .verdel-quiz {
   display: grid;
+  scroll-margin-top: var(--header-height, 6.4rem);
   min-height: calc(100svh - var(--header-height, 6.4rem));
 }
 
