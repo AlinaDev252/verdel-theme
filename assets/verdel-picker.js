@@ -39,7 +39,7 @@ if (!customElements.get('verdel-picker')) {
       }
 
       navigate(hash) {
-        history.pushState({ quiz: (history.state?.quiz || 0) + 1 }, '', hash);
+        history.pushState({ ...history.state, quiz: (history.state?.quiz || 0) + 1 }, '', hash);
         this.sync();
       }
 
@@ -47,7 +47,7 @@ if (!customElements.get('verdel-picker')) {
         const state = VerdelQuiz.parseHash(location.hash, this.handles);
         if (this.closing) {
           this.closing = false;
-          if (state) history.replaceState(null, '', location.pathname + location.search);
+          if (state) history.replaceState(history.state, '', location.pathname + location.search);
           return;
         }
         if (!state) {
@@ -65,7 +65,7 @@ if (!customElements.get('verdel-picker')) {
           this.closing = true;
           history.go(-depth);
         } else if (location.hash.startsWith('#quiz=')) {
-          history.replaceState(null, '', location.pathname + location.search);
+          history.replaceState(history.state, '', location.pathname + location.search);
         }
       }
 

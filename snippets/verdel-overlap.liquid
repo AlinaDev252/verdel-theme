@@ -1,39 +1,10 @@
 {%- liquid
   assign list = handles | split: ','
   assign seen = ','
-  if multi
-    assign base = all_products['no-12-daily-multi'].metafields.verdel.ingredients.value
-  endif
 
   for handle_a in list
     assign a = all_products[handle_a]
     assign a_index = forloop.index
-
-    if multi
-      if handle_a == 'no-12-daily-multi'
-        continue
-      endif
-      for ingredient in a.metafields.verdel.ingredients.value
-        assign needle = ',' | append: ingredient.system.handle | append: ','
-        if seen contains needle
-          continue
-        endif
-        for other in base
-          if other.system.handle == ingredient.system.handle
-            assign seen = seen | append: ingredient.system.handle | append: ','
-            assign name = ingredient.name.value | escape
-            assign second = name | slice: 1
-            if second != '-'
-              assign rest = name | slice: 1, 200
-              assign name = name | slice: 0 | downcase | append: rest
-            endif
-            echo '<p class="verdel-overlap">Your multivitamin may already contain ' | append: name | append: '. Check both labels.</p>'
-          endif
-        endfor
-      endfor
-      continue
-    endif
-
     for handle_b in list
       if forloop.index <= a_index
         continue
@@ -61,4 +32,32 @@
       endfor
     endfor
   endfor
+
+  if multi
+    assign base = all_products['no-12-daily-multi'].metafields.verdel.ingredients.value
+    for handle_a in list
+      if handle_a == 'no-12-daily-multi'
+        continue
+      endif
+      assign a = all_products[handle_a]
+      for ingredient in a.metafields.verdel.ingredients.value
+        assign needle = ',' | append: ingredient.system.handle | append: ','
+        if seen contains needle
+          continue
+        endif
+        for other in base
+          if other.system.handle == ingredient.system.handle
+            assign seen = seen | append: ingredient.system.handle | append: ','
+            assign name = ingredient.name.value | escape
+            assign second = name | slice: 1
+            if second != '-'
+              assign rest = name | slice: 1, 200
+              assign name = name | slice: 0 | downcase | append: rest
+            endif
+            echo '<p class="verdel-overlap">Your multivitamin may already contain ' | append: name | append: '. Check both labels.</p>'
+          endif
+        endfor
+      endfor
+    endfor
+  endif
 -%}
