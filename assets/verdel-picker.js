@@ -12,7 +12,7 @@ if (!customElements.get('verdel-picker')) {
         this.form = this.querySelector('[data-verdel-quiz]');
         this.steps = [...this.querySelectorAll('[data-verdel-quiz-step]')];
         this.resultSlot = this.querySelector('[data-verdel-quiz-result-slot]');
-        this.root = window.Shopify?.routes?.root || '/';
+        this.root = window.Shopify.routes.root;
         const data = JSON.parse(document.querySelector('[data-verdel-quiz-goals]').textContent);
         this.goals = data.goals;
         this.base = data.base;

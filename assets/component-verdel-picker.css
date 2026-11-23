@@ -146,19 +146,11 @@
   color: rgba(var(--color-foreground), 0.75);
 }
 
-.verdel-quiz__count[hidden] {
-  display: none;
-}
-
 .verdel-quiz__step {
   margin: 0;
   padding: 0;
   border: 0;
   min-width: 0;
-}
-
-.verdel-quiz__step[hidden] {
-  display: none;
 }
 
 .verdel-quiz__hint {
