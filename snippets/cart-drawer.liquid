@@ -486,6 +486,10 @@
                   </tbody>
                 </table>
               </div>
+              {%- liquid
+                assign bag_handles = cart.items | map: 'product' | map: 'handle' | uniq | join: ','
+                render 'verdel-overlap', handles: bag_handles, multi: false
+              -%}
               {%- render 'verdel-bag-picks' -%}
             {%- endif -%}
             <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
