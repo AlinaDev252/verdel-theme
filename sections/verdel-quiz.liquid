@@ -31,7 +31,7 @@
 </script>
 
 <verdel-quiz class="verdel-quiz color-{{ section.settings.color_scheme }} gradient">
-  <div class="verdel-quiz__media">
+  <div class="verdel-quiz__media color-{{ section.settings.media_color_scheme }} gradient">
     {%- if section.settings.image != blank -%}
       {{
         section.settings.image
@@ -160,7 +160,8 @@
       "label": "Health note",
       "default": "We can't give medical advice. If you're pregnant, nursing, take medication or have a health condition, ask your doctor first."
     },
-    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" }
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" },
+    { "type": "color_scheme", "id": "media_color_scheme", "label": "Visual color scheme", "default": "scheme-2" }
   ],
   "blocks": [
     {
