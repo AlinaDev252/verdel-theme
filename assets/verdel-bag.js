@@ -53,6 +53,7 @@
   document.addEventListener('click', (event) => {
     const plan = event.target.closest('[data-verdel-plan]');
     const add = event.target.closest('[data-verdel-add]');
+    const stack = event.target.closest('[data-verdel-add-stack]');
     const arrow = event.target.closest('[data-verdel-scroll]');
 
     if (plan) {
@@ -63,6 +64,10 @@
       });
     } else if (add) {
       send(add, routes.cart_add_url, { items: [{ id: Number(add.dataset.verdelAdd), quantity: 1 }] });
+    } else if (stack) {
+      send(stack, routes.cart_add_url, {
+        items: stack.dataset.verdelAddStack.split(',').map((id) => ({ id: Number(id), quantity: 1 })),
+      });
     } else if (arrow) {
       const track = arrow.closest('.verdel-bag-picks').querySelector('.verdel-bag-picks__track');
       track.scrollBy({
