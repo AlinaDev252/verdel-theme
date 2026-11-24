@@ -1,0 +1,38 @@
+mutation VerdelCheckoutBranding($checkoutProfileId: ID!) {
+  checkoutBrandingUpsert(
+    checkoutProfileId: $checkoutProfileId
+    checkoutBrandingInput: {
+      designSystem: {
+        typography: {
+          primary: { shopifyFontGroup: { name: "Karla" } }
+          secondary: { shopifyFontGroup: { name: "Young Serif" } }
+        }
+        cornerRadius: { small: 4, base: 6, large: 8 }
+        colors: {
+          global: { brand: "#2F3A2C", accent: "#56664A" }
+          schemes: {
+            scheme1: {
+              base: { background: "#F7F3EC", text: "#000000", border: "#D9D2C4", accent: "#56664A" }
+              control: { background: "#FFFFFF", border: "#898D82", selected: { background: "#EAE2D3", border: "#2F3A2C" } }
+              primaryButton: { background: "#2F3A2C", text: "#F7F3EC", border: "#2F3A2C", hover: { background: "#56664A", text: "#F7F3EC", border: "#56664A" } }
+              secondaryButton: { background: "#F7F3EC", text: "#2F3A2C", border: "#2F3A2C", hover: { background: "#EAE2D3", text: "#2F3A2C", border: "#2F3A2C" } }
+            }
+            scheme2: {
+              base: { background: "#EAE2D3", text: "#000000", border: "#D3C9B6", accent: "#56664A" }
+              control: { background: "#F7F3EC", border: "#898D82" }
+            }
+          }
+        }
+      }
+      customizations: {
+        header: { colorScheme: COLOR_SCHEME1 }
+        main: { colorScheme: COLOR_SCHEME1 }
+        orderSummary: { colorScheme: COLOR_SCHEME2 }
+        merchandiseThumbnail: { badge: { background: ACCENT } }
+      }
+    }
+  ) {
+    checkoutBranding { designSystem { typography { primary { name } secondary { name } } } }
+    userErrors { field message }
+  }
+}

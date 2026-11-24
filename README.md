@@ -19,6 +19,8 @@ Every change goes through the Cart AJAX API and redraws the bag from Liquid with
 
 **Bundle discount.** 10% off when the bag holds two or more different formulas bought once. It runs as a Shopify Function in a separate app, [verdel-stack-discount](https://github.com/AlinaDev252/verdel-stack-discount). Subscriptions already save 15%, so they don't get it. B2B buyers don't either.
 
+**Checkout.** Styled through the Admin API with the theme's fonts, colours and corner radii ([checkout/branding.graphql](checkout/branding.graphql)). The main checkout text is black, not the brand green. Shopify fades the text colour for hints and labels, and faded green on cream measured 3.1:1, below the 4.5:1 minimum. Black brings those hints to 4.6:1 or more.
+
 The product page also has a sticky buy bar and a second formula to add, picked per product in a metafield. The rest of the store has a subscription page, ingredient stories, an FAQ and one icon set drawn on a single fine stroke.
 
 ## Scores
