@@ -74,6 +74,29 @@ if (!customElements.get('verdel-quiz')) {
           });
           if (hash === location.hash) this.sync();
           else this.navigate(hash);
+        } else if (event.target.closest('[data-verdel-add-stack]') && !document.querySelector('cart-drawer')) {
+          this.addAndGoToCart(event.target.closest('[data-verdel-add-stack]'));
+        }
+      }
+
+      async addAndGoToCart(button) {
+        button.disabled = true;
+        button.setAttribute('aria-busy', 'true');
+        this.error.textContent = '';
+        try {
+          const response = await fetch(window.routes.cart_add_url, {
+            ...fetchConfig(),
+            body: JSON.stringify({
+              items: button.dataset.verdelAddStack.split(',').map((id) => ({ id: Number(id), quantity: 1 })),
+            }),
+          });
+          const state = await response.json();
+          if (!response.ok) throw new Error(state.description);
+          window.location.href = window.routes.cart_url;
+        } catch (error) {
+          button.disabled = false;
+          button.removeAttribute('aria-busy');
+          this.error.textContent = (error.name === 'Error' && error.message) || window.cartStrings.error;
         }
       }
 
