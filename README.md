@@ -1,3 +1,17 @@
+# Verdel
+
+Shopify theme for a plant-based supplement brand, built on Dawn 16 and running on a demo store.
+
+## Lighthouse
+
+Mobile, Chrome DevTools in Incognito, live store, 24 November 2026.
+
+| Page | Performance | Accessibility | Best practices | SEO |
+| --- | --- | --- | --- | --- |
+| Home | 95 | 100 | 100 | 100 |
+| Product | 94 | 100 | 100 | 100 |
+| Find your formulas (quiz) | 85 | 100 | 100 | 100 |
+
 # Dawn
 
 [![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)
