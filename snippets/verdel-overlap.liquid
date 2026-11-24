@@ -34,6 +34,7 @@
   endfor
 
   if multi and base != blank
+    assign seen_multi = ','
     assign base_ingredients = all_products[base].metafields.verdel.ingredients.value
     for handle_a in list
       if handle_a == base
@@ -42,12 +43,12 @@
       assign a = all_products[handle_a]
       for ingredient in a.metafields.verdel.ingredients.value
         assign needle = ',' | append: ingredient.system.handle | append: ','
-        if seen contains needle
+        if seen_multi contains needle
           continue
         endif
         for other in base_ingredients
           if other.system.handle == ingredient.system.handle
-            assign seen = seen | append: ingredient.system.handle | append: ','
+            assign seen_multi = seen_multi | append: ingredient.system.handle | append: ','
             assign name = ingredient.name.value | escape
             assign second = name | slice: 1
             if second != '-'

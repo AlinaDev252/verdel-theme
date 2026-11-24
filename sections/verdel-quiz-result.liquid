@@ -64,6 +64,9 @@
           </a>
           <div class="verdel-quiz-card__body">
             <a class="verdel-quiz-card__title" href="{{ item.url }}">{{ item.title | escape }}</a>
+            {%- unless item.has_only_default_variant -%}
+              <p class="verdel-quiz-card__variant">{{ variant.title | escape }}</p>
+            {%- endunless -%}
             <p class="verdel-quiz-card__reason" data-verdel-quiz-reason></p>
             <p class="verdel-quiz-card__price">{{ variant.price | money }}</p>
           </div>
