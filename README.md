@@ -12,6 +12,8 @@ Mobile, Chrome DevTools in Incognito, live store, 24 November 2026.
 | Product | 94 | 100 | 100 | 100 |
 | Find your formulas (quiz) | 85 | 100 | 100 | 100 |
 
+Product structured data passes Google's Rich Results Test for product snippets and merchant listings. Demo reviews are left out of it on purpose, so no star ratings reach search.
+
 # Dawn
 
 [![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)
