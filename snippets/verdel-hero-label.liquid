@@ -15,7 +15,7 @@
   assign servings = variant.metafields.verdel.servings.value | default: product.metafields.verdel.servings.value
 -%}
 
-<article
+<div
   class="verdel-hero-label color-{{ block.settings.color_scheme }} gradient"
   id="HeroLabel-{{ block.id }}"
   role="tabpanel"
@@ -47,4 +47,4 @@
       <a class="button button--primary" href="{{ product.url }}">Shop {{ name | escape }}</a>
     </div>
   {%- endif -%}
-</article>
+</div>
