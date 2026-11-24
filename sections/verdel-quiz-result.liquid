@@ -11,6 +11,7 @@
   assign ids = ''
   assign count = 0
   assign total = 0
+  assign saved = 0
   for handle in requested
     if count == 3
       break
@@ -25,6 +26,8 @@
     assign handles = handles | append: item.handle | append: ','
     assign ids = ids | append: variant.id | append: ','
     assign total = total | plus: variant.price
+    assign line_saved = variant.price | times: 0.1 | round
+    assign saved = saved | plus: line_saved
     assign count = count | plus: 1
   endfor
 
@@ -36,7 +39,6 @@
       assign stack = true
     endunless
   endif
-  assign saved = total | times: 0.1 | round
 -%}
 <div class="verdel-quiz-result" data-verdel-quiz-result>
   {%- if count == 0 -%}
