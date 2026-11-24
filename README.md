@@ -2,7 +2,7 @@
 
 A Shopify theme for Verdel, a made-up supplement brand. Its one promise is that every ingredient and every amount is printed where you can see it, so the theme is built around the label. Built on Dawn 16 and running on a password-protected demo store.
 
-![Verdel home page: the hero shows the No. 01 Rest label with its ingredients, amounts and price per serving](.github/readme/hero.jpg)
+![Verdel home page hero: the Sleep, Focus, Gut and Energy tabs switch the label between formulas, each with its own ingredients, amounts and price per serving](.github/readme/hero-tabs.gif)
 
 ## What it does
 
