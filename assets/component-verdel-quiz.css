@@ -34,7 +34,7 @@
   position: static;
   height: auto;
   border-radius: var(--media-radius);
-  box-shadow: 0 1.2rem 3.2rem rgb(0 0 0 / 0.24);
+  box-shadow: var(--verdel-shadow-dialog);
 }
 
 .verdel-quiz__labels img:nth-child(2) {
@@ -111,7 +111,7 @@
   margin: 0;
   font-size: 1.4rem;
   font-variant-numeric: tabular-nums;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgba(var(--color-foreground), var(--verdel-alpha-muted));
 }
 
 .verdel-quiz__heading {
@@ -163,7 +163,7 @@
 
 .verdel-quiz__option:has(:checked) {
   border-color: rgb(var(--color-foreground));
-  background: rgba(var(--color-foreground), 0.06);
+  background: rgba(var(--color-foreground), var(--verdel-alpha-tint));
   color: rgb(var(--color-foreground));
   box-shadow: inset 0 0 0 1px rgb(var(--color-foreground));
 }
@@ -200,7 +200,7 @@
 }
 
 .verdel-quiz__option:has(:focus-visible) {
-  outline: 2px solid rgba(var(--color-foreground), 0.5);
+  outline: 2px solid rgba(var(--color-foreground), var(--verdel-alpha-focus));
   outline-offset: 2px;
 }
 
@@ -227,10 +227,10 @@
 .verdel-quiz__note {
   margin: 0;
   padding: 1.6rem 2rem calc(1.6rem + env(safe-area-inset-bottom, 0px));
-  border-block-start: 1px solid rgba(var(--color-foreground), 0.16);
+  border-block-start: 1px solid rgba(var(--color-foreground), var(--verdel-alpha-line-strong));
   font-size: 1.4rem;
   line-height: 1.4;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgba(var(--color-foreground), var(--verdel-alpha-muted));
   text-wrap: pretty;
 }
 
@@ -257,7 +257,7 @@
   grid-template-columns: 9.6rem minmax(0, 1fr);
   gap: 1.6rem;
   padding-block: 1.6rem;
-  border-block-end: 1px solid rgba(var(--color-foreground), 0.12);
+  border-block-end: 1px solid rgba(var(--color-foreground), var(--verdel-alpha-line));
 }
 
 .verdel-quiz-card:first-child {
@@ -289,7 +289,7 @@
   margin: 0;
   font-size: 1.4rem;
   line-height: 1.4;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgba(var(--color-foreground), var(--verdel-alpha-muted));
 }
 
 .verdel-quiz-card__reason:empty {
@@ -320,7 +320,7 @@
 
 .verdel-quiz-result__total {
   padding-block-start: 0.8rem;
-  border-block-start: 1px solid rgba(var(--color-foreground), 0.12);
+  border-block-start: 1px solid rgba(var(--color-foreground), var(--verdel-alpha-line));
   font-weight: var(--font-body-weight-bold);
 }
 
@@ -356,6 +356,6 @@
 
   .verdel-quiz-card__title:hover {
     text-decoration: underline;
-    text-underline-offset: 0.3rem;
+    text-underline-offset: var(--verdel-underline-offset);
   }
 }

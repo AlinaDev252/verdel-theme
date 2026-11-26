@@ -25,7 +25,7 @@
   height: 5.6rem;
   object-fit: cover;
   border-radius: calc(var(--media-radius) - 0.2rem);
-  background: rgba(var(--color-foreground), 0.04);
+  background: rgba(var(--color-foreground), var(--verdel-alpha-tint-subtle));
 }
 
 .verdel-ingredients__text {
@@ -44,7 +44,7 @@
 }
 
 .verdel-ingredients__purpose {
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgba(var(--color-foreground), var(--verdel-alpha-muted));
   text-wrap: pretty;
 }
 

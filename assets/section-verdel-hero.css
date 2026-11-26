@@ -68,7 +68,7 @@ verdel-hero-picker.verdel-hero__inner {
   min-height: 4.4rem;
   margin-block-start: 1.2rem;
   color: rgb(var(--color-foreground));
-  text-underline-offset: 0.3rem;
+  text-underline-offset: var(--verdel-underline-offset);
 }
 
 .verdel-hero__labels {
@@ -132,7 +132,7 @@ verdel-hero-picker.verdel-hero__inner {
   justify-content: space-between;
   gap: 1.6rem;
   padding-block: 0.8rem;
-  border-block-end: 1px solid rgba(var(--color-foreground), 0.2);
+  border-block-end: 1px solid rgba(var(--color-foreground), var(--verdel-alpha-control));
 }
 
 .verdel-hero-label__buy {
@@ -175,7 +175,7 @@ verdel-hero-picker.verdel-hero__inner {
 }
 
 .verdel-trust__item + .verdel-trust__item {
-  border-block-start: 1px solid rgba(var(--color-foreground), 0.16);
+  border-block-start: 1px solid rgba(var(--color-foreground), var(--verdel-alpha-line-strong));
 }
 
 .verdel-trust .icon {
@@ -198,7 +198,7 @@ verdel-hero-picker.verdel-hero__inner {
 .verdel-trust__note {
   font-size: 1.4rem;
   line-height: 1.4;
-  color: rgba(var(--color-foreground), 0.75);
+  color: rgba(var(--color-foreground), var(--verdel-alpha-muted));
   text-wrap: pretty;
 }
 
@@ -228,7 +228,7 @@ verdel-hero-picker.verdel-hero__inner {
 
   .verdel-trust__item + .verdel-trust__item {
     border-block-start: 0;
-    border-inline-start: 1px solid rgba(var(--color-foreground), 0.16);
+    border-inline-start: 1px solid rgba(var(--color-foreground), var(--verdel-alpha-line-strong));
   }
 }
 
@@ -252,7 +252,7 @@ verdel-hero-picker.verdel-hero__inner {
 
 @media (prefers-reduced-motion: no-preference) {
   .verdel-hero--intro .verdel-hero__text > * {
-    animation: verdel-hero-rise 520ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+    animation: verdel-hero-rise 520ms var(--verdel-ease-out) backwards;
   }
 
   .verdel-hero--intro .verdel-hero__text > :nth-child(2) {
@@ -264,11 +264,11 @@ verdel-hero-picker.verdel-hero__inner {
   }
 
   .verdel-hero-label {
-    transition: opacity 200ms ease-out, transform 260ms cubic-bezier(0.32, 0.72, 0, 1), visibility 200ms;
+    transition: opacity 200ms ease-out, transform 260ms var(--verdel-ease-out), visibility 200ms;
   }
 
   .verdel-hero--intro .verdel-hero__labels {
-    animation: verdel-hero-settle 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+    animation: verdel-hero-settle 700ms var(--verdel-ease-out) backwards;
   }
 }
 

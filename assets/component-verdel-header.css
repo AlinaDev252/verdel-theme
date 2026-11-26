@@ -1,6 +1,6 @@
 .header-wrapper {
   --verdel-cell: 4.8rem;
-  --verdel-line: rgba(var(--color-foreground), 0.16);
+  --verdel-line: rgba(var(--color-foreground), var(--verdel-alpha-line-strong));
 }
 
 .header-wrapper--border-bottom {
@@ -101,7 +101,7 @@
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 220ms cubic-bezier(0.32, 0.72, 0, 1);
+  transition: transform 220ms var(--verdel-ease-out);
 }
 
 .verdel-nav > .list-menu details[open] > .header__menu-item::after,
@@ -118,7 +118,7 @@
   }
 
   .verdel-header-cta:hover {
-    background: color-mix(in oklch, var(--verdel-accent) 88%, black);
+    background: var(--verdel-accent-hover);
   }
 
   .verdel-header-cta:hover .icon {
